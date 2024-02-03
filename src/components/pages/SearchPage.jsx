@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './SearchPage.css';
-import SearchIcon from '../../img/search.png';
+import React, { useState } from "react";
+import "./SearchPage.css";
+import SearchIcon from "../../img/search.png";
 
 const SearchPage = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = () => {
     // логика для поиска
@@ -16,7 +14,10 @@ const SearchPage = () => {
   return (
     <div className="search-container">
       <div className="search-input-container">
-        <img className="search-icon" src={SearchIcon} alt="" />
+        <div className="search-icon">
+          <img src={SearchIcon} alt="" />
+        </div>
+
         <input
           type="text"
           value={searchQuery}
@@ -24,7 +25,6 @@ const SearchPage = () => {
           placeholder="Поиск..."
           className="search-input"
         />
-    
       </div>
     </div>
   );

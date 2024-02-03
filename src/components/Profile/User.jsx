@@ -1,49 +1,32 @@
 import React, { useState } from "react";
 import "./User.css";
-import { Link } from "react-router-dom";
+
 const User = () => {
-  const [followers, setFollowers] = useState([]);
+  const [followersCount, setFollowersCount] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
 
   const handleFollow = () => {
+    setFollowersCount((prevCount) => prevCount + 1);
     setIsFollowing(true);
-    setFollowers((prevFollowers) => [...prevFollowers, currentUser]);
   };
 
-  const handleUnfollow = () => {
-    setIsFollowing(false);
-    setFollowers((prevFollowers) =>
-      prevFollowers.filter((follower) => follower !== currentUser)
-    );
-  };
-
-  const currentUser = "current_user";
   return (
     <div className="profile-container">
-      <img
-        src="https://i.pinimg.com/474x/31/af/f1/31aff1f41b565d819acc5ab0003be45e.jpg"
-        alt="Аватар пользователя"
-        className="avatar"
-      />
-      <h2 className="username">qwarllx</h2>
-      <p className="bio">Веб-разработчик</p>
-      <div className="user-details">
-        <Link to="/instagram" className="link">
-          <img
-            src="https://cdn-icons-png.freepik.com/256/174/174855.png?ga=GA1.1.2114092305.1701882282"
-            alt="instagram-icon"
-            className="insta-icon"
-          />
-        </Link>
+      <div className="profile-title">
+        <div className="profile-name">
+          <h2>qwarllx</h2>
+          <p>Веб-разработчик</p>
+          <span>{followersCount} подписчиков</span>
+        </div>
+        <img
+          src="https://i.pinimg.com/474x/31/af/f1/31aff1f41b565d819acc5ab0003be45e.jpg"
+          alt="Аватар пользователя"
+          className="avatar"
+        />
       </div>
-      <p>followings: {followers.length}</p>
-      {isFollowing ? (
-        <button className="unfollow-button" onClick={handleUnfollow}>
-          Unfollow
-        </button>
-      ) : (
+      {!isFollowing && (
         <button className="follow-button" onClick={handleFollow}>
-          Follow
+          Подписаться
         </button>
       )}
     </div>

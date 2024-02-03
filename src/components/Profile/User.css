@@ -2,60 +2,42 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  width: 50%;
+  width: 45%;
   margin: 0 auto;
 }
-
-.user-details {
+.profile-title {
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: space-around;
 }
-
+.profile-name {
+  display: flex;
+  flex-direction: column;
+}
+.profile-name h2 {
+  color: white;
+}
+.profile-name span {
+  color: white;
+  margin: 10px 0;
+}
 .avatar {
   width: 100px;
-  height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  margin-left: 70%;
-  margin-top: 40px;
 }
 
-.user-info {
-  flex-grow: 1;
-}
-
-.follow-button,
-.unfollow-button {
+.follow-button {
   padding: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
   margin-top: 10px;
-  margin-right: 90%;
-  margin-right: 10px;
 }
 
 .follow-button {
   background-color: #000000;
   color: white;
-}
-
-.unfollow-button {
-  background-color: #070229;
-  color: white;
-}
-
-.insta-icon {
-  margin-left: 480px;
-}
-
-.username,
-.bio,
-p {
-  margin-right: 90%;
-  margin-right: 100;
 }

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
@@ -39,7 +38,7 @@ const Navbar = () => {
   const openFileInput = () => {
     fileInputRef.current.click();
   };
-    const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleSearchClick = () => {
     // логика для поиска
@@ -56,12 +55,12 @@ const Navbar = () => {
             <img className="" src={Home} alt="" />
           </Link>
 
-              <Link to="/searchPage" className="link" onClick={handleSearchClick}>
+          <Link to="/searchPage" className="link" onClick={handleSearchClick}>
             <img src={Search} alt="" />
           </Link>
-          <Link to="/post" className="link">
+          <div className="link" onClick={toggleModal}>
             <img src={Post} alt="" />
-          </Link>
+          </div>
           <Link to="/like" className="link">
             <img src={Like} alt="" />
           </Link>
@@ -112,7 +111,6 @@ const Navbar = () => {
             </div>
           </div>
         )}
-
       </nav>
     </div>
   );
