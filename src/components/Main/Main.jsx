@@ -1,11 +1,10 @@
 import React from "react";
-import Category from "../Category/Category";
-import Login from "../Auth/Login";
+import PostList from "../Posts/PostList";
 
 const Main = () => {
   return (
     <div>
-      <Login />
+      <PostList />
     </div>
   );
 };
