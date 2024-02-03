@@ -49,4 +49,7 @@
   #userIcon{
      margin-left: 10px;
   }
+  .nav-links .link {
+    margin-right: 50px; /* Выберите подходящий отступ */
+  }
   
