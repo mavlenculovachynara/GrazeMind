@@ -21,13 +21,15 @@
   align-items: center;
 }
 .postitem_request img {
-  padding: 5px;
+  padding: 3px;
+  margin: 5px;
   width: 45px;
   border-radius: 50%;
 }
 .postitem_request span {
   padding: 10px;
   font-weight: 600;
+  margin: 0;
 }
 .postitem_addbutton {
   display: flex;
@@ -40,6 +42,12 @@
   border-radius: 30px;
   background: gray;
   font-size: 14px;
+  cursor: pointer;
+}
+.postitem_addbutton img {
+  width: 45px;
+  cursor: pointer;
+  padding: 0px 10px;
 }
 .postitem_container {
   display: flex;
@@ -80,6 +88,10 @@ p {
   cursor: pointer;
   color: white !important;
 }
+.postitem_actions span {
+  margin: 10px 0 0 0 !important;
+}
+
 .postitem_info {
   display: flex;
   flex-direction: column;
@@ -94,4 +106,125 @@ p {
 .postitem_request {
   display: flex;
   align-items: center;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 30px;
+  width: 430px;
+}
+.modal-content h5 {
+  color: white;
+  padding: 5px;
+}
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.modal-actions input {
+  border: none;
+  background: none;
+  color: white;
+  font-size: 16px;
+  padding: 5px;
+}
+.modal-actions input:focus {
+  outline: none;
+  border: none;
+}
+.modal-addbutton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.modal-addbutton button {
+  padding: 10px 20px;
+  border: none;
+  background: gray;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.dropdown-menu2 {
+  position: absolute;
+  right: 484px;
+  top: 254px;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+}
+
+.dropdown-menu2 li {
+  width: 200px;
+  list-style-type: none;
+  padding: 15px;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.dropdown-menu2 hr {
+  margin: 0 !important;
+}
+.fixed-button {
+  color: white;
+  border: none;
+  background-color: #1a1a1a;
+  padding: 15px 35px;
+  border-radius: 30px;
+  position: fixed;
+  bottom: 50px;
+  left: 50px;
+  z-index: 1000;
+  cursor: pointer;
+}
+.categories-modal {
+  position: fixed;
+  bottom: 110px;
+  left: 54px;
+  z-index: 1000;
+}
+.categories {
+  background-color: #1a1a1a;
+  border-radius: 15px;
+}
+.category-button {
+  width: 150px;
+  list-style-type: none;
+  padding: 15px;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.categories hr {
+  margin: 0 !important;
+}
+.postitem_buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 70%;
+  margin: 0 15px;
+}
+.postitem_buttons div {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.postitem_buttons img {
+  width: 35px;
+  padding: 5px;
+  cursor: pointer;
 }
