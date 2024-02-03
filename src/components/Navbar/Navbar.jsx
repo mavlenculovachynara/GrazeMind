@@ -1,4 +1,3 @@
-// Navbar.js
 import React from "react";
 import { Link, useNavigate } from 'react-router-dom'; 
 import './Navbar.css'
@@ -33,7 +32,7 @@ const Navbar = () => {
           <Link to="/" className="link">
             <img className="" src={Home} alt="" />
           </Link>
-          <Link to="/searchPage" className="link" onClick={handleSearchClick}>
+              <Link to="/searchPage" className="link" onClick={handleSearchClick}>
             <img src={Search} alt="" />
           </Link>
           <Link to="/post" className="link">
