@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import Home from "../../img/home (1).png";
 import Threads from "../../img/threadslogo.svg";
@@ -38,22 +39,29 @@ const Navbar = () => {
   const openFileInput = () => {
     fileInputRef.current.click();
   };
+    const navigate = useNavigate(); 
+
+  const handleSearchClick = () => {
+    // логика для поиска
+  };
   return (
     <div className={`navbar-wrapper ${isTop ? "" : "fixed"}`}>
       <nav className="nav-bar">
         <Link className="logo" to="/">
           <img alt="img" src={Threads} className="d-inline-block align-top" />
         </Link>
+
         <div className="nav-links">
           <Link to="/" className="link">
             <img className="" src={Home} alt="" />
           </Link>
-          <Link to="/search" className="link">
+
+              <Link to="/searchPage" className="link" onClick={handleSearchClick}>
             <img src={Search} alt="" />
           </Link>
-          <div className="link" onClick={toggleModal}>
+          <Link to="/post" className="link">
             <img src={Post} alt="" />
-          </div>
+          </Link>
           <Link to="/like" className="link">
             <img src={Like} alt="" />
           </Link>
@@ -104,6 +112,7 @@ const Navbar = () => {
             </div>
           </div>
         )}
+
       </nav>
     </div>
   );
