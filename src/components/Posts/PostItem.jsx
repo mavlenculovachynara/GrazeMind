@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Post.css";
 import { time } from "../../helpers/const";
-import User from "../../image/user.webp";
+import User from "../../img/user.webp";
+import Like from "../../img/heart-shape.png";
+import Comment from "../../img/comment.png";
+import Repost from "../../img/send.png";
 
 const PostItem = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   return (
     <div className="postitem_container">
       <div className="postitem_title">
@@ -19,8 +26,21 @@ const PostItem = () => {
           <div className="postitem_actions">
             {" "}
             <span>{time}ч.</span>
-            <button>...</button>
+            <button onClick={toggleMenu}>...</button>
           </div>
+          {isMenuOpen && (
+            <ul className="dropdown-menu2">
+              <li>Скрыть</li>
+              <hr />
+              <li>Выключить уведомление</li>
+              <hr />
+              <li style={{ color: "red" }}>Заблокировать</li>
+              <hr />
+              <li style={{ color: "red" }}>Пожаловаться</li>
+              <hr />
+              <li style={{ color: "red" }}>Удалить</li>
+            </ul>
+          )}
         </div>
         <div className="postitem_info">
           {" "}
@@ -29,11 +49,21 @@ const PostItem = () => {
             alt="img"
           />
         </div>
-        {/* <div className="postitem_actions">
-
-          <div></div>
-        </div> */}
-
+        <div className="postitem_buttons">
+          <div>
+            {" "}
+            <img src={Like} alt="img" />
+            <img src={Comment} alt="img" />
+            <img src={Repost} alt="img" />
+          </div>
+          <div>
+            {" "}
+            <p>
+              <span>84 ответов</span>
+              <span>• 9 0444 отметок "Нравится"</span>
+            </p>
+          </div>
+        </div>
         <hr />
       </div>
     </div>
