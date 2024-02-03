@@ -1,15 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import "./Navbar.css";
-import Home from "../../img/home (1).png";
-import Threads from "../../img/Threads_(app).svg.png";
-import Like from "../../img/icons8-like-24.png";
-import User from "../../img/icons8-user-32.png";
-import Post from "../../img/more.png";
-import Search from "../../img/search.png";
-import Menu from "../../img/menu (1).png";
+import { Link, useNavigate } from 'react-router-dom'; 
+import './Navbar.css'
+import Home from '../../img/home (1).png'
+import Threads from '../../img/Threads_(app).svg.png'
+import Like from '../../img/icons8-like-24.png';
+import User from '../../img/icons8-user-32.png';
+import Post from '../../img/more.png';
+import Search from '../../img/search.png'
+import Menu from '../../img/menu (1).png'
 
 const Navbar = () => {
+  const navigate = useNavigate(); 
+
+  const handleSearchClick = () => {
+    // логика для поиска
+  };
+
   return (
     <div>
       <nav className="nav-bar">
@@ -26,7 +32,7 @@ const Navbar = () => {
           <Link to="/" className="link">
             <img className="" src={Home} alt="" />
           </Link>
-          <Link to="/search" className="link">
+              <Link to="/searchPage" className="link" onClick={handleSearchClick}>
             <img src={Search} alt="" />
           </Link>
           <Link to="/post" className="link">
