@@ -2,6 +2,7 @@ import React from "react";
 import NotFound from "../components/NotFound/NotFound";
 import { Route, Routes } from "react-router-dom";
 import Main from "../components/Main/Main";
+
 import Login from "../components/Auth/Login";
 import Register from "../components/Auth/Register";
 
