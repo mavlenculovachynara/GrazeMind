@@ -11,15 +11,12 @@
   width: 30px;
 }
 
-.logo {
-  cursor: pointer;
-}
-
 .nav-links {
   display: flex;
 }
 
 .link,
+.logo,
 .burger-menu {
   padding: 15px 35px;
   color: white;

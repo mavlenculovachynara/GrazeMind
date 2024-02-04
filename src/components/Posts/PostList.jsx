@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import PostItem from "./PostItem";
 import User from "../../img/user.webp";
 import Gallery from "../../img/gallery.png";
@@ -7,19 +7,38 @@ const PostList = () => {
   const fileInputRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    fileInputRef.current = document.createElement("input");
+    fileInputRef.current.type = "file";
+    fileInputRef.current.accept = "image/*";
+    fileInputRef.current.style.display = "none";
+  }, []);
+
   const closeModal = () => {
     setIsModalOpen(false);
+    setSelectedImage(null);
   };
+
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-
   const toggleModal2 = () => {
     setIsModalOpen2(!isModalOpen2);
   };
-
   const openFileInput = () => {
-    fileInputRef.current.click();
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+    }
   };
 
   return (
@@ -31,7 +50,8 @@ const PostList = () => {
             <span>Создайте ветку...</span>
           </div>
           <div className="postitem_addbutton">
-            <button>Опубликовать</button>
+            {selectedImage && <img src={selectedImage} alt="Selected" />}
+            <img src={Gallery} alt="img" onClick={openFileInput} />
           </div>
         </div>
         <hr />
@@ -49,13 +69,22 @@ const PostList = () => {
               {" "}
               <input type="text" placeholder="Создайте ветку..." />
               <div className="postitem_addbutton">
-                <img src={Gallery} alt="img" onClick={openFileInput}></img>
+                <div className="postitem_image_container">
+                  <img src={Gallery} alt="img" onClick={openFileInput} />
+                  <div className="selectFile">
+                    {" "}
+                    {selectedImage && (
+                      <img src={selectedImage} alt="Selected" />
+                    )}
+                  </div>
+                </div>
               </div>
               <input
                 ref={fileInputRef}
                 type="file"
                 accept="image/*"
                 style={{ display: "none" }}
+                onChange={handleFileSelect} // Handle file selection
                 onClick={(e) => e.stopPropagation()}
               />
             </div>

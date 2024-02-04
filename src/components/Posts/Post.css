@@ -34,7 +34,6 @@
 .postitem_addbutton {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 .postitem_addbutton button {
   padding: 10px 20px;
@@ -48,6 +47,21 @@
   width: 45px;
   cursor: pointer;
   padding: 0px 10px;
+  object-fit: contain;
+}
+.postitem_image_container {
+  display: flex;
+  flex-direction: column;
+}
+.postitem_image_container img {
+  margin: 5px;
+}
+.selectFile {
+  padding: 5px;
+}
+.selectFile img {
+  width: 80%;
+  object-fit: contain;
 }
 .postitem_container {
   display: flex;
@@ -98,10 +112,10 @@ p {
   justify-content: flex-start;
 }
 .postitem_info img {
-  width: 70%;
+  width: 75%;
   object-fit: contain;
   cursor: pointer;
-  padding: 20px;
+  padding: 20px 25px;
 }
 .postitem_request {
   display: flex;
