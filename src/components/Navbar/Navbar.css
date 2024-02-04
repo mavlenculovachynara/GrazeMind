@@ -62,3 +62,7 @@
 .dropdown-menu hr {
   margin: 0 !important;
 }
+.categories-dropdown span {
+  cursor: pointer;
+  color: white;
+}

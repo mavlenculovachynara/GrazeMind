@@ -9,11 +9,16 @@ import Post from "../../img/more.png";
 import Search from "../../img/search.png";
 import Menu from "../../img/menu (1).png";
 import Gallery from "../../img/gallery.png";
+import Hash from "../../img/icons8-hash-100 (1).png";
+import User2 from "../../img/user.webp";
 const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [showCategories, setShowCategories] = useState(false);
+  const categories = ["здоровье", "спорт", "еда"];
+
   const fileInputRef = useRef(null);
   useEffect(() => {
     const handleScroll = () => {
@@ -31,6 +36,8 @@ const Navbar = () => {
   };
   const closeModal = () => {
     setIsModalOpen(false);
+    setSelectedImage(null);
+    setShowCategories(false);
   };
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -48,9 +55,20 @@ const Navbar = () => {
     }
   };
 
+  const handleHashClick = () => {
+    setShowCategories(!showCategories);
+  };
+
+  const handleCategoryClick = (category) => {
+    const input = document.querySelector('.modal-actions input[type="text"]');
+    if (input) {
+      input.value += ` #${category} `;
+    }
+  };
   const handleSearchClick = () => {
     // логика для поиска
   };
+
   return (
     <div className={`navbar-wrapper ${isTop ? "" : "fixed"}`}>
       <nav className="nav-bar">
@@ -95,7 +113,7 @@ const Navbar = () => {
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <div className="postitem_request">
                 {" "}
-                <img src={User} alt="img" />
+                <img src={User2} alt="img" />
                 <h5>artemnesterenko</h5>
               </div>
               <div className="modal-actions">
@@ -103,7 +121,23 @@ const Navbar = () => {
                 <input type="text" placeholder="Создайте ветку..." />
                 <div className="postitem_addbutton">
                   <div className="postitem_image_container">
-                    <img src={Gallery} alt="img" onClick={openFileInput} />
+                    {" "}
+                    <div className="hash-dropdown">
+                      <img src={Gallery} alt="img" onClick={openFileInput} />
+                      <img src={Hash} alt="img" onClick={handleHashClick} />
+                    </div>
+                    {showCategories && (
+                      <div className="categories-dropdown">
+                        {categories.map((category, index) => (
+                          <span
+                            key={index}
+                            onClick={() => handleCategoryClick(category)}
+                          >
+                            +{category}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     <div className="selectFile">
                       {" "}
                       {selectedImage && (
@@ -117,7 +151,7 @@ const Navbar = () => {
                   type="file"
                   accept="image/*"
                   style={{ display: "none" }}
-                  onChange={handleFileSelect} // Handle file selection
+                  onChange={handleFileSelect}
                   onClick={(e) => e.stopPropagation()}
                 />
               </div>

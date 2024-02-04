@@ -2,12 +2,15 @@ import React, { useRef, useState, useEffect } from "react";
 import PostItem from "./PostItem";
 import User from "../../img/user.webp";
 import Gallery from "../../img/gallery.png";
+import Hash from "../../img/icons8-hash-100 (1).png";
 
 const PostList = () => {
   const fileInputRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [showCategories, setShowCategories] = useState(false);
+  const categories = ["здоровье", "спорт", "еда"];
 
   useEffect(() => {
     fileInputRef.current = document.createElement("input");
@@ -19,6 +22,7 @@ const PostList = () => {
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedImage(null);
+    setShowCategories(false);
   };
 
   const toggleModal = () => {
@@ -41,6 +45,17 @@ const PostList = () => {
     }
   };
 
+  const handleHashClick = () => {
+    setShowCategories(!showCategories);
+  };
+
+  const handleCategoryClick = (category) => {
+    const input = document.querySelector('.modal-actions input[type="text"]');
+    if (input) {
+      input.value += ` #${category} `;
+    }
+  };
+
   return (
     <div className="postlist_container">
       <div className="container postlist">
@@ -51,7 +66,8 @@ const PostList = () => {
           </div>
           <div className="postitem_addbutton">
             {selectedImage && <img src={selectedImage} alt="Selected" />}
-            <img src={Gallery} alt="img" />
+            <img src={Hash} alt="img" onClick={handleHashClick} />
+            <img src={Gallery} alt="img" onClick={openFileInput} />
           </div>
         </div>
         <hr />
@@ -70,7 +86,23 @@ const PostList = () => {
               <input type="text" placeholder="Создайте ветку..." />
               <div className="postitem_addbutton">
                 <div className="postitem_image_container">
-                  <img src={Gallery} alt="img" onClick={openFileInput} />
+                  {" "}
+                  <div className="hash-dropdown">
+                    <img src={Gallery} alt="img" onClick={openFileInput} />
+                    <img src={Hash} alt="img" onClick={handleHashClick} />
+                  </div>
+                  {showCategories && (
+                    <div className="categories-dropdown">
+                      {categories.map((category, index) => (
+                        <span
+                          key={index}
+                          onClick={() => handleCategoryClick(category)}
+                        >
+                          +{category}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                   <div className="selectFile">
                     {" "}
                     {selectedImage && (
@@ -84,7 +116,7 @@ const PostList = () => {
                 type="file"
                 accept="image/*"
                 style={{ display: "none" }}
-                onChange={handleFileSelect} // Handle file selection
+                onChange={handleFileSelect}
                 onClick={(e) => e.stopPropagation()}
               />
             </div>

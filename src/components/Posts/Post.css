@@ -52,9 +52,10 @@
 .postitem_image_container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 .postitem_image_container img {
-  margin: 5px;
+  margin: 5px 0px;
 }
 .selectFile {
   padding: 5px;
@@ -243,4 +244,8 @@ p {
   width: 35px;
   padding: 5px;
   cursor: pointer;
+}
+.categories-dropdown span {
+  cursor: pointer;
+  color: white;
 }
