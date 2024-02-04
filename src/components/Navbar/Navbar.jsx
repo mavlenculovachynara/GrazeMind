@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 import Home from "../../img/home (1).png";
 import Threads from "../../img/threadslogo.svg";
@@ -13,6 +13,7 @@ const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
   useEffect(() => {
     const handleScroll = () => {
@@ -37,6 +38,14 @@ const Navbar = () => {
 
   const openFileInput = () => {
     fileInputRef.current.click();
+  };
+
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+    }
   };
 
   const handleSearchClick = () => {
@@ -93,13 +102,22 @@ const Navbar = () => {
                 {" "}
                 <input type="text" placeholder="Создайте ветку..." />
                 <div className="postitem_addbutton">
-                  <img src={Gallery} alt="img" onClick={openFileInput}></img>
+                  <div className="postitem_image_container">
+                    <img src={Gallery} alt="img" onClick={openFileInput} />
+                    <div className="selectFile">
+                      {" "}
+                      {selectedImage && (
+                        <img src={selectedImage} alt="Selected" />
+                      )}
+                    </div>
+                  </div>
                 </div>
                 <input
                   ref={fileInputRef}
                   type="file"
                   accept="image/*"
                   style={{ display: "none" }}
+                  onChange={handleFileSelect} // Handle file selection
                   onClick={(e) => e.stopPropagation()}
                 />
               </div>

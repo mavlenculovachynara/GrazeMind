@@ -51,7 +51,7 @@ const PostList = () => {
           </div>
           <div className="postitem_addbutton">
             {selectedImage && <img src={selectedImage} alt="Selected" />}
-            <img src={Gallery} alt="img" onClick={openFileInput} />
+            <img src={Gallery} alt="img" />
           </div>
         </div>
         <hr />
