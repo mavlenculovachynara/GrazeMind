@@ -57,9 +57,9 @@ const Navbar = () => {
           <Link to="/searchPage" className="link" onClick={handleSearchClick}>
             <img src={Search} alt="" />
           </Link>
-          <div className="link" onClick={toggleModal}>
+          <Link to="/" className="link" onClick={toggleModal}>
             <img src={Post} alt="" />
-          </div>
+          </Link>
           <Link to="/like" className="link">
             <img src={Like} alt="" />
           </Link>

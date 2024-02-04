@@ -42,3 +42,7 @@
   color: white;
   cursor: pointer;
 }
+.search-category button.active {
+  background-color: white;
+  color: black;
+}
