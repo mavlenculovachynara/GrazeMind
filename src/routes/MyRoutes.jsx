@@ -6,6 +6,7 @@ import Login from "../components/Auth/Login";
 import Register from "../components/Auth/Register";
 import User from "../components/Profile/User";
 import SearchPage from "../components/pages/SearchPage";
+import Like from "../components/Like/Like";
 
 const PUBLIC_ROUTES = [
   { id: 1, link: "*", element: <NotFound /> },
@@ -14,6 +15,7 @@ const PUBLIC_ROUTES = [
   { id: 4, link: "/register", element: <Register /> },
   { id: 5, link: "/user", element: <User /> },
   { id: 6, link: "/searchpage", element: <SearchPage /> },
+  { id: 7, link: "/like", element: <Like /> },
 ];
 const MyRoutes = () => {
   return (

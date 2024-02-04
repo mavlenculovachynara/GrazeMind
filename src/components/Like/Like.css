@@ -1,0 +1,23 @@
+.like-container {
+  text-align: center;
+}
+
+.like-button {
+  background-color: black;
+  color: white;
+  border: 1px solid rgb(175, 174, 174);
+  margin: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.like-button:hover {
+  background-color: white;
+  color: black;
+}
+
+.confirmed {
+  background-color: white;
+  color: black;
+}
