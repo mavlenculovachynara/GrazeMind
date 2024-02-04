@@ -26,6 +26,11 @@ const SearchPage = () => {
           className="search-input"
         />
       </div>
+      <div className="search-category">
+        {" "}
+        <button>Аккаунты</button>
+        <button>Публикации</button>
+      </div>
     </div>
   );
 };

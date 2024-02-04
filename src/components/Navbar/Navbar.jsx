@@ -38,7 +38,6 @@ const Navbar = () => {
   const openFileInput = () => {
     fileInputRef.current.click();
   };
-  const navigate = useNavigate();
 
   const handleSearchClick = () => {
     // логика для поиска

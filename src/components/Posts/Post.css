@@ -173,12 +173,11 @@ p {
 }
 .dropdown-menu2 {
   position: absolute;
-  right: 484px;
-  top: 254px;
+  right: 490px !important;
+  top: 250px !important;
   background-color: #1a1a1a;
   border-radius: 10px;
 }
-
 .dropdown-menu2 li {
   width: 200px;
   list-style-type: none;

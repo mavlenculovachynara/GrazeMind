@@ -4,12 +4,21 @@ import "./User.css";
 const User = () => {
   const [followersCount, setFollowersCount] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleFollow = () => {
-    setFollowersCount((prevCount) => prevCount + 1);
-    setIsFollowing(true);
+    if (isFollowing) {
+      setIsFollowing(false);
+      setFollowersCount((prevCount) => prevCount - 1);
+    } else {
+      setIsFollowing(true);
+      setFollowersCount((prevCount) => prevCount + 1);
+    }
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   return (
     <div className="profile-container">
       <div className="profile-title">
@@ -24,11 +33,49 @@ const User = () => {
           className="avatar"
         />
       </div>
-      {!isFollowing && (
-        <button className="follow-button" onClick={handleFollow}>
-          Подписаться
+      <div className="profile-buttons">
+        <button className="edit-profile-button">Редактировать профиль</button>{" "}
+        <button
+          className={`follow-button ${isFollowing ? "following" : ""}`}
+          onClick={handleFollow}
+        >
+          {isFollowing ? "Вы подписаны" : "Подписаться"}
         </button>
-      )}
+        <div className="profile-more">
+          {" "}
+          <button onClick={toggleMenu}>...</button>
+        </div>
+        {isMenuOpen && (
+          <ul className="dropdown-menu3">
+            <li>Об этом профиле</li>
+            <hr />
+            <li>Выключить уведомление</li>
+            <hr />
+            <li>Ограничить доступ</li>
+            <hr />
+            <li style={{ color: "red" }}>Заблокировать</li>
+            <hr />
+            <li style={{ color: "red" }}>Пожаловаться</li>
+            <hr />
+            <li style={{ color: "red" }}>Удалить</li>
+          </ul>
+        )}
+        <div className="replies-section">
+          <div>
+            {" "}
+            <span>Ветки</span>
+          </div>
+          <div>
+            {" "}
+            <span>Ответы</span>
+          </div>
+          <div>
+            {" "}
+            <span>Лайки</span>
+          </div>
+        </div>
+        <hr />
+      </div>
     </div>
   );
 };

@@ -44,8 +44,8 @@
 }
 .dropdown-menu {
   position: absolute;
-  right: 200px;
-  top: 65px;
+  right: 180px !important;
+  top: 65px !important;
   background-color: #1a1a1a;
   border-radius: 10px;
 }
