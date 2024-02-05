@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import Home from "../../img/home (1).png";
 import Threads from "../../img/threadslogo.svg";
@@ -20,6 +20,7 @@ const Navbar = () => {
   const [showCategories, setShowCategories] = useState(false);
   const categories = ["здоровье", "спорт", "еда"];
 
+  const navigate = useNavigate();
   const fileInputRef = useRef(null);
   useEffect(() => {
     const handleScroll = () => {
@@ -105,7 +106,7 @@ const Navbar = () => {
           <ul className="dropdown-menu">
             <li>Внешний вид</li>
             <hr />
-            <li>Настройки</li>
+            <li onClick={()=>navigate('/settings')}>Настройки</li>
             <hr />
             <li>Сообщить о проблеме</li>
             <hr />
