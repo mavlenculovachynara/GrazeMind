@@ -10,6 +10,9 @@
   }
 }
 @media (max-width: 1441px) {
+  .postlist {
+    width: 45%;
+  }
   .nav-bar img {
     width: 33px !important;
   }
@@ -37,7 +40,8 @@
     width: 60% !important;
   }
   .postitem_buttons {
-    width: 85%;
+    width: 81% !important;
+    margin: 0px 10px !important;
   }
   .dropdown-menu {
     right: 115px !important;

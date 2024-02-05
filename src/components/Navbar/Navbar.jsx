@@ -15,6 +15,8 @@ const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen3, setIsModalOpen3] = useState(false);
+  const [isModalOpen4, setIsModalOpen4] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showCategories, setShowCategories] = useState(false);
   const categories = ["здоровье", "спорт", "еда"];
@@ -42,7 +44,20 @@ const Navbar = () => {
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-
+  const closeModal3 = () => {
+    setIsModalOpen3(false);
+  };
+  const toggleModal3 = () => {
+    setIsModalOpen3(!isModalOpen3);
+    setIsMenuOpen(false);
+  };
+  const closeModal4 = () => {
+    setIsModalOpen4(false);
+  };
+  const toggleModal4 = () => {
+    setIsModalOpen4(!isModalOpen4);
+    setIsMenuOpen(false);
+  };
   const openFileInput = () => {
     fileInputRef.current.click();
   };
@@ -99,11 +114,11 @@ const Navbar = () => {
         </div>
         {isMenuOpen && (
           <ul className="dropdown-menu">
-            <li>Внешний вид</li>
+            <li onClick={toggleModal4}>Внешний вид</li>
             <hr />
             <li>Настройки</li>
             <hr />
-            <li>Сообщить о проблеме</li>
+            <li onClick={toggleModal3}>Сообщить о проблеме</li>
             <hr />
             <li>Выйти</li>
           </ul>
@@ -158,6 +173,42 @@ const Navbar = () => {
               <div className="modal-addbutton">
                 {" "}
                 <button>Опубликовать</button>
+              </div>
+            </div>
+          </div>
+        )}
+        {isModalOpen3 && (
+          <div className="modal3" onClick={closeModal3}>
+            <h4>Сообщение о проблеме</h4>
+            <div
+              className="modal-content3"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="modal-actions3">
+                <input
+                  type="text"
+                  placeholder="Предоставьте как можно более подробную информацию"
+                />
+              </div>
+              <div className="modal-addbutton3">
+                {" "}
+                <button>Отправить</button>
+              </div>
+            </div>
+          </div>
+        )}
+        {isModalOpen4 && (
+          <div className="modal4" onClick={closeModal4}>
+            <h4>Внешний вид</h4>
+            <div
+              className="modal-content4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="modal-addbutton4">
+                {" "}
+                <button>light</button>
+                <button>dark</button>
+                <button>auto</button>
               </div>
             </div>
           </div>

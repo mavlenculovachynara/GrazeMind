@@ -66,3 +66,102 @@
   cursor: pointer;
   color: white;
 }
+.modal3 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.modal3 h4 {
+  color: white !important;
+  margin: 10px;
+}
+.modal-content3 {
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 30px;
+  width: 430px;
+}
+
+.modal-content3 h5 {
+  color: white;
+  padding: 5px;
+}
+.modal-actions3 {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+.modal-actions3 input {
+  border: none;
+  background: none;
+  color: white;
+  font-size: 16px;
+  width: 100%;
+  padding: 0px 10px 100px;
+}
+.modal-actions3 input:focus {
+  outline: none;
+  border: none;
+}
+.modal-addbutton3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.modal-addbutton3 button {
+  padding: 10px 20px;
+  border: 1px solid gray;
+  color: white;
+  background: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.modal4 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.modal4 h4 {
+  color: white !important;
+  margin: 10px;
+}
+.modal-content4 {
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 30px;
+  width: 430px;
+}
+
+.modal-actions4 {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.modal-addbutton4 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.modal-addbutton4 button {
+  padding: 10px 20px;
+  border: 1px solid gray;
+  color: white;
+  background: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
