@@ -204,6 +204,11 @@ p {
   z-index: 1000;
   cursor: pointer;
 }
+
+.hash-dropdown {
+  display: flex;
+  justify-content: flex-start;
+}
 .categories-modal {
   position: fixed;
   bottom: 110px;

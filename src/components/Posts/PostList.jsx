@@ -2,7 +2,8 @@ import React, { useRef, useState, useEffect } from "react";
 import PostItem from "./PostItem";
 import User from "../../img/user.webp";
 import Gallery from "../../img/gallery.png";
-import Hash from "../../img/icons8-hash-100 (1).png";
+import Hash from "../../img/hash (1).png";
+import Cross from "../../img/cross-mark.png";
 
 const PostList = () => {
   const fileInputRef = useRef(null);
@@ -36,7 +37,6 @@ const PostList = () => {
       fileInputRef.current.click();
     }
   };
-
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -44,18 +44,19 @@ const PostList = () => {
       setSelectedImage(imageUrl);
     }
   };
-
   const handleHashClick = () => {
     setShowCategories(!showCategories);
   };
-
   const handleCategoryClick = (category) => {
     const input = document.querySelector('.modal-actions input[type="text"]');
     if (input) {
       input.value += ` #${category} `;
     }
   };
-
+  const clearImageClick = () => {
+    setSelectedImage(null);
+    fileInputRef.current.value = null;
+  };
   return (
     <div className="postlist_container">
       <div className="container postlist">
@@ -66,8 +67,8 @@ const PostList = () => {
           </div>
           <div className="postitem_addbutton">
             {selectedImage && <img src={selectedImage} alt="Selected" />}
-            <img src={Hash} alt="img" onClick={handleHashClick} />
-            <img src={Gallery} alt="img" onClick={openFileInput} />
+            <img src={Hash} alt="img" />
+            <img src={Gallery} alt="img" />
           </div>
         </div>
         <hr />
@@ -88,7 +89,18 @@ const PostList = () => {
                 <div className="postitem_image_container">
                   {" "}
                   <div className="hash-dropdown">
-                    <img src={Gallery} alt="img" onClick={openFileInput} />
+                    <img
+                      src={Cross}
+                      alt="img"
+                      onClick={clearImageClick}
+                      style={{ display: selectedImage ? "flex" : "none" }}
+                    />
+                    <img
+                      src={Gallery}
+                      alt="img"
+                      onClick={openFileInput}
+                      style={{ display: selectedImage ? "none" : "" }}
+                    />
                     <img src={Hash} alt="img" onClick={handleHashClick} />
                   </div>
                   {showCategories && (

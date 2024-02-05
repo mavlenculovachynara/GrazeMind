@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import Home from "../../img/home (1).png";
 import Threads from "../../img/threadslogo.svg";
@@ -9,8 +9,9 @@ import Post from "../../img/more.png";
 import Search from "../../img/search.png";
 import Menu from "../../img/menu (1).png";
 import Gallery from "../../img/gallery.png";
-import Hash from "../../img/icons8-hash-100 (1).png";
+import Hash from "../../img/hash (1).png";
 import User2 from "../../img/user.webp";
+import Cross from "../../img/cross-mark.png";
 const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,6 +22,7 @@ const Navbar = () => {
   const [showCategories, setShowCategories] = useState(false);
   const categories = ["здоровье", "спорт", "еда"];
 
+  const navigate = useNavigate();
   const fileInputRef = useRef(null);
   useEffect(() => {
     const handleScroll = () => {
@@ -83,7 +85,10 @@ const Navbar = () => {
   const handleSearchClick = () => {
     // логика для поиска
   };
-
+  const clearImageClick = () => {
+    setSelectedImage(null);
+    fileInputRef.current.value = null;
+  };
   return (
     <div className={`navbar-wrapper ${isTop ? "" : "fixed"}`}>
       <nav className="nav-bar">
@@ -116,7 +121,7 @@ const Navbar = () => {
           <ul className="dropdown-menu">
             <li onClick={toggleModal4}>Внешний вид</li>
             <hr />
-            <li>Настройки</li>
+            <li onClick={()=>navigate('/settings')}>Настройки</li>
             <hr />
             <li onClick={toggleModal3}>Сообщить о проблеме</li>
             <hr />
@@ -138,7 +143,18 @@ const Navbar = () => {
                   <div className="postitem_image_container">
                     {" "}
                     <div className="hash-dropdown">
-                      <img src={Gallery} alt="img" onClick={openFileInput} />
+                      <img
+                        src={Cross}
+                        alt="img"
+                        onClick={clearImageClick}
+                        style={{ display: selectedImage ? "flex" : "none" }}
+                      />
+                      <img
+                        src={Gallery}
+                        alt="img"
+                        onClick={openFileInput}
+                        style={{ display: selectedImage ? "none" : "" }}
+                      />
                       <img src={Hash} alt="img" onClick={handleHashClick} />
                     </div>
                     {showCategories && (
