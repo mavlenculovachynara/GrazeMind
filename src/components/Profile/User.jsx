@@ -1,11 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import LockIcon from '../../img/lock.png'
+import UserIcon from "../../img/user.webp";
 import "./User.css";
 
 const User = () => {
   const [followersCount, setFollowersCount] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const fileInputRef = useRef(null);
+  useEffect(() => {
+    fileInputRef.current = document.createElement("input");
+    fileInputRef.current.type = "file";
+    fileInputRef.current.accept = "image/*";
+    fileInputRef.current.style.display = "none";
+  }, []);
+  
+//! edit profile modal
+const [isActive, setIsActive] = useState(false);
 
+  const handleToggle = () => {
+    setIsActive(!isActive);
+  };
+
+const [username, setUsername] = useState('');
+  const [bio, setBio] = useState('');
+  const [website, setWebsite] = useState('');
+  const [isPrivate, setIsPrivate] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Добавьте логику сохранения изменений профиля
+    console.log('Profile updated:', { username, bio, website, isPrivate })}
+  
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+  
   const handleFollow = () => {
     if (isFollowing) {
       setIsFollowing(false);
@@ -19,6 +53,7 @@ const User = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
   return (
     <div className="profile-container">
       <div className="profile-title">
@@ -34,7 +69,7 @@ const User = () => {
         />
       </div>
       <div className="profile-buttons">
-        <button className="edit-profile-button">Редактировать профиль</button>{" "}
+        <button className="edit-profile-button" onClick={toggleModal}>Редактировать профиль</button>{" "}
         <button
           className={`follow-button ${isFollowing ? "following" : ""}`}
           onClick={handleFollow}
@@ -45,6 +80,24 @@ const User = () => {
           {" "}
           <button onClick={toggleMenu}>...</button>
         </div>
+        {/* //! EDIT PROFILE MODAL */}
+        {isModalOpen && (
+        <div className="modal2" onClick={closeModal}>
+          <div className="modal-content2" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-actions2"><span className="modalspan">Имя</span>
+            <div className="modalinp"><img src={LockIcon} alt="" /> <input type="text" value="Meerim" style={{color: 'white'}}/>
+             <div className="icon"><img src={UserIcon} alt="" /></div></div> 
+            <hr className="hrmodal"/>
+            <div><span className="modalspan">Биография</span><input type="text" value="+ Добавить биографию" /></div>
+            <hr className="hrmodal"/>
+            <div><span className="modalspan">Ссылка</span><input type="text" value="+ Добавить ссылку" /></div>
+            <hr className="hrmodal"/>
+            <div className="modalbtn"><button onClick={closeModal}>Готово</button></div>
+            </div>
+      
+          </div>
+        </div>
+      )}
         {isMenuOpen && (
           <ul className="dropdown-menu3">
             <li>Об этом профиле</li>
@@ -79,5 +132,6 @@ const User = () => {
     </div>
   );
 };
+
 
 export default User;
