@@ -41,6 +41,7 @@ const PostItem = () => {
               <li style={{ color: "red" }}>Удалить</li>
             </ul>
           )}
+          
         </div>
         <div className="postitem_info">
           {" "}

@@ -71,7 +71,7 @@ const Settings = () => {
             и к Threads, и к Instagram. Управлять ими можно в Instagram.
           </p>
         </div>
-
+        <hr />
         <div className="section">
           <div>
             <div className="icon">
