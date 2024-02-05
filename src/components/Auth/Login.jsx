@@ -16,7 +16,7 @@ const Login = () => {
         <button className="login-button">Войти</button>
         <div className="auth-actions">
           {" "}
-          <span>Нет аккаунта?</span>
+          <span> Нет аккаунта?</span>
           <a href="/register">Создать аккаунт</a>
         </div>
       </form>

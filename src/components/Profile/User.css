@@ -131,9 +131,9 @@
   flex-direction: column;
   padding: 10px;
 }
-.modal-actions2 img{
+.modal-actions2 img {
   width: 20px;
-  height:20px;
+  height: 20px;
 }
 .modal-actions2 input {
   border: none;
@@ -148,28 +148,28 @@
   outline: none;
   border: none;
 }
-.modalinp{
+.modalinp {
   display: flex;
   align-items: center;
 }
-.hrmodal{
+.hrmodal {
   color: #272626;
 }
-.modalspan{
+.modalspan {
   color: white;
   flex: 1;
 }
-.modalbtn{
+.modalbtn {
   display: flex;
   flex-direction: column;
   text-align: center;
 }
-.modalbtn button{
+.modalbtn button {
   background-color: #fff;
   color: #000000;
 }
-.icon img{
+.icon img {
   width: 35px;
   height: 35px;
-  border-radius: 50%;
+  border-radius: 50% !important;
 }
