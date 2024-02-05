@@ -9,8 +9,9 @@ import Post from "../../img/more.png";
 import Search from "../../img/search.png";
 import Menu from "../../img/menu (1).png";
 import Gallery from "../../img/gallery.png";
-import Hash from "../../img/icons8-hash-100 (1).png";
+import Hash from "../../img/hash (1).png";
 import User2 from "../../img/user.webp";
+import Cross from "../../img/cross-mark.png";
 const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -68,7 +69,10 @@ const Navbar = () => {
   const handleSearchClick = () => {
     // логика для поиска
   };
-
+  const clearImageClick = () => {
+    setSelectedImage(null);
+    fileInputRef.current.value = null;
+  };
   return (
     <div className={`navbar-wrapper ${isTop ? "" : "fixed"}`}>
       <nav className="nav-bar">
@@ -123,7 +127,18 @@ const Navbar = () => {
                   <div className="postitem_image_container">
                     {" "}
                     <div className="hash-dropdown">
-                      <img src={Gallery} alt="img" onClick={openFileInput} />
+                      <img
+                        src={Cross}
+                        alt="img"
+                        onClick={clearImageClick}
+                        style={{ display: selectedImage ? "flex" : "none" }}
+                      />
+                      <img
+                        src={Gallery}
+                        alt="img"
+                        onClick={openFileInput}
+                        style={{ display: selectedImage ? "none" : "" }}
+                      />
                       <img src={Hash} alt="img" onClick={handleHashClick} />
                     </div>
                     {showCategories && (
