@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import LockIcon from '../../img/lock.png'
 import UserIcon from "../../img/user.webp";
+import CloseModalIcon from '../../img/closeicon.png'
 import "./User.css";
 
 const User = () => {
@@ -9,6 +10,10 @@ const User = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fileInputRef = useRef(null);
+
+  //! modal5
+  
+
   useEffect(() => {
     fileInputRef.current = document.createElement("input");
     fileInputRef.current.type = "file";
@@ -85,8 +90,8 @@ const [username, setUsername] = useState('');
         <div className="modal2" onClick={closeModal}>
           <div className="modal-content2" onClick={(e) => e.stopPropagation()}>
             <div className="modal-actions2"><span className="modalspan">Имя</span>
-            <div className="modalinp"><img src={LockIcon} alt="" /> <input type="text" value="Meerim" style={{color: 'white'}}/>
-             <div className="icon"><img src={UserIcon} alt="" /></div></div> 
+            <div className="modalinp"><img id="lockicon" src={LockIcon} alt="" /> <input type="text" value="Meerim" style={{color: 'white'}}/>
+             <div className="icon"><img id="usericon" src={UserIcon} alt="" /></div></div> 
             <hr className="hrmodal"/>
             <div><span className="modalspan">Биография</span><input type="text" value="+ Добавить биографию" /></div>
             <hr className="hrmodal"/>
@@ -108,11 +113,13 @@ const [username, setUsername] = useState('');
             <hr />
             <li style={{ color: "red" }}>Заблокировать</li>
             <hr />
-            <li style={{ color: "red" }}>Пожаловаться</li>
+            <li style={{ color: "red" }} onClick={toggleMenu}>Пожаловаться</li>
             <hr />
             <li style={{ color: "red" }}>Удалить</li>
           </ul>
         )}
+
+        
         <div className="replies-section">
           <div>
             {" "}

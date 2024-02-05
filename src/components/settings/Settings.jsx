@@ -50,7 +50,7 @@ const Settings = () => {
           <div className="text">Другие настройки конфиденциальности</div>
           <p className='textP'>Некоторые настройки, например установленные ограничения, применяются и к Threads, и к Instagram. Управлять ими можно в Instagram.</p>
         </div>
-
+        <hr />
         <div className="section">
           <div style={{display:'flex'}}><div className="icon"><img src={Block} alt="" /></div></div>
           <div className="text">Заблокированные профили</div>
