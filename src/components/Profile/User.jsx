@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import LockIcon from '../../img/lock.png'
+import LockIcon from "../../img/lock.png";
 import UserIcon from "../../img/user.webp";
-import CloseModalIcon from '../../img/closeicon.png'
 import "./User.css";
 
 const User = () => {
@@ -20,31 +19,32 @@ const User = () => {
     fileInputRef.current.accept = "image/*";
     fileInputRef.current.style.display = "none";
   }, []);
-  
-//! edit profile modal
-const [isActive, setIsActive] = useState(false);
+
+  //! edit profile modal
+  const [isActive, setIsActive] = useState(false);
 
   const handleToggle = () => {
     setIsActive(!isActive);
   };
 
-const [username, setUsername] = useState('');
-  const [bio, setBio] = useState('');
-  const [website, setWebsite] = useState('');
+  const [username, setUsername] = useState("");
+  const [bio, setBio] = useState("");
+  const [website, setWebsite] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Добавьте логику сохранения изменений профиля
-    console.log('Profile updated:', { username, bio, website, isPrivate })}
-  
+    console.log("Profile updated:", { username, bio, website, isPrivate });
+  };
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-  
+
   const handleFollow = () => {
     if (isFollowing) {
       setIsFollowing(false);
@@ -74,7 +74,9 @@ const [username, setUsername] = useState('');
         />
       </div>
       <div className="profile-buttons">
-        <button className="edit-profile-button" onClick={toggleModal}>Редактировать профиль</button>{" "}
+        <button className="edit-profile-button" onClick={toggleModal}>
+          Редактировать профиль
+        </button>{" "}
         <button
           className={`follow-button ${isFollowing ? "following" : ""}`}
           onClick={handleFollow}
@@ -90,8 +92,8 @@ const [username, setUsername] = useState('');
         <div className="modal2" onClick={closeModal}>
           <div className="modal-content2" onClick={(e) => e.stopPropagation()}>
             <div className="modal-actions2"><span className="modalspan">Имя</span>
-            <div className="modalinp"><img id="lockicon" src={LockIcon} alt="" /> <input type="text" value="Meerim" style={{color: 'white'}}/>
-             <div className="icon"><img id="usericon" src={UserIcon} alt="" /></div></div> 
+            <div className="modalinp"><img src={LockIcon} alt="" /> <input type="text" value="Meerim" style={{color: 'white'}}/>
+             <div className="icon"><img src={UserIcon} alt="" /></div></div> 
             <hr className="hrmodal"/>
             <div><span className="modalspan">Биография</span><input type="text" value="+ Добавить биографию" /></div>
             <hr className="hrmodal"/>
@@ -139,6 +141,5 @@ const [username, setUsername] = useState('');
     </div>
   );
 };
-
 
 export default User;
