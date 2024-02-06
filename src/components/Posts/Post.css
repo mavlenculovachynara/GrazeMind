@@ -192,6 +192,26 @@ p {
 .dropdown-menu2 hr {
   margin: 0 !important;
 }
+.dropdown-menu5 {
+  position: absolute;
+  right: 490px !important;
+  top: 250px !important;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+}
+.dropdown-menu5 li {
+  width: 400px;
+  list-style-type: none;
+  padding: 15px;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.dropdown-menu5 hr {
+  margin: 0 !important;
+}
 .fixed-button {
   color: white;
   border: none;
