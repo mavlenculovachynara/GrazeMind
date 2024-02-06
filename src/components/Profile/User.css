@@ -152,6 +152,19 @@
   display: flex;
   align-items: center;
 }
+.detailP {
+  color: #817e7e !important;
+}
+.modalbtndetail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modalbtndetail button {
+  color: #fff;
+  background-color: #1a1a1a;
+  font-size: medium;
+}
 .hrmodal {
   color: #272626;
 }
@@ -168,8 +181,18 @@
   background-color: #fff;
   color: #000000;
 }
+
 .icon img {
   width: 35px;
   height: 35px;
   border-radius: 50% !important;
+}
+#usericon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+#lockicon {
+  width: 20px;
+  height: 20px;
 }
