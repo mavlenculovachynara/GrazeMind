@@ -143,9 +143,6 @@ const User = () => {
             <li style={{ color: "red" }}>Заблокировать</li>
             <hr />
             <li onClick={toggleMenu5} style={{ color: "red" }}>Пожаловаться</li>
-            <li style={{ color: "red" }} onClick={toggleMenu5}>
-              Пожаловаться
-            </li>
             <hr />
             <li style={{ color: "red" }}>Удалить</li>
           </ul>
