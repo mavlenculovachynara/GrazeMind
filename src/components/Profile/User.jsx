@@ -10,8 +10,10 @@ const User = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fileInputRef = useRef(null);
 
+  const email = localStorage.getItem("email");
+  const name = email ? email.split("@")[0] : "Гость";
+
   //! modal5
-  
 
   useEffect(() => {
     fileInputRef.current = document.createElement("input");
@@ -63,7 +65,7 @@ const User = () => {
     <div className="profile-container">
       <div className="profile-title">
         <div className="profile-name">
-          <h2>qwarllx</h2>
+          <h2>{name ? name : <span>Guest</span>}</h2>
           <p>Веб-разработчик</p>
           <span>{followersCount} подписчиков</span>
         </div>
@@ -89,22 +91,42 @@ const User = () => {
         </div>
         {/* //! EDIT PROFILE MODAL */}
         {isModalOpen && (
-        <div className="modal2" onClick={closeModal}>
-          <div className="modal-content2" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-actions2"><span className="modalspan">Имя</span>
-            <div className="modalinp"><img src={LockIcon} alt="" /> <input type="text" value="Meerim" style={{color: 'white'}}/>
-             <div className="icon"><img src={UserIcon} alt="" /></div></div> 
-            <hr className="hrmodal"/>
-            <div><span className="modalspan">Биография</span><input type="text" value="+ Добавить биографию" /></div>
-            <hr className="hrmodal"/>
-            <div><span className="modalspan">Ссылка</span><input type="text" value="+ Добавить ссылку" /></div>
-            <hr className="hrmodal"/>
-            <div className="modalbtn"><button onClick={closeModal}>Готово</button></div>
+          <div className="modal2" onClick={closeModal}>
+            <div
+              className="modal-content2"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="modal-actions2">
+                <span className="modalspan">Имя</span>
+                <div className="modalinp">
+                  <img src={LockIcon} alt="" />{" "}
+                  <input
+                    type="text"
+                    value="Meerim"
+                    style={{ color: "white" }}
+                  />
+                  <div className="icon">
+                    <img src={UserIcon} alt="" />
+                  </div>
+                </div>
+                <hr className="hrmodal" />
+                <div>
+                  <span className="modalspan">Биография</span>
+                  <input type="text" value="+ Добавить биографию" />
+                </div>
+                <hr className="hrmodal" />
+                <div>
+                  <span className="modalspan">Ссылка</span>
+                  <input type="text" value="+ Добавить ссылку" />
+                </div>
+                <hr className="hrmodal" />
+                <div className="modalbtn">
+                  <button onClick={closeModal}>Готово</button>
+                </div>
+              </div>
             </div>
-      
           </div>
-        </div>
-      )}
+        )}
         {isMenuOpen && (
           <ul className="dropdown-menu3">
             <li>Об этом профиле</li>
@@ -115,13 +137,13 @@ const User = () => {
             <hr />
             <li style={{ color: "red" }}>Заблокировать</li>
             <hr />
-            <li style={{ color: "red" }} onClick={toggleMenu}>Пожаловаться</li>
+            <li style={{ color: "red" }} onClick={toggleMenu}>
+              Пожаловаться
+            </li>
             <hr />
             <li style={{ color: "red" }}>Удалить</li>
           </ul>
         )}
-
-        
         <div className="replies-section">
           <div>
             {" "}
