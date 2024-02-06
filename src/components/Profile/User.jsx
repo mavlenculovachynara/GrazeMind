@@ -11,6 +11,11 @@ const User = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fileInputRef = useRef(null);
 
+  const email = localStorage.getItem("email");
+  const name = email ? email.split("@")[0] : "Гость";
+
+  //! modal5
+
   useEffect(() => {
     fileInputRef.current = document.createElement("input");
     fileInputRef.current.type = "file";
@@ -66,7 +71,7 @@ const User = () => {
     <div className="profile-container">
       <div className="profile-title">
         <div className="profile-name">
-          <h2>qwarllx</h2>
+          <h2>{name ? name : <span>Guest</span>}</h2>
           <p>Веб-разработчик</p>
           <span>{followersCount} подписчиков</span>
         </div>
@@ -92,22 +97,42 @@ const User = () => {
         </div>
         {/* //! модальное окно для редактирования профиля*/}
         {isModalOpen && (
-        <div className="modal2" onClick={closeModal}>
-          <div className="modal-content2" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-actions2"><span className="modalspan">Имя</span>
-            <div className="modalinp"><img src={LockIcon} alt="" /> <input type="text" value="Meerim" style={{color: 'white'}}/>
-             <div className="icon"><img id="usericon" src={UserIcon} alt="" /></div></div> 
-            <hr className="hrmodal"/>
-            <div><span className="modalspan">Биография</span><input type="text" value="+ Добавить биографию" /></div>
-            <hr className="hrmodal"/>
-            <div><span className="modalspan">Ссылка</span><input type="text" value="+ Добавить ссылку" /></div>
-            <hr className="hrmodal"/>
-            <div className="modalbtn"><button onClick={closeModal}>Готово</button></div>
+          <div className="modal2" onClick={closeModal}>
+            <div
+              className="modal-content2"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="modal-actions2">
+                <span className="modalspan">Имя</span>
+                <div className="modalinp">
+                  <img src={LockIcon} alt="" />{" "}
+                  <input
+                    type="text"
+                    value="Meerim"
+                    style={{ color: "white" }}
+                  />
+                  <div className="icon">
+                    <img id="usericon" src={UserIcon} alt="" />
+                  </div>
+                </div>
+                <hr className="hrmodal" />
+                <div>
+                  <span className="modalspan">Биография</span>
+                  <input type="text" value="+ Добавить биографию" />
+                </div>
+                <hr className="hrmodal" />
+                <div>
+                  <span className="modalspan">Ссылка</span>
+                  <input type="text" value="+ Добавить ссылку" />
+                </div>
+                <hr className="hrmodal" />
+                <div className="modalbtn">
+                  <button onClick={closeModal}>Готово</button>
+                </div>
+              </div>
             </div>
-      
           </div>
-        </div>
-      )}
+        )}
         {isMenuOpen && (
           <ul className="dropdown-menu3">
             <li onClick={toggleMenuDetailProfile}>Об этом профиле</li>
@@ -119,6 +144,9 @@ const User = () => {
             <li style={{ color: "red" }}>Заблокировать</li>
             <hr />
             <li onClick={toggleMenu5} style={{ color: "red" }}>Пожаловаться</li>
+            <li style={{ color: "red" }} onClick={toggleMenu5}>
+              Пожаловаться
+            </li>
             <hr />
             <li style={{ color: "red" }}>Удалить</li>
           </ul>
@@ -152,7 +180,7 @@ const User = () => {
         <div className="modal2">
           <div className="modal-content2" onClick={(e) => e.stopPropagation()}>
             <div className="modal-actions2"><span className="modalspan">Имя / Название</span>
-            <div className="modalinp"><input type="text" value="Meerim" style={{color: 'white', margin:'0px important'}}/>
+            <div className="modalinp"><input type="text" value="Meerim" style={{color: 'white', m:'0px important'}}/>
              <div className="icon"><img id="usericon" src={UserIcon} alt="" /></div></div> 
             <hr className="hrmodal"/>
             <div><span className="modalspan">Дата регистрации</span><p className="detailP">Февраль 2024 г. · Более 100 млн</p></div>

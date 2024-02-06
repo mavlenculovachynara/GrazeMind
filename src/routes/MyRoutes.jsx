@@ -17,7 +17,7 @@ const PUBLIC_ROUTES = [
   { id: 5, link: "/user", element: <User /> },
   { id: 6, link: "/searchpage", element: <SearchPage /> },
   { id: 7, link: "/like", element: <Like /> },
-  { id: 8, link: "/settings", element: <Settings/> },
+  { id: 8, link: "/settings", element: <Settings /> },
 ];
 const MyRoutes = () => {
   return (

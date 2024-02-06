@@ -6,16 +6,28 @@ export const useAuth = () => useContext(authContext);
 const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(false);
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
   async function handleRegister(formData, navigate) {
-    setLoading(true);
     try {
-        const {data} = await axios(`${API}`)
+      await axios.post(`${API}/account/register/`, formData);
+      navigate("/");
     } catch (error) {
       console.error(error);
+      setError([[Object.values(error.response.data)]].flat(2));
     }
   }
-  const values = {};
+  async function handleLogin(formData, email, navigate) {
+    try {
+      const { data } = await axios.post(`${API}/account/login/`, formData);
+      localStorage.setItem("tokens", JSON.stringify(data));
+      localStorage.setItem("email", email);
+      setCurrentUser(email);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      setError([[Object.values(error.response.data.detail)]].flat(2));
+    }
+  }
+  const values = { error, handleRegister, setError, handleLogin };
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
 };
 
