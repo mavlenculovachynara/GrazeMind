@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./Auth.css";
 import { useAuth } from "../../context/AuthContextProvider";
 import { useNavigate } from "react-router-dom";
+import "./Auth.css";
 
 const Login = () => {
   const { error, handleLogin, setError } = useAuth();
@@ -25,7 +25,7 @@ const Login = () => {
     let formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
-    handleLogin(formData, navigate("/"));
+    handleLogin(formData, email, navigate("/"));
   }
   return (
     <div className="login-form">
