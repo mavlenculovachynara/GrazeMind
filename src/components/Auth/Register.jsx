@@ -6,6 +6,7 @@ const Register = () => {
   const { handleRegister, error, setError } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUserName] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const navigate = useNavigate();
 
@@ -44,16 +45,20 @@ const Register = () => {
         {error ? <h5 style={{ color: "red" }}>{error}</h5> : null}
         <input
           type="text"
+          placeholder="Имя пользователя"
+          className="login-input"
+          onChange={(e) => setUserName(e.target.value)}
+        />
+        <input
+          type="text"
           placeholder="Электронный адрес"
           className="login-input"
-          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Пароль"
           className="login-input"
-          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
