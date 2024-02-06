@@ -19,15 +19,26 @@ const AuthContextProvider = ({ children }) => {
     try {
       const { data } = await axios.post(`${API}/account/login/`, formData);
       localStorage.setItem("tokens", JSON.stringify(data));
-      localStorage.setItem("email", email);
+      localStorage.setItem("email", JSON.stringify(email));
       setCurrentUser(email);
       navigate("/");
     } catch (error) {
       console.error(error);
-      setError([[Object.values(error.response.data.detail)]].flat(2));
     }
   }
-  const values = { error, handleRegister, setError, handleLogin };
+  const handleLogout = () => {
+    localStorage.removeItem("tokens");
+    localStorage.removeItem("email");
+    setCurrentUser(null);
+  };
+  const values = {
+    error,
+    handleRegister,
+    setError,
+    handleLogin,
+    handleLogout,
+    currentUser,
+  };
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
 };
 

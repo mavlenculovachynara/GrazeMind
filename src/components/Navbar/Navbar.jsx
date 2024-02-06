@@ -12,6 +12,7 @@ import Gallery from "../../img/gallery.png";
 import Hash from "../../img/hash (1).png";
 import User2 from "../../img/user.webp";
 import Cross from "../../img/cross-mark.png";
+import { useAuth } from "../../context/AuthContextProvider";
 const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,7 +22,7 @@ const Navbar = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [showCategories, setShowCategories] = useState(false);
   const categories = ["здоровье", "спорт", "еда"];
-
+  const { handleLogout } = useAuth();
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
   useEffect(() => {
@@ -121,11 +122,11 @@ const Navbar = () => {
           <ul className="dropdown-menu">
             <li onClick={toggleModal4}>Внешний вид</li>
             <hr />
-            <li onClick={()=>navigate('/settings')}>Настройки</li>
+            <li onClick={() => navigate("/settings")}>Настройки</li>
             <hr />
             <li onClick={toggleModal3}>Сообщить о проблеме</li>
             <hr />
-            <li>Выйти</li>
+            <li onClick={handleLogout}>Выйти</li>
           </ul>
         )}
         {isModalOpen && (
