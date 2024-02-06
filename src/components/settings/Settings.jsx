@@ -4,6 +4,7 @@ import ThreadsIcon from "../../img/threadslogo.svg";
 import Hidden from "../../img/hidden.png";
 import PostIcon from "../../img/edit.png";
 import Block from "../../img/blockicon.png";
+import Dislike from '../../img/nolove.png'
 import "./Settings.css";
 
 const Settings = () => {
@@ -24,14 +25,14 @@ const Settings = () => {
       <div className="content">
         <div className="section">
           <div>
-            {" "}
+           
             <div className="icon">
               <img src={LockIcon} alt="" />
             </div>
             <div className="text">Закрытый профиль</div>
           </div>
           <div>
-            {" "}
+            
             <div className={`slider-container ${isActive ? "active" : ""}`}>
               <div className="slider-button" onClick={handleToggle}></div>
             </div>
@@ -40,7 +41,6 @@ const Settings = () => {
 
         <div className="section">
           <div>
-            {" "}
             <div className="icon">
               <img src={ThreadsIcon} alt="" />
             </div>
@@ -77,12 +77,21 @@ const Settings = () => {
             <div className="icon">
               <img src={Block} alt="" />
             </div>
+            <div className="text">Заблокированные профили</div>
           </div>
-          <div className="text">Заблокированные профили</div>
+          <div>
+            <div className="posticon"><img className="posticon" src={PostIcon} alt="" /></div>
+          </div>
+        </div>
+        <div className="section">
           <div>
             <div className="icon">
-              <img src={PostIcon} alt="" />
+              <img id="dislikeimg" src={Dislike} alt="" />
             </div>
+            <div className="text">Скрыть число отметок "Нравится" и поделившийся</div>
+          </div>
+          <div>
+            <div className="posticon"><img className="posticon" src={PostIcon} alt="" /></div>
           </div>
         </div>
       </div>

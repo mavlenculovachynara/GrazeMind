@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import LockIcon from "../../img/lock.png";
 import UserIcon from "../../img/user.webp";
+import Close from '../../img/blockicon.png';
 import "./User.css";
 
 const User = () => {
@@ -10,15 +11,22 @@ const User = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fileInputRef = useRef(null);
 
-  //! modal5
-  
-
   useEffect(() => {
     fileInputRef.current = document.createElement("input");
     fileInputRef.current.type = "file";
     fileInputRef.current.accept = "image/*";
     fileInputRef.current.style.display = "none";
   }, []);
+       //! modal5
+       const [isMenuOpen5, setIsMenuOpen5] = useState(false);
+  const toggleMenu5 = () => {
+    setIsMenuOpen5(!isMenuOpen5);
+  };
+  const handleMenuItemClick = () => {
+    setIsMenuOpen5(false);
+    setIsMenuOpen(false)
+    alert('Спасибо, что сообщили об этом!');
+  };
 
   //! edit profile modal
   const [isActive, setIsActive] = useState(false);
@@ -93,7 +101,7 @@ const User = () => {
           <div className="modal-content2" onClick={(e) => e.stopPropagation()}>
             <div className="modal-actions2"><span className="modalspan">Имя</span>
             <div className="modalinp"><img src={LockIcon} alt="" /> <input type="text" value="Meerim" style={{color: 'white'}}/>
-             <div className="icon"><img src={UserIcon} alt="" /></div></div> 
+             <div className="icon"><img id="usericon" src={UserIcon} alt="" /></div></div> 
             <hr className="hrmodal"/>
             <div><span className="modalspan">Биография</span><input type="text" value="+ Добавить биографию" /></div>
             <hr className="hrmodal"/>
@@ -115,13 +123,34 @@ const User = () => {
             <hr />
             <li style={{ color: "red" }}>Заблокировать</li>
             <hr />
-            <li style={{ color: "red" }} onClick={toggleMenu}>Пожаловаться</li>
+            <li onClick={toggleMenu5} style={{ color: "red" }}>Пожаловаться</li>
             <hr />
             <li style={{ color: "red" }}>Удалить</li>
           </ul>
-        )}
-
-        
+        )} 
+        {isMenuOpen5 && (
+            <ul className="dropdown-menu5">
+              <div style={{display:'flex'}}><li>Почему вы хотите пожаловаться на эту публикацию?</li><img onClick={toggleMenu5} style={{width: '30px', height: '30px'}} src={Close} alt="" /></div>
+              <hr />
+              <li onClick={handleMenuItemClick}>Мне это не нравится</li>
+              <hr />
+              <li onClick={handleMenuItemClick}>Это спам</li>
+              <hr />
+              <li onClick={handleMenuItemClick}>Изображение обнаженного тела или действий сексуального характера</li>
+              <hr />
+              <li onClick={handleMenuItemClick}>Враждебные высказывания или символы</li>
+              <hr />
+              <li onClick={handleMenuItemClick}>Травля или преследование</li>
+              <hr />
+              <li onClick={handleMenuItemClick}>Ложная информация</li>
+              <hr />
+              <li onClick={handleMenuItemClick}>Мошенничество или обман</li>
+              <hr />
+              <li onClick={handleMenuItemClick}>Насилие или опасные организации</li>
+              <hr />
+              <li onClick={handleMenuItemClick}>Самоубийство или нанесение себе увечий</li>
+            </ul>
+          )}
         <div className="replies-section">
           <div>
             {" "}

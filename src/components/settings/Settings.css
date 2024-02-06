@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 20px;
   background-color: #000;
-  border: 1px solid #333;
+  border: 1px solid none;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: #fff;
@@ -46,8 +46,16 @@
 }
 .icon img {
   margin: 5px;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
+}
+.posticon{
+  width: 20px;
+  height: 20px;
+}
+#dislikeimg{
+  width: 32px;
+  height: 32px;
 }
 .toggle-button button {
   background-color: #3897f0;
