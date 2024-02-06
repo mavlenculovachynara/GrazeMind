@@ -10,9 +10,8 @@ const User = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fileInputRef = useRef(null);
-
-  const email = localStorage.getItem("email");
-  const name = email ? email.split("@")[0] : "Гость";
+  const email = JSON.parse(localStorage.getItem("email"));
+  const name = email ? email.split("@")[0] : "Guest";
 
   //! modal5
 
