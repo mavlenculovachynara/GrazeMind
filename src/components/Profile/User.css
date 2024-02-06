@@ -152,6 +152,19 @@
   display: flex;
   align-items: center;
 }
+.detailP{
+  color: #817e7e !important
+}
+.modalbtndetail{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modalbtndetail button{
+  color: #fff;
+  background-color: #1a1a1a;
+  font-size: medium;
+}
 .hrmodal {
   color: #272626;
 }

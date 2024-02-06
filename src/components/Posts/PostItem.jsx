@@ -12,7 +12,7 @@ const PostItem = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  //! modal5
+  //! модальное окно для жалоб
   const [isMenuOpen5, setIsMenuOpen5] = useState(false);
   const toggleMenu5 = () => {
     setIsMenuOpen5(!isMenuOpen5);
@@ -54,6 +54,7 @@ const PostItem = () => {
               <li style={{ color: "red" }}>Удалить</li>
             </ul>
           )}
+          {/* //! модальное окно для жалоб */}
           {isMenuOpen5 && (
             <ul className="dropdown-menu5">
               <div style={{display:'flex'}}><li>Почему вы хотите пожаловаться на эту публикацию?</li><img onClick={toggleMenu5} style={{width: '30px', height: '30px'}} src={Close} alt="" /></div>
@@ -78,7 +79,6 @@ const PostItem = () => {
             </ul>
           )}
 
-          
         </div>
         <div className="postitem_info">
           {" "}

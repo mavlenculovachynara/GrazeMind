@@ -17,8 +17,8 @@ const User = () => {
     fileInputRef.current.accept = "image/*";
     fileInputRef.current.style.display = "none";
   }, []);
-       //! modal5
-       const [isMenuOpen5, setIsMenuOpen5] = useState(false);
+       //! модальное окно для жалоб
+  const [isMenuOpen5, setIsMenuOpen5] = useState(false);
   const toggleMenu5 = () => {
     setIsMenuOpen5(!isMenuOpen5);
   };
@@ -27,24 +27,19 @@ const User = () => {
     setIsMenuOpen(false)
     alert('Спасибо, что сообщили об этом!');
   };
-
-  //! edit profile modal
-  const [isActive, setIsActive] = useState(false);
-
-  const handleToggle = () => {
-    setIsActive(!isActive);
+  //! Детальный обзор профиля
+  const [isMenuOpenDetailProfile, setIsMenuOpenDetailProfile] = useState(false);
+  const toggleMenuDetailProfile = () => {
+    setIsMenuOpenDetailProfile(!isMenuOpenDetailProfile);
   };
+  
 
-  const [username, setUsername] = useState("");
-  const [bio, setBio] = useState("");
-  const [website, setWebsite] = useState("");
-  const [isPrivate, setIsPrivate] = useState(false);
+  //! модальное окно для редактирования профиля
+  // const [isActive, setIsActive] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Добавьте логику сохранения изменений профиля
-    console.log("Profile updated:", { username, bio, website, isPrivate });
-  };
+  // const handleToggle = () => {
+  //   setIsActive(!isActive);
+  // };
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -95,7 +90,7 @@ const User = () => {
           {" "}
           <button onClick={toggleMenu}>...</button>
         </div>
-        {/* //! EDIT PROFILE MODAL */}
+        {/* //! модальное окно для редактирования профиля*/}
         {isModalOpen && (
         <div className="modal2" onClick={closeModal}>
           <div className="modal-content2" onClick={(e) => e.stopPropagation()}>
@@ -115,7 +110,7 @@ const User = () => {
       )}
         {isMenuOpen && (
           <ul className="dropdown-menu3">
-            <li>Об этом профиле</li>
+            <li onClick={toggleMenuDetailProfile}>Об этом профиле</li>
             <hr />
             <li>Выключить уведомление</li>
             <hr />
@@ -128,6 +123,7 @@ const User = () => {
             <li style={{ color: "red" }}>Удалить</li>
           </ul>
         )} 
+        {/* //! модальное окно для жалоб */}
         {isMenuOpen5 && (
             <ul className="dropdown-menu5">
               <div style={{display:'flex'}}><li>Почему вы хотите пожаловаться на эту публикацию?</li><img onClick={toggleMenu5} style={{width: '30px', height: '30px'}} src={Close} alt="" /></div>
@@ -151,6 +147,24 @@ const User = () => {
               <li onClick={handleMenuItemClick}>Самоубийство или нанесение себе увечий</li>
             </ul>
           )}
+          {/*//! Детальный обзор профиля */}
+           {isMenuOpenDetailProfile && (
+        <div className="modal2">
+          <div className="modal-content2" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-actions2"><span className="modalspan">Имя / Название</span>
+            <div className="modalinp"><input type="text" value="Meerim" style={{color: 'white', margin:'0px important'}}/>
+             <div className="icon"><img id="usericon" src={UserIcon} alt="" /></div></div> 
+            <hr className="hrmodal"/>
+            <div><span className="modalspan">Дата регистрации</span><p className="detailP">Февраль 2024 г. · Более 100 млн</p></div>
+            <hr className="hrmodal"/>
+            <div><span className="modalspan">Предыдущие имена пользователя</span><p className="detailP">Имя пользователя менялось 3 раз в Instagram</p></div>
+            <hr className="hrmodal"/>
+            <div className="modalbtndetail"><button onClick={toggleMenuDetailProfile}>Закрыть</button></div>
+            </div>
+          </div>
+        </div>
+           )}
+          
         <div className="replies-section">
           <div>
             {" "}
