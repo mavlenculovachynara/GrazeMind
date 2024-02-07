@@ -65,7 +65,11 @@ const User = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const [activeTab, setActiveTab] = useState("threads");
 
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
   return (
     <div className="profile-container">
       <div className="profile-title">
@@ -190,20 +194,33 @@ const User = () => {
            )}
           
         <div className="replies-section">
-          <div>
-            {" "}
-            <span>Ветки</span>
+          <div className="buttonForUser">
+            <div
+              className={activeTab === "threads" ? "button active" : "button"}
+              onClick={() => handleTabChange("threads")}
+            >
+              Ветки
+            </div>
+            <div
+              className={activeTab === "replies" ? "button active" : "button"}
+              onClick={() => handleTabChange("replies")}
+            >
+              Ответы
+            </div>
+            <div
+              className={activeTab === "likes" ? "button active" : "button"}
+              onClick={() => handleTabChange("likes")}
+            >
+              Лайки
+            </div>
           </div>
-          <div>
-            {" "}
-            <span>Ответы</span>
-          </div>
-          <div>
-            {" "}
-            <span>Лайки</span>
-          </div>
-        </div>
+        </div>{" "}
         <hr />
+      </div>{" "}
+      <div className="contentForUser">
+        {activeTab === "threads" && <p>Контент для веток</p>}
+        {activeTab === "replies" && <p>Контент для ответов</p>}
+        {activeTab === "likes" && <p>Контент для лайков</p>}
       </div>
     </div>
   );

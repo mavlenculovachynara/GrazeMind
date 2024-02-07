@@ -62,15 +62,14 @@
 }
 
 .replies-section {
-  display: flex;
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
   margin-top: 10px;
+  color: #f8f8f8;
 }
-.replies-section span {
-  cursor: pointer;
-  margin: 0px !important;
+.textP {
+  color: #5c5a5a !important;
 }
 .profile-more {
   display: flex;
@@ -189,4 +188,10 @@
 #lockicon{
   width: 20px;
   height: 20px;
+}
+.buttonForUser {
+  display: flex;
+}
+.contentForUser {
+  margin-top: 60px;
 }
