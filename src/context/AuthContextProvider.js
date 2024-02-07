@@ -43,3 +43,4 @@ const AuthContextProvider = ({ children }) => {
 };
 
 export default AuthContextProvider;
+//! начальный код
