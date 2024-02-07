@@ -13,6 +13,7 @@ import Hash from "../../img/hash (1).png";
 import User2 from "../../img/user.webp";
 import Cross from "../../img/cross-mark.png";
 import { useAuth } from "../../context/AuthContextProvider";
+import LightDark from "../LightDark/LightDark";
 const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,6 +22,7 @@ const Navbar = () => {
   const [isModalOpen4, setIsModalOpen4] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showCategories, setShowCategories] = useState(false);
+  const [theme, setTheme] = useState("light");
   const categories = ["здоровье", "спорт", "еда"];
   const { handleLogout } = useAuth();
   const navigate = useNavigate();
@@ -39,11 +41,14 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedImage(null);
     setShowCategories(false);
+    document.body.style.overflow = "";
   };
+
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
@@ -89,6 +94,11 @@ const Navbar = () => {
   const clearImageClick = () => {
     setSelectedImage(null);
     fileInputRef.current.value = null;
+  };
+
+  const handleToggleTheme = (newTheme) => {
+    console.log("Theme toggled:", newTheme);
+    setTheme(newTheme);
   };
   return (
     <div className={`navbar-wrapper ${isTop ? "" : "fixed"}`}>
@@ -202,10 +212,11 @@ const Navbar = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="modal-actions3">
-                <input
-                  type="text"
+                <textarea
                   placeholder="Предоставьте как можно более подробную информацию"
+                  style={{ whiteSpace: "pre-wrap", overflowWrap: "break-word" }}
                 />
+                {/* <input /> */}
               </div>
               <div className="modal-addbutton3">
                 {" "}
@@ -223,9 +234,7 @@ const Navbar = () => {
             >
               <div className="modal-addbutton4">
                 {" "}
-                <button>light</button>
-                <button>dark</button>
-                <button>auto</button>
+                <LightDark />
               </div>
             </div>
           </div>
