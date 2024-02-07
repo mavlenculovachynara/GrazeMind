@@ -10,15 +10,12 @@ import "./Settings.css";
 const Settings = () => {
   const [isActivePrivacy, setIsActivePrivacy] = useState(true);
   const [isActiveAccount, setIsActiveAccount] = useState(false);
+  const [isActiveHelp, setIsActiveHelp] = useState(false);
 
   const handleToggle = (type) => {
-    if (type === "privacy") {
-      setIsActivePrivacy(true);
-      setIsActiveAccount(false);
-    } else if (type === "account") {
-      setIsActivePrivacy(false);
-      setIsActiveAccount(true);
-    }
+    setIsActivePrivacy(type === "privacy");
+    setIsActiveAccount(type === "account");
+    setIsActiveHelp(type === "help");
   };
 
   return (
@@ -36,13 +33,18 @@ const Settings = () => {
       >
         Аккаунт
       </div>
-      <div className="button">Справка</div>
+      <div
+        className={`button ${isActiveHelp ? "active" : ""}`}
+        onClick={() => handleToggle("help")}
+      >
+        Справка
+      </div>
     </div>
 
     <div className="content">
       {isActivePrivacy && (
         <div>
-          {/* Контент для Конфиденциальности */}
+          {/* Контент Конфиденциальности */}
           <div className="section">
             <div>
               <div className="icon">
@@ -130,8 +132,8 @@ const Settings = () => {
         )}
 
         {isActiveAccount && (
-          <div>
-            {/* Контент для Аккаунта */}
+          <div style={{height:'700px'}}>
+            {/* Контент Аккаунта */}
             <div>
               <div>
                 <div className="text">Использовать без профиля</div>
@@ -209,6 +211,105 @@ const Settings = () => {
               </div>
             </div>
 
+            <div className="section">
+              <div>
+                <div className="icon">
+                </div>
+                <div className="text">Скачать свою информацию</div>
+              </div>
+              <div>
+                <div className="posticon">
+                  <img className="posticon" src={PostIcon} alt="" />
+                </div>
+              </div>
+            </div>
+
+            <div className="section">
+              <div>
+                <div className="icon">
+                </div>
+                <div className="text">Перенос информации</div>
+              </div>
+              <div>
+                <div className="posticon">
+                  <img className="posticon" src={PostIcon} alt="" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        )}
+         {isActiveHelp && (
+          // Контент Справки
+          <div>
+            <div>
+              <div className="text">Справка по конфиденциальности и безопасности</div>
+            </div>
+            <div>
+              <div className="text">Запросы поддержки</div>
+            </div>
+            <hr />
+            <div className="section">
+              <div>
+                <div className="text">Личная информация</div>
+              </div>
+              <div>
+                <div className="posticon">
+                  <img className="posticon" src={PostIcon} alt="" />
+                </div>
+              </div>
+            </div>
+            {/* Добавьте остальные разделы контента для "Справка" здесь */}
+            <div className="section">
+              <div>
+                <div className="text">Политика конфидициальности Meta</div>
+              </div>
+              <div>
+                <div className="posticon">
+                  <img className="posticon" src={PostIcon} alt="" />
+                </div>
+              </div>
+            </div>
+            <div className="section">
+              <div>
+                <div className="text">Условия использования Meta</div>
+              </div>
+              <div>
+                <div className="posticon">
+                  <img className="posticon" src={PostIcon} alt="" />
+                </div>
+              </div>
+            </div>
+            <div className="section">
+              <div>
+                <div className="text">Дополнительная политика конфидицальности Threads</div>
+              </div>
+              <div>
+                <div className="posticon">
+                  <img className="posticon" src={PostIcon} alt="" />
+                </div>
+              </div>
+            </div>
+            <div className="section">
+              <div>
+                <div className="text">Условия использования Threads</div>
+              </div>
+              <div>
+                <div className="posticon">
+                  <img className="posticon" src={PostIcon} alt="" />
+                </div>
+              </div>
+            </div>
+            <div className="section">
+              <div>
+                <div className="text">Политику в отношении файлов cookie</div>
+              </div>
+              <div>
+                <div className="posticon">
+                  <img className="posticon" src={PostIcon} alt="" />
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
