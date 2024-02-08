@@ -20,51 +20,53 @@ const Settings = () => {
 
   return (
     <div className="privacy-settings-threads">
-    <div className="header">
-      <div
-        className={`button ${isActivePrivacy ? "active" : ""}`}
-        onClick={() => handleToggle("privacy")}
-      >
-        Конфиденциальность
+      <div className="header">
+        <div
+          className={`button ${isActivePrivacy ? "active" : ""}`}
+          onClick={() => handleToggle("privacy")}
+        >
+          Конфиденциальность
+        </div>
+        <div
+          className={`button ${isActiveAccount ? "active" : ""}`}
+          onClick={() => handleToggle("account")}
+        >
+          Аккаунт
+        </div>
+        <div
+          className={`button ${isActiveHelp ? "active" : ""}`}
+          onClick={() => handleToggle("help")}
+        >
+          Справка
+        </div>
       </div>
-      <div
-        className={`button ${isActiveAccount ? "active" : ""}`}
-        onClick={() => handleToggle("account")}
-      >
-        Аккаунт
-      </div>
-      <div
-        className={`button ${isActiveHelp ? "active" : ""}`}
-        onClick={() => handleToggle("help")}
-      >
-        Справка
-      </div>
-    </div>
 
-    <div className="content">
-      {isActivePrivacy && (
-        <div>
-          {/* Контент Конфиденциальности */}
-          <div className="section">
-            <div>
-              <div className="icon">
-                <img src={LockIcon} alt="" />
+      <div className="content">
+        {isActivePrivacy && (
+          <div>
+            {/* Контент Конфиденциальности */}
+            <div className="section">
+              <div>
+                <div className="icon">
+                  <img src={LockIcon} alt="" />
+                </div>
+                <div className="text">
+                  <p>Закрытый профиль</p>
+                </div>
               </div>
-              <div className="text"><p>Закрытый профиль</p></div>
-            </div>
-            <div>
-              <div
-                className={`slider-container ${
-                  isActivePrivacy ? "active" : ""
-                }`}
-              >
+              <div>
                 <div
-                  className="slider-button"
-                  onClick={() => handleToggle("privacy")}
-                ></div>
+                  className={`slider-container ${
+                    isActivePrivacy ? "active" : ""
+                  }`}
+                >
+                  <div
+                    className="slider-button"
+                    onClick={() => handleToggle("privacy")}
+                  ></div>
+                </div>
               </div>
             </div>
-          </div>
 
             <div className="section">
               <div>
@@ -132,7 +134,7 @@ const Settings = () => {
         )}
 
         {isActiveAccount && (
-          <div style={{height:'700px'}}>
+          <div style={{ height: "700px" }}>
             {/* Контент Аккаунта */}
             <div>
               <div>
@@ -142,9 +144,7 @@ const Settings = () => {
 
             <div>
               <div>
-                <div className="text">
-                  Деактивировать или удалить профиль
-                </div>
+                <div className="text">Деактивировать или удалить профиль</div>
               </div>
               <hr />
             </div>
@@ -160,8 +160,7 @@ const Settings = () => {
 
             <div className="section">
               <div>
-                <div className="icon">
-                </div>
+                <div className="icon"></div>
                 <div className="text">Личная информация</div>
               </div>
               <div>
@@ -173,8 +172,7 @@ const Settings = () => {
 
             <div className="section">
               <div>
-                <div className="icon">
-                </div>
+                <div className="icon"></div>
                 <div className="text">Родительский контроль</div>
               </div>
               <div>
@@ -186,8 +184,7 @@ const Settings = () => {
 
             <div className="section">
               <div>
-                <div className="icon">
-                </div>
+                <div className="icon"></div>
                 <div className="text">Безопасность</div>
               </div>
               <div>
@@ -199,8 +196,7 @@ const Settings = () => {
 
             <div className="section">
               <div>
-                <div className="icon">
-                </div>
+                <div className="icon"></div>
                 <div className="text">Статус аккаунта</div>
               </div>
               <div>
@@ -212,8 +208,7 @@ const Settings = () => {
 
             <div className="section">
               <div>
-                <div className="icon">
-                </div>
+                <div className="icon"></div>
                 <div className="text">Скачать свою информацию</div>
               </div>
               <div>
@@ -225,8 +220,7 @@ const Settings = () => {
 
             <div className="section">
               <div>
-                <div className="icon">
-                </div>
+                <div className="icon"></div>
                 <div className="text">Перенос информации</div>
               </div>
               <div>
@@ -235,14 +229,15 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-
           </div>
         )}
-         {isActiveHelp && (
+        {isActiveHelp && (
           // Контент Справки
           <div>
             <div>
-              <div className="text">Справка по конфиденциальности и безопасности</div>
+              <div className="text">
+                Справка по конфиденциальности и безопасности
+              </div>
             </div>
             <div>
               <div className="text">Запросы поддержки</div>
@@ -281,7 +276,9 @@ const Settings = () => {
             </div>
             <div className="section">
               <div>
-                <div className="text">Дополнительная политика конфидицальности Threads</div>
+                <div className="text">
+                  Дополнительная политика конфидицальности Threads
+                </div>
               </div>
               <div>
                 <div className="posticon">
@@ -309,10 +306,16 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-            <div className="text">Скрыть число отметок "Нравится" и поделившийся</div>
-          </div>
-          <div>
-            <div className="posticon"><img className="posticon" src={PostIcon} alt="" /></div>
+            <div className="section">
+              <div className="text">
+                Скрыть число отметок "Нравится" и поделившийся
+              </div>
+              <div>
+                <div className="posticon">
+                  <img className="posticon" src={PostIcon} alt="" />
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
