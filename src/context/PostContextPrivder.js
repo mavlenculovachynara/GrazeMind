@@ -46,7 +46,7 @@ const PostContextPrivder = ({ children }) => {
       );
       console.log(res);
     } catch (error) {
-      console.error(error);
+      console.error(error.response.data);
     }
   }
   async function addPost(formData) {
