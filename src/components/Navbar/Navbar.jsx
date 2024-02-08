@@ -177,12 +177,12 @@ const Navbar = () => {
                     </div>
                     {showCategories && (
                       <div className="categories-dropdown">
-                        {categories.map((category, index) => (
+                        {categories.map((elem) => (
                           <span
-                            key={index}
-                            onClick={() => handleCategoryClick(category)}
+                            key={elem.id}
+                            onClick={() => handleCategoryClick(elem.tag)}
                           >
-                            +{category}
+                            +{elem.tag}
                           </span>
                         ))}
                       </div>

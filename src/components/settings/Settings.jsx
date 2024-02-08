@@ -66,6 +66,7 @@ const Settings = () => {
                   ></div>
                 </div>
               </div>
+              
             </div>
 
             <div className="section">
@@ -148,6 +149,7 @@ const Settings = () => {
               </div>
               <hr />
             </div>
+
             <div className="other-settings">
               <div className="text">Другие настройки аккаунта</div>
               <p className="textP">
