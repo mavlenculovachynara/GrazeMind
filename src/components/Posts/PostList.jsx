@@ -64,6 +64,7 @@ const PostList = () => {
     setSelectedImage(null);
     fileInputRef.current.value = null;
   };
+
   return (
     <div className="postlist_container">
       <div className="container postlist">
@@ -154,11 +155,10 @@ const PostList = () => {
           <div className="categories-modal">
             <ul className="categories">
               {categories.map((elem) => (
-                <>
-                  {" "}
-                  <li className="category-button" key={elem.id}>{elem.tag}</li>
-                  <hr />
-                </>
+                <React.Fragment key={elem.id}>
+                  <li className="category-button">{elem.tag}</li>
+                  <hr key={`hr_${elem.id}`} />
+                </React.Fragment>
               ))}
             </ul>
           </div>

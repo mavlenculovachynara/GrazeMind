@@ -40,7 +40,7 @@ const PostContextPrivder = ({ children }) => {
       const res = await axios.post(`${API}/api/hashtags/`, formData, getConfig());
       console.log(res);
     } catch (error) {
-      console.error(error);
+      console.error(error.response.data);
     }
   }
   async function addPost() {
