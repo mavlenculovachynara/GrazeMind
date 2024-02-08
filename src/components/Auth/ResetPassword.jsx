@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContextProvider";
-import { useNavigate } from "react-router-dom";
-import "./Auth.css";
 
-const Login = () => {
-  const { error, handleLogin, setError } = useAuth();
+const ResetPassword = () => {
+  const { error, setError, handleResetPassword } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
   useEffect(() => {
     setError(false);
   }, []);
-  function handleAuth(e) {
+  function handleReset(e) {
     e.preventDefault();
     if (!email.trim() || !password.trim()) {
       return;
@@ -24,12 +24,14 @@ const Login = () => {
     let formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
-    handleLogin(formData, email);
+    formData.append("password", newPassword);
+    formData.append("password", newPasswordConfirm);
+    handleResetPassword(formData);
   }
   return (
     <div className="login-form">
-      <form action="#" className="login-container" onSubmit={handleAuth}>
-        <h2>Авторизация</h2>
+      <form action="#" className="login-container" onSubmit={handleReset}>
+        <h3>Восстановление пароля</h3>
         {error ? <h5 style={{ color: "red" }}>{error}</h5> : null}
         <input
           type="text"
@@ -39,22 +41,31 @@ const Login = () => {
         />
         <input
           type="password"
-          placeholder="Пароль"
+          placeholder="Текущий пароль"
           className="login-input"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <a href="reset_password">Забыли пароль?</a>
+        <input
+          type="password"
+          placeholder="Введите новый пароль"
+          className="login-input"
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Повторите новый пароль"
+          className="login-input"
+          onChange={(e) => setNewPasswordConfirm(e.target.value)}
+        />
         <button className="login-button" type="submit">
-          Войти
+          Сбросить пароль
         </button>
         <div className="auth-actions">
-          {" "}
-          <span> Нет аккаунта?</span>
-          <a href="/register">Создать аккаунт</a>
+          <a href="/login">Войти</a>
         </div>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default ResetPassword;

@@ -70,7 +70,7 @@ const User = () => {
     <div className="profile-container">
       <div className="profile-title">
         <div className="profile-name">
-          <h2>{username ? username : <span>Guest</span>}</h2>
+          <h2>{username}</h2>
           <p>Веб-разработчик</p>
           <span>{followersCount} подписчиков</span>
         </div>
@@ -109,11 +109,11 @@ const User = () => {
                   <img src={LockIcon} alt="" />{" "}
                   <input
                     type="text"
-                    value={username ? username : "Guest"}
+                    value={username}
                     style={{ color: "white" }}
                   />
                   <div className="icon">
-                    <img id="usericon" src={UserIcon} alt="" />
+                    <img id="usericon1" src={UserIcon} alt="" />
                   </div>
                 </div>
                 <hr className="hrmodal" />
@@ -203,11 +203,11 @@ const User = () => {
                 <div className="modalinp">
                   <input
                     type="text"
-                    value={username ? username : "Guest"}
+                    value={username}
                     style={{ color: "white", m: "0px important" }}
                   />
                   <div className="icon">
-                    <img id="usericon" src={UserIcon} alt="" />
+                    <img id="usericon2" src={UserIcon} alt="" />
                   </div>
                 </div>
                 <hr className="hrmodal" />

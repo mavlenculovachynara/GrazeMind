@@ -46,3 +46,83 @@
   background-color: white;
   color: black;
 }
+.account-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.account {
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  width: 500px;
+}
+.account-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.username {
+  font-size: 18px;
+}
+
+.bio {
+  font-size: 14px;
+  color: #666;
+}
+
+.more-button {
+  background: none !important;
+  border: 1px solid gray;
+  color: white;
+}
+.more-button button {
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 15px;
+}
+.search-publications {
+  margin: 10px;
+}
+
+.publication-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.post {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 20px;
+  position: 5px;
+}
+
+.post-title {
+  font-size: 16px;
+  margin: 10px;
+}
+
+.post-content {
+  margin: 0 10px 10px;
+}
+
+.post img {
+  width: 300px;
+  height: auto;
+  object-fit: contain;
+}

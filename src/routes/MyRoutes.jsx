@@ -10,6 +10,7 @@ import Like from "../components/Like/Like";
 import Settings from "../components/settings/Settings";
 import RegisterActive from "../components/Auth/RegisterActive";
 import AddCategory from "../components/Category/AddCategory";
+import ResetPassword from "../components/Auth/ResetPassword";
 
 const PUBLIC_ROUTES = [
   { id: 1, link: "*", element: <NotFound /> },
@@ -21,7 +22,8 @@ const PUBLIC_ROUTES = [
   { id: 7, link: "/like", element: <Like /> },
   { id: 8, link: "/settings", element: <Settings /> },
   { id: 9, link: "/register_active", element: <RegisterActive /> },
-  {id: 10, link: 'addCategory', element: <AddCategory/>}
+  { id: 10, link: "addCategory", element: <AddCategory /> },
+  { id: 11, link: "/reset_password", element: <ResetPassword /> },
 ];
 const MyRoutes = () => {
   return (
