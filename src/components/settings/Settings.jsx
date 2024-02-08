@@ -63,6 +63,7 @@ const Settings = () => {
                   onClick={() => handleToggle("privacy")}
                 ></div>
               </div>
+              
             </div>
           </div>
 
@@ -148,6 +149,7 @@ const Settings = () => {
               </div>
               <hr />
             </div>
+
             <div className="other-settings">
               <div className="text">Другие настройки аккаунта</div>
               <p className="textP">
@@ -309,10 +311,7 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-            <div className="text">Скрыть число отметок "Нравится" и поделившийся</div>
-          </div>
-          <div>
-            <div className="posticon"><img className="posticon" src={PostIcon} alt="" /></div>
+            
           </div>
         )}
       </div>
