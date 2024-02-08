@@ -27,6 +27,7 @@ const Navbar = () => {
   const username = JSON.parse(localStorage.getItem("username"));
   const mail = JSON.parse(localStorage.getItem("email"));
   const { categories, getCategories } = usePost();
+
   useEffect(() => {
     getCategories();
   }, []);
@@ -142,7 +143,7 @@ const Navbar = () => {
             <hr />
             <li onClick={toggleModal3}>Сообщить о проблеме</li>
             <hr />
-            <li onClick={() => handleLogout}>Выйти</li>
+            <li onClick={handleLogout}>Выйти</li>
           </ul>
         )}
         {isModalOpen && (
