@@ -87,7 +87,7 @@ const PostList = () => {
             <div className="postitem_request">
               {" "}
               <img src={User} alt="img" />
-              <h5>{username ? username : <span>Guest</span>}</h5>
+              <h5>{username}</h5>
             </div>
             <div className="modal-actions">
               {" "}
@@ -112,12 +112,12 @@ const PostList = () => {
                   </div>
                   {showCategories && (
                     <div className="categories-dropdown">
-                      {categories.map((category, index) => (
+                      {categories.map((elem) => (
                         <span
-                          key={index}
-                          onClick={() => handleCategoryClick(category)}
+                          key={elem.id}
+                          onClick={() => handleCategoryClick(elem.tag)}
                         >
-                          +{category}
+                          +{elem.tag}
                         </span>
                       ))}
                     </div>
@@ -153,15 +153,13 @@ const PostList = () => {
         {isModalOpen2 && (
           <div className="categories-modal">
             <ul className="categories">
-              <li className="category-button">Здоровье</li>
-              <hr />
-              {/* {categories.map((elem) => (
+              {categories.map((elem) => (
                 <>
                   {" "}
-                  <li className="category-button">{elem.id}</li>
+                  <li className="category-button" key={elem.id}>{elem.tag}</li>
                   <hr />
                 </>
-              ))} */}
+              ))}
             </ul>
           </div>
         )}
