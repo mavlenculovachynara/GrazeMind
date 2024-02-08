@@ -172,13 +172,17 @@ p {
   border-radius: 30px;
   cursor: pointer;
 }
-.dropdown-menu2 {
+.postitem_menu {
   position: absolute;
-  right: 490px !important;
-  top: 250px !important;
+  right: 480px;
+  padding: 10px;
+}
+
+.dropdown-menu2 {
   background-color: #1a1a1a;
   border-radius: 10px;
 }
+
 .dropdown-menu2 li {
   width: 200px;
   list-style-type: none;
@@ -192,13 +196,12 @@ p {
 .dropdown-menu2 hr {
   margin: 0 !important;
 }
+
 .dropdown-menu5 {
-  position: absolute;
-  right: 490px !important;
-  top: 250px !important;
   background-color: #1a1a1a;
   border-radius: 10px;
 }
+
 .dropdown-menu5 li {
   width: 400px;
   list-style-type: none;
@@ -212,6 +215,7 @@ p {
 .dropdown-menu5 hr {
   margin: 0 !important;
 }
+
 .fixed-button {
   color: white;
   border: none;

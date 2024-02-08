@@ -5,6 +5,7 @@ import Gallery from "../../img/gallery.png";
 import Hash from "../../img/hash (1).png";
 import Cross from "../../img/cross-mark.png";
 import { usePost } from "../../context/PostContextPrivder";
+import { useSearchParams } from "react-router-dom";
 
 const PostList = () => {
   const fileInputRef = useRef(null);
@@ -16,14 +17,14 @@ const PostList = () => {
   const [image, setImage] = useState(null);
   const [hashtag, setHashtag] = useState("");
   const username = JSON.parse(localStorage.getItem("username"));
-
   const { getCategories, categories, addPost, getPosts, posts } = usePost();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   useEffect(() => {
     getCategories();
     getPosts();
-    console.log(categories);
   }, []);
-  console.log(posts);
+
   useEffect(() => {
     fileInputRef.current = document.createElement("input");
     fileInputRef.current.type = "file";
@@ -40,14 +41,17 @@ const PostList = () => {
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+
   const toggleModal2 = () => {
     setIsModalOpen2(!isModalOpen2);
   };
+
   const openFileInput = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
   };
+
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
     setImage(file);
@@ -56,9 +60,11 @@ const PostList = () => {
       setSelectedImage(imageUrl);
     }
   };
+
   const handleHashClick = () => {
     setShowCategories(!showCategories);
   };
+
   const handleCategoryClick = (category) => {
     setHashtag(`#${category}`);
     const input = document.querySelector('.modal-actions input[type="text"]');
@@ -66,17 +72,37 @@ const PostList = () => {
       input.value += ` #${category} `;
     }
   };
+
   const clearImageClick = () => {
     setSelectedImage(null);
     fileInputRef.current.value = null;
   };
+
   function postSave() {
+    closeModal();
     let formData = new FormData();
     formData.append("description", description);
     formData.append("description", hashtag);
     formData.append("image", image);
     addPost(formData);
   }
+
+  const handleFilterCategory = (category) => {
+    if (category === "Все") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ ...searchParams, category });
+    }
+  };
+
+  const filteredPosts = posts.filter((post) => {
+    if (!searchParams.has("category") || !searchParams.get("category"))
+      return true;
+    return post.description
+      .toLowerCase()
+      .includes(searchParams.get("category").toLowerCase());
+  });
+
   return (
     <div className="postlist_container">
       <div className="container postlist">
@@ -92,9 +118,19 @@ const PostList = () => {
           </div>
         </div>
         <hr />
-        {posts.map((elem) => (
-          <PostItem elem={elem} key={elem.id} />
-        ))}
+        {filteredPosts.length > 0 ? (
+          filteredPosts.map((elem) => <PostItem elem={elem} key={elem.id} />)
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <h2>Посты не найдены</h2>
+          </div>
+        )}
       </div>
       {isModalOpen && (
         <div className="modal" onClick={closeModal}>
@@ -172,9 +208,24 @@ const PostList = () => {
         {isModalOpen2 && (
           <div className="categories-modal">
             <ul className="categories">
+              <li
+                className="category-button"
+                onClick={() => handleFilterCategory("Все")}
+              >
+                Все
+              </li>
+              <hr />
               {categories.map((elem) => (
-                  <li className="category-button"  key={elem.id}>{elem.tag}</li>
+                <>
+                  <li
+                    className="category-button"
+                    key={elem.id}
+                    onClick={() => handleFilterCategory(elem.tag)}
+                  >
+                    {elem.tag}
+                  </li>
                   <hr key={elem.id} />
+                </>
               ))}
             </ul>
           </div>

@@ -45,7 +45,7 @@ const Register = () => {
     formData.append("username", username);
     formData.append("password", password);
     formData.append("password_confirm", passwordConfirm);
-    handleRegister(formData, username, navigate("/"));
+    handleRegister(formData, username);
   }
 
   return (
@@ -75,7 +75,6 @@ const Register = () => {
           type="password"
           placeholder="Повторите пароль"
           className="login-input"
-          value={passwordConfirm}
           onChange={(e) => setPasswordConfirm(e.target.value)}
         />
         <button type="submit" className="login-button">

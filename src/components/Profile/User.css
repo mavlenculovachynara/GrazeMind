@@ -151,10 +151,10 @@
   display: flex;
   align-items: center;
 }
-.detailP{
-  color: #817e7e !important
+.detailP {
+  color: #817e7e !important;
 }
-.modalbtndetail{
+.modalbtndetail {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -180,12 +180,17 @@
   background-color: #fff;
   color: #000000;
 }
-#usericon{
+#usericon1 {
   width: 35px;
   height: 35px;
   border-radius: 50%;
 }
-#lockicon{
+#usericon2 {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+#lockicon {
   width: 20px;
   height: 20px;
 }

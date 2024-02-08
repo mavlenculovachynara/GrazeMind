@@ -23,10 +23,13 @@ const Navbar = () => {
   const [isModalOpen4, setIsModalOpen4] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showCategories, setShowCategories] = useState(false);
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
+  const [hashtag, setHashtag] = useState("");
   const [theme, setTheme] = useState("light");
   const username = JSON.parse(localStorage.getItem("username"));
   const mail = JSON.parse(localStorage.getItem("email"));
-  const { categories, getCategories } = usePost();
+  const { categories, getCategories, addPost } = usePost();
 
   useEffect(() => {
     getCategories();
@@ -79,6 +82,7 @@ const Navbar = () => {
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
+    setImage(file);
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
@@ -90,6 +94,7 @@ const Navbar = () => {
   };
 
   const handleCategoryClick = (category) => {
+    setHashtag(`#${category}`);
     const input = document.querySelector('.modal-actions input[type="text"]');
     if (input) {
       input.value += ` #${category} `;
@@ -107,6 +112,14 @@ const Navbar = () => {
     console.log("Theme toggled:", newTheme);
     setTheme(newTheme);
   };
+  function postSave() {
+    closeModal();
+    let formData = new FormData();
+    formData.append("description", description);
+    formData.append("description", hashtag);
+    formData.append("image", image);
+    addPost(formData);
+  }
   return (
     <div className={`navbar-wrapper ${isTop ? "" : "fixed"}`}>
       <nav className="nav-bar">
@@ -152,11 +165,15 @@ const Navbar = () => {
               <div className="postitem_request">
                 {" "}
                 <img src={User2} alt="img" />
-                <h5>{username ? username : <span>Guest</span>}</h5>
+                <h5>{username}</h5>
               </div>
               <div className="modal-actions">
                 {" "}
-                <input type="text" placeholder="Создайте ветку..." />
+                <input
+                  type="text"
+                  placeholder="Создайте ветку..."
+                  onChange={(e) => setDescription(e.target.value)}
+                />
                 <div className="postitem_addbutton">
                   <div className="postitem_image_container">
                     {" "}
@@ -206,7 +223,7 @@ const Navbar = () => {
               </div>
               <div className="modal-addbutton">
                 {" "}
-                <button>Опубликовать</button>
+                <button onClick={postSave}>Опубликовать</button>
               </div>
             </div>
           </div>
