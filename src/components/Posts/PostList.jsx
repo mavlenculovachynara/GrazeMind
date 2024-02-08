@@ -173,8 +173,12 @@ const PostList = () => {
           <div className="categories-modal">
             <ul className="categories">
               {categories.map((elem) => (
-                  <li className="category-button"  key={elem.id}>{elem.tag}</li>
+                <>
+                  <li className="category-button" key={elem.id}>
+                    {elem.tag}
+                  </li>
                   <hr key={elem.id} />
+                </>
               ))}
             </ul>
           </div>

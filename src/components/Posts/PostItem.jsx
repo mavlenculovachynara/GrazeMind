@@ -8,8 +8,9 @@ import Close from "../../img/blockicon.png";
 import { usePost } from "../../context/PostContextPrivder";
 
 const PostItem = ({ elem }) => {
-  const { deletePost } = usePost();
+  const { deletePost, likePost, like } = usePost();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -108,7 +109,7 @@ const PostItem = ({ elem }) => {
         <div className="postitem_buttons">
           <div>
             {" "}
-            <img src={Like} alt="img" />
+            <img onClick={() => likePost(elem.id)} src={Like} alt="img" />
             <img src={Comment} alt="img" />
             <img src={Repost} alt="img" />
           </div>
@@ -116,7 +117,7 @@ const PostItem = ({ elem }) => {
             {" "}
             <p>
               <span>84 ответов</span>
-              <span>• 9 0444 отметок "Нравится"</span>
+              <span>• {like} отметок "Нравится"</span>
             </p>
           </div>
         </div>
