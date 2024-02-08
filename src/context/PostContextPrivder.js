@@ -4,13 +4,18 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const postContext = createContext();
 export const usePost = () => useContext(postContext);
-const INIT_STATE = { categories: [], posts: [], onePost: {} };
+const INIT_STATE = { categories: [], posts: [], onePost: {}, like: {} };
 const reducer = (state = INIT_STATE, action) => {
   switch (action.type) {
     case ACTIONS.GET_CATEGORIES:
       return { ...state, categories: action.payload };
     case ACTIONS.GET_POSTS:
       return { ...state, posts: action.payload };
+    case ACTIONS.LIKE_POST:
+      return {
+        ...state,
+        like: action.payload,
+      };
     default:
       return state;
   }
@@ -49,6 +54,7 @@ const PostContextPrivder = ({ children }) => {
       console.error(error.response.data);
     }
   }
+  // !addpost
   async function addPost(formData) {
     try {
       await axios.post(`${API}/api/posts/`, formData, getConfig());
@@ -65,10 +71,26 @@ const PostContextPrivder = ({ children }) => {
       console.error(error);
     }
   }
+  // !delete
   async function deletePost(id) {
     await axios.delete(`${API}/api/posts/${id}/`, getConfig());
     getPosts();
   }
+  // !like
+  const likePost = async (id) => {
+    try {
+      const { data } = await axios.post(`${API}/api/likes/${id}/`, getConfig());
+      console.log(data);
+      dispatch({
+        type: ACTIONS.LIKE_POST,
+        payload: data,
+      });
+      console.log("Post liked:", data);
+    } catch (error) {
+      console.error("Error liking post:", error);
+    }
+  };
+
   const values = {
     getCategories,
     categories: state.categories,
@@ -77,6 +99,8 @@ const PostContextPrivder = ({ children }) => {
     getPosts,
     posts: state.posts,
     deletePost,
+    likePost,
+    like: state.like,
   };
   return <postContext.Provider value={values}>{children}</postContext.Provider>;
 };
