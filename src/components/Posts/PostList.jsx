@@ -67,7 +67,7 @@ const PostList = () => {
 
   const handleCategoryClick = (category) => {
     setHashtag(`#${category}`);
-    const input = document.querySelector('.modal-actions input[type="text"]');
+    const input = document.querySelector('.modal-actions textarea');
     if (input) {
       input.value += ` #${category} `;
     }
@@ -142,11 +142,10 @@ const PostList = () => {
             </div>
             <div className="modal-actions">
               {" "}
-              <input
-                type="text"
-                placeholder="Создайте ветку..."
-                onChange={(e) => setDescription(e.target.value)}
-              />
+                     <textarea
+                     onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Создайте ветку..."
+                />
               <div className="postitem_addbutton">
                 <div className="postitem_image_container">
                   {" "}

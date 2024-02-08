@@ -149,14 +149,18 @@ p {
   flex-direction: column;
   padding: 10px;
 }
-.modal-actions input {
+.modal-actions textarea {
   border: none;
   background: none;
   color: white;
   font-size: 16px;
   padding: 5px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  resize: none;
 }
-.modal-actions input:focus {
+.modal-actions textarea:focus {
   outline: none;
   border: none;
 }
@@ -275,6 +279,14 @@ p {
   cursor: pointer;
 }
 .categories-dropdown span {
+  margin-right: 5px; 
+  margin-bottom: 5px; 
+  padding: 5px;
+  background-color: rgb(136, 134, 134); 
+  border-radius: 5px;
   cursor: pointer;
-  color: white;
+}
+.categories-dropdown {
+  display: flex;
+  flex-wrap: wrap;
 }
