@@ -11,7 +11,6 @@ const User = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fileInputRef = useRef(null);
   const username = JSON.parse(localStorage.getItem("username"));
-
   //! modal5
   useEffect(() => {
     fileInputRef.current = document.createElement("input");
@@ -85,12 +84,14 @@ const User = () => {
         <button className="edit-profile-button" onClick={toggleModal}>
           Редактировать профиль
         </button>{" "}
-        <button
-          className={`follow-button ${isFollowing ? "following" : ""}`}
-          onClick={handleFollow}
-        >
-          {isFollowing ? "Вы подписаны" : "Подписаться"}
-        </button>
+        {
+          <button
+            className={`follow-button ${isFollowing ? "following" : ""}`}
+            onClick={handleFollow}
+          >
+            {isFollowing ? "Вы подписаны" : "Подписаться"}
+          </button>
+        }
         <div className="profile-more">
           {" "}
           <button onClick={toggleMenu}>...</button>

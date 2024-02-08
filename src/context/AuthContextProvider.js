@@ -8,6 +8,14 @@ const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(false);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const getConfig = () => {
+    const tokens = JSON.parse(localStorage.getItem("tokens"));
+    const Authorization = `Bearer ${tokens.refresh}`;
+    const config = {
+      headers: { Authorization },
+    };
+    return config;
+  };
   // ! Register
   async function handleRegister(formData, username, navigate) {
     try {
@@ -36,9 +44,10 @@ const AuthContextProvider = ({ children }) => {
   // !Logout
   const handleLogout = async () => {
     try {
-      await axios.post(`${API}/account/logout/`);
+      await axios.post(`${API}/account/logout/`, getConfig());
       localStorage.removeItem("tokens");
       localStorage.removeItem("email");
+      localStorage.removeItem("username");
       setCurrentUser(null);
       navigate("/login");
     } catch (error) {
