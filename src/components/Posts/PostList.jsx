@@ -172,12 +172,12 @@ const PostList = () => {
           <div className="categories-modal">
             <ul className="categories">
               {categories.map((elem) => (
-                 <React.Fragment key={elem.id}>
-                 <li className="category-button" key={`category_${elem.id}`}>
-                   {elem.tag}
-                 </li>
-                 <hr key={`hr_${elem.id}`} />
-               </React.Fragment>
+                <>
+                  <li className="category-button" key={elem.id}>
+                    {elem.tag}
+                  </li>
+                  <hr key={elem.id} />
+                </>
               ))}
             </ul>
           </div>
