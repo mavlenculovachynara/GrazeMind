@@ -4,11 +4,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const postContext = createContext();
 export const usePost = () => useContext(postContext);
-const INIT_STATE = { categories: [] };
+const INIT_STATE = { categories: [], posts: [], onePost: {} };
 const reducer = (state = INIT_STATE, action) => {
   switch (action.type) {
     case ACTIONS.GET_CATEGORIES:
       return { ...state, categories: action.payload };
+    case ACTIONS.GET_POSTS:
+      return { ...state, posts: action.payload };
     default:
       return state;
   }
@@ -35,22 +37,47 @@ const PostContextPrivder = ({ children }) => {
       console.error(error);
     }
   }
-  async function addCategory(formData){
+  async function addCategory(formData) {
     try {
-      const res = await axios.post(`${API}/api/hashtags/`, formData, getConfig());
+      const res = await axios.post(
+        `${API}/api/hashtags/`,
+        formData,
+        getConfig()
+      );
       console.log(res);
     } catch (error) {
       console.error(error.response.data);
     }
   }
-  async function addPost() {
+  async function addPost(formData) {
     try {
+      await axios.post(`${API}/api/posts/`, formData, getConfig());
+      getPosts();
     } catch (error) {
       console.error(error);
     }
   }
-
-  const values = { getCategories, categories: state.categories, addCategory };
+  async function getPosts() {
+    try {
+      const { data } = await axios(`${API}/api/posts/`, getConfig());
+      dispatch({ type: ACTIONS.GET_POSTS, payload: data });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function deletePost(id) {
+    await axios.delete(`${API}/api/posts/${id}/`, getConfig());
+    getPosts();
+  }
+  const values = {
+    getCategories,
+    categories: state.categories,
+    addCategory,
+    addPost,
+    getPosts,
+    posts: state.posts,
+    deletePost,
+  };
   return <postContext.Provider value={values}>{children}</postContext.Provider>;
 };
 
