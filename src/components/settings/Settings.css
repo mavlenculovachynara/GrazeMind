@@ -7,7 +7,7 @@
   border: 1px solid none;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: #fff !important
+  color: #fff !important;
 }
 
 .header {
@@ -50,11 +50,11 @@
   width: 25px;
   height: 25px;
 }
-.posticon{
+.posticon {
   width: 20px;
   height: 20px;
 }
-#dislikeimg{
+#dislikeimg {
   width: 30px;
   height: 30px;
 }
@@ -110,7 +110,6 @@ label {
   margin-bottom: 8px;
 }
 
-input,
 textarea {
   width: 100%;
   padding: 8px;
@@ -207,8 +206,6 @@ button {
   background-color: #fff;
 }
 
-
-
 .content > div:nth-child(2) {
   display: none;
 }
@@ -238,6 +235,6 @@ button {
   margin: 5px 0px 10px;
 }
 
-.text{
+.text {
   padding: 10px;
 }

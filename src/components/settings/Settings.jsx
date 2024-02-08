@@ -232,7 +232,6 @@ const Settings = () => {
           </div>
         )}
         {isActiveHelp && (
-          // Контент Справки
           <div>
             <div>
               <div className="text">
@@ -253,7 +252,6 @@ const Settings = () => {
                 </div>
               </div>
             </div>
-            {/* Добавьте остальные разделы контента для "Справка" здесь */}
             <div className="section">
               <div>
                 <div className="text">Политика конфидициальности Meta</div>

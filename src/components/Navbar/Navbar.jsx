@@ -14,6 +14,7 @@ import User2 from "../../img/user.webp";
 import Cross from "../../img/cross-mark.png";
 import { useAuth } from "../../context/AuthContextProvider";
 import LightDark from "../LightDark/LightDark";
+import { usePost } from "../../context/PostContextPrivder";
 const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,7 +24,13 @@ const Navbar = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [showCategories, setShowCategories] = useState(false);
   const [theme, setTheme] = useState("light");
-  const categories = ["здоровье", "спорт", "еда"];
+  const username = JSON.parse(localStorage.getItem("username"));
+  const mail = JSON.parse(localStorage.getItem("email"));
+  const { categories, getCategories } = usePost();
+
+  useEffect(() => {
+    getCategories();
+  }, []);
   const { handleLogout } = useAuth();
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
@@ -121,7 +128,7 @@ const Navbar = () => {
           <Link to="/like" className="link">
             <img src={Like} alt="" />
           </Link>
-          <Link to="/user" id="userIcon" className="link">
+          <Link to={mail ? "/user" : "/login"} id="userIcon" className="link">
             <img src={User} alt="" />
           </Link>
         </div>
@@ -145,7 +152,7 @@ const Navbar = () => {
               <div className="postitem_request">
                 {" "}
                 <img src={User2} alt="img" />
-                <h5>artemnesterenko</h5>
+                <h5>{username ? username : <span>Guest</span>}</h5>
               </div>
               <div className="modal-actions">
                 {" "}
