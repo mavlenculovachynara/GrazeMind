@@ -8,6 +8,8 @@ import User from "../components/Profile/User";
 import SearchPage from "../components/pages/SearchPage";
 import Like from "../components/Like/Like";
 import Settings from "../components/settings/Settings";
+import RegisterActive from "../components/Auth/RegisterActive";
+import AddCategory from "../components/Category/AddCategory";
 
 const PUBLIC_ROUTES = [
   { id: 1, link: "*", element: <NotFound /> },
@@ -18,6 +20,8 @@ const PUBLIC_ROUTES = [
   { id: 6, link: "/searchpage", element: <SearchPage /> },
   { id: 7, link: "/like", element: <Like /> },
   { id: 8, link: "/settings", element: <Settings /> },
+  { id: 9, link: "/register_active", element: <RegisterActive /> },
+  {id: 10, link: 'addCategory', element: <AddCategory/>}
 ];
 const MyRoutes = () => {
   return (

@@ -6,13 +6,16 @@ export const useAuth = () => useContext(authContext);
 const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(false);
   const [error, setError] = useState(false);
-  async function handleRegister(formData, navigate) {
+
+  async function handleRegister(formData, username, navigate) {
     try {
-      await axios.post(`${API}/account/register/`, formData);
-      navigate("/");
+      const { data } = await axios.post(`${API}/account/register/`, formData);
+      localStorage.setItem("username", JSON.stringify(username));
+      // navigate("/");
+      console.log(data);
     } catch (error) {
       console.error(error);
-      setError([[Object.values(error.response.data)]].flat(2));
+      // setError([[Object.values(error.response.data)]].flat(2));
     }
   }
   async function handleLogin(formData, email, navigate) {
@@ -20,7 +23,8 @@ const AuthContextProvider = ({ children }) => {
       const { data } = await axios.post(`${API}/account/login/`, formData);
       localStorage.setItem("tokens", JSON.stringify(data));
       localStorage.setItem("email", JSON.stringify(email));
-      setCurrentUser(email);
+
+      console.log(data);
       navigate("/");
     } catch (error) {
       console.error(error);

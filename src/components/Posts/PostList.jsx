@@ -4,6 +4,7 @@ import User from "../../img/user.webp";
 import Gallery from "../../img/gallery.png";
 import Hash from "../../img/hash (1).png";
 import Cross from "../../img/cross-mark.png";
+import { usePost } from "../../context/PostContextPrivder";
 
 const PostList = () => {
   const fileInputRef = useRef(null);
@@ -11,8 +12,14 @@ const PostList = () => {
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showCategories, setShowCategories] = useState(false);
-  const categories = ["здоровье", "спорт", "еда"];
 
+  const username = JSON.parse(localStorage.getItem("username"));
+
+  const { getCategories, categories } = usePost();
+  useEffect(() => {
+    getCategories();
+    console.log(categories);
+  }, []);
   useEffect(() => {
     fileInputRef.current = document.createElement("input");
     fileInputRef.current.type = "file";
@@ -80,7 +87,7 @@ const PostList = () => {
             <div className="postitem_request">
               {" "}
               <img src={User} alt="img" />
-              <h5>artemnesterenko</h5>
+              <h5>{username}</h5>
             </div>
             <div className="modal-actions">
               {" "}
@@ -105,12 +112,12 @@ const PostList = () => {
                   </div>
                   {showCategories && (
                     <div className="categories-dropdown">
-                      {categories.map((category, index) => (
+                      {categories.map((elem) => (
                         <span
-                          key={index}
-                          onClick={() => handleCategoryClick(category)}
+                          key={elem.id}
+                          onClick={() => handleCategoryClick(elem.tag)}
                         >
-                          +{category}
+                          +{elem.tag}
                         </span>
                       ))}
                     </div>
@@ -146,15 +153,13 @@ const PostList = () => {
         {isModalOpen2 && (
           <div className="categories-modal">
             <ul className="categories">
-              <li className="category-button">Здоровье</li>
-              <hr />
-              <li className="category-button">Спорт</li>
-              <hr />
-              <li className="category-button">Образование</li>
-              <hr />
-              <li className="category-button">Музыка</li>
-              <hr />
-              <li className="category-button">Еда</li>
+              {categories.map((elem) => (
+                <>
+                  {" "}
+                  <li className="category-button" key={elem.id}>{elem.tag}</li>
+                  <hr />
+                </>
+              ))}
             </ul>
           </div>
         )}

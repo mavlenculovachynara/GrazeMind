@@ -16,7 +16,13 @@ const Register = () => {
 
   function handleSave(e) {
     e.preventDefault();
-    if (!email.trim() || !password.trim() || !passwordConfirm.trim()) {
+
+    if (
+      !username.trim() ||
+      !email.trim() ||
+      !password.trim() ||
+      !passwordConfirm.trim()
+    ) {
       return;
     } else if (password.trim() !== passwordConfirm.trim()) {
       setError("Пароли не совпадают");
@@ -30,13 +36,16 @@ const Register = () => {
     } else if (!email.includes("@")) {
       setError("Некорректный адрес электронной почты");
       return;
+    } else {
+      setError("Вы успешно зарегистрировались!");
+      navigate("/register_active");
     }
     let formData = new FormData();
     formData.append("email", email);
     formData.append("username", username);
     formData.append("password", password);
     formData.append("password_confirm", passwordConfirm);
-    handleRegister(formData, navigate("/"));
+    handleRegister(formData, username, navigate("/"));
   }
 
   return (
