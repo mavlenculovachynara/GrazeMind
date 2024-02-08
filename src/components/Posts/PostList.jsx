@@ -12,14 +12,18 @@ const PostList = () => {
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showCategories, setShowCategories] = useState(false);
-
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
+  const [hashtag, setHashtag] = useState("");
   const username = JSON.parse(localStorage.getItem("username"));
 
-  const { getCategories, categories } = usePost();
+  const { getCategories, categories, addPost, getPosts, posts } = usePost();
   useEffect(() => {
     getCategories();
+    getPosts();
     console.log(categories);
   }, []);
+  console.log(posts);
   useEffect(() => {
     fileInputRef.current = document.createElement("input");
     fileInputRef.current.type = "file";
@@ -46,6 +50,7 @@ const PostList = () => {
   };
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
+    setImage(file);
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
@@ -55,6 +60,7 @@ const PostList = () => {
     setShowCategories(!showCategories);
   };
   const handleCategoryClick = (category) => {
+    setHashtag(`#${category}`);
     const input = document.querySelector('.modal-actions input[type="text"]');
     if (input) {
       input.value += ` #${category} `;
@@ -64,6 +70,13 @@ const PostList = () => {
     setSelectedImage(null);
     fileInputRef.current.value = null;
   };
+  function postSave() {
+    let formData = new FormData();
+    formData.append("description", description);
+    formData.append("description", hashtag);
+    formData.append("image", image);
+    addPost(formData);
+  }
   return (
     <div className="postlist_container">
       <div className="container postlist">
@@ -79,7 +92,9 @@ const PostList = () => {
           </div>
         </div>
         <hr />
-        <PostItem />
+        {posts.map((elem) => (
+          <PostItem elem={elem} key={elem.id} />
+        ))}
       </div>
       {isModalOpen && (
         <div className="modal" onClick={closeModal}>
@@ -91,7 +106,11 @@ const PostList = () => {
             </div>
             <div className="modal-actions">
               {" "}
-              <input type="text" placeholder="Создайте ветку..." />
+              <input
+                type="text"
+                placeholder="Создайте ветку..."
+                onChange={(e) => setDescription(e.target.value)}
+              />
               <div className="postitem_addbutton">
                 <div className="postitem_image_container">
                   {" "}
@@ -135,13 +154,13 @@ const PostList = () => {
                 type="file"
                 accept="image/*"
                 style={{ display: "none" }}
-                onChange={handleFileSelect}
+                onChange={(e) => handleFileSelect(e)}
                 onClick={(e) => e.stopPropagation()}
               />
             </div>
             <div className="modal-addbutton">
               {" "}
-              <button>Опубликовать</button>
+              <button onClick={postSave}>Опубликовать</button>
             </div>
           </div>
         </div>
@@ -156,7 +175,9 @@ const PostList = () => {
               {categories.map((elem) => (
                 <>
                   {" "}
-                  <li className="category-button" key={elem.id}>{elem.tag}</li>
+                  <li className="category-button" key={elem.id}>
+                    {elem.tag}
+                  </li>
                   <hr />
                 </>
               ))}
