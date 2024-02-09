@@ -3,7 +3,6 @@ import { useAuth } from "../../context/AuthContextProvider";
 
 const ResetPassword = () => {
   const { error, setError, handleResetPassword } = useAuth();
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
@@ -12,17 +11,13 @@ const ResetPassword = () => {
   }, []);
   function handleReset(e) {
     e.preventDefault();
-    if (!email.trim() || !password.trim()) {
+    if (!password.trim()) {
       return;
     } else if (password.trim().length < 8) {
       setError("Пароль должен содержать не менее 8 символов");
       return;
-    } else if (!email.includes("@")) {
-      setError("Некорректный адрес электронной почты");
-      return;
     }
     let formData = new FormData();
-    formData.append("email", email);
     formData.append("password", password);
     formData.append("password", newPassword);
     formData.append("password", newPasswordConfirm);
@@ -33,12 +28,7 @@ const ResetPassword = () => {
       <form action="#" className="login-container" onSubmit={handleReset}>
         <h3>Восстановление пароля</h3>
         {error ? <h5 style={{ color: "red" }}>{error}</h5> : null}
-        <input
-          type="text"
-          placeholder="Электронный адрес"
-          className="login-input"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+
         <input
           type="password"
           placeholder="Текущий пароль"
