@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom";
 const authContext = createContext();
 export const useAuth = () => useContext(authContext);
 const AuthContextProvider = ({ children }) => {
-  const INIT_STATE = { users: [] };
+  const INIT_STATE = { users: [], oneUser: {} };
   const reducer = (state = INIT_STATE, action) => {
     switch (action.type) {
       case ACTIONS.GET_USERS:
         return { ...state, users: action.payload };
+      case ACTIONS.GET_ONE_USER:
+        return { ...state, oneUser: action.payload };
       default:
         return state;
     }
@@ -27,20 +29,24 @@ const AuthContextProvider = ({ children }) => {
     return config;
   };
   // ! Register
-  async function handleRegister(formData, username) {
+  async function handleRegister(formData) {
     try {
-      const { data } = await axios.post(`${API}/account/register/`, formData);
-      navigate("/register_confirm");
+      const { data } = await axios.post(
+        `${API}/api/account/register/`,
+        formData
+      );
+      navigate("/register_active");
       console.log(data);
     } catch (error) {
       console.error(error);
-      // setError([[Object.values(error.response.data)]].flat(2));
     }
   }
   async function handleActiveRegister(formData) {
     try {
-      const { data } = await axios.post(`${API}/account/register/`, formData);
-      navigate("/register_confirm");
+      const { data } = await axios.post(
+        `${API}/api/account/activate/`,
+        formData
+      );
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -61,11 +67,11 @@ const AuthContextProvider = ({ children }) => {
   // !Login
   async function handleLogin(formData, email) {
     try {
-      const { data } = await axios.post(`${API}/account/login/`, formData);
+      const { data } = await axios.post(`${API}/api/account/login/`, formData);
       localStorage.setItem("tokens", JSON.stringify(data));
       localStorage.setItem("email", JSON.stringify(email));
-      console.log(data);
       navigate("/");
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -73,7 +79,7 @@ const AuthContextProvider = ({ children }) => {
   // !Logout
   const handleLogout = async () => {
     try {
-      await axios.post(`${API}/account/logout/`, getConfig());
+      await axios.post(`${API}/api/account/logout/`, getConfig());
       localStorage.removeItem("tokens");
       localStorage.removeItem("email");
       localStorage.removeItem("username");
@@ -85,9 +91,29 @@ const AuthContextProvider = ({ children }) => {
   };
   async function getUsers() {
     try {
-      let { data } = await axios(`${API}/account/users/`, getConfig());
+      let { data } = await axios(`${API}/api/account/users/`, getConfig());
       dispatch({ type: ACTIONS.GET_USERS, payload: data });
       console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function getOneUser(id) {
+    try {
+      let { data } = await axios(
+        `${API}/api/account/users/${id}/`,
+        getConfig()
+      );
+      console.log(data);
+      dispatch({ type: ACTIONS.GET_ONE_USER, payload: data });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function addVerified() {
+    try {
+      const res = await axios.post(`${API}/api/account/vip/`, getConfig());
+      console.log(res);
     } catch (error) {
       console.error(error);
     }
@@ -103,6 +129,9 @@ const AuthContextProvider = ({ children }) => {
     users: state.users,
     handleActiveRegister,
     handleResetPassword,
+    getOneUser,
+    oneUser: state.oneUser,
+    addVerified,
   };
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
 };

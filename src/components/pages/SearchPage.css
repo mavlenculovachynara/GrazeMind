@@ -125,4 +125,5 @@
   width: 300px;
   height: auto;
   object-fit: contain;
+  cursor: pointer;
 }

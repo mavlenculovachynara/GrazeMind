@@ -157,6 +157,8 @@ const Navbar = () => {
             <hr />
             <li onClick={() => navigate("/settings")}>Настройки</li>
             <hr />
+            <li onClick={()=> navigate('/meta_verified')}>Meta Verified</li>
+            <hr />
             <li onClick={toggleModal3}>Сообщить о проблеме</li>
             <hr />
             <li onClick={handleLogout}>Выйти</li>
