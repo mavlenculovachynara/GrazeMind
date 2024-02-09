@@ -279,14 +279,116 @@ p {
   cursor: pointer;
 }
 .categories-dropdown span {
-  margin-right: 5px; 
-  margin-bottom: 5px; 
+  margin-right: 5px;
+  margin-bottom: 5px;
   padding: 5px;
-  background-color: rgb(136, 134, 134); 
+  background-color: rgb(136, 134, 134);
   border-radius: 5px;
   cursor: pointer;
 }
 .categories-dropdown {
   display: flex;
   flex-wrap: wrap;
+}
+.postitem_container2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  border: none;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.postitem_title2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+  width: 100%; /* Занимаем 100% ширины родительского элемента */
+}
+
+.postitem_text2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Центрируем элементы по вертикали */
+}
+
+.postitem_description2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.postitem_description2 h5,
+.postitem_description2 p {
+  color: white !important;
+  margin: 3px 0; /* Добавляем ещё меньший отступ между элементами */
+}
+
+.postitem_actions2 {
+  display: flex;
+  align-items: center;
+}
+
+.postitem_actions2 button {
+  padding: 3px 8px; /* Уменьшаем отступы кнопки */
+  border: none;
+  background: none;
+  font-size: 16px; /* Уменьшаем размер текста */
+  cursor: pointer;
+  color: white !important;
+}
+
+.postitem_actions2 span {
+  margin-top: 3px; /* Уменьшаем верхний отступ для span */
+}
+
+.postitem_info2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center; /* Центрируем элементы по горизонтали */
+}
+
+.postitem_info2 img {
+  width: 40%; /* Уменьшаем размер изображения */
+  object-fit: contain;
+  cursor: pointer;
+  padding: 10px 0; /* Уменьшаем верхний и нижний отступ */
+}
+.comment {
+  justify-content: center;
+  width: 100%;
+}
+.add_comment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+}
+.add_comment textarea {
+  border: none;
+  background: none;
+  color: white;
+  font-size: 16px;
+  padding: 5px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  resize: none;
+  margin: 0 !important;
+  outline: none;
+}
+.add_comment button {
+  color: black;
+}
+.comment_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.comment_item {
+  display: flex;
+  margin: 10px 0;
 }

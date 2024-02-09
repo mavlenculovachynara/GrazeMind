@@ -95,8 +95,8 @@ const Navbar = () => {
 
   const handleCategoryClick = (category) => {
     setHashtag(`#${category}`);
-    const input = document.querySelector('.modal-actions input[type="text"]');
-    const input = document.querySelector('.modal-actions textarea');
+
+    const input = document.querySelector(".modal-actions textarea");
     if (input) {
       input.value += ` #${category} `;
     }
@@ -171,7 +171,7 @@ const Navbar = () => {
               <div className="modal-actions">
                 {" "}
                 <textarea
-                    //  onChange={(e) => setDescription(e.target.value)}
+                  //  onChange={(e) => setDescription(e.target.value)}
                   placeholder="Создайте ветку..."
                 />
                 <div className="postitem_addbutton">
