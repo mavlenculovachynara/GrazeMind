@@ -3,6 +3,7 @@ import LockIcon from "../../img/lock.png";
 import UserIcon from "../../img/user.webp";
 import Close from "../../img/blockicon.png";
 import "./User.css";
+import { name } from "../../helpers/const";
 
 const User = () => {
   const [followersCount, setFollowersCount] = useState(0);
@@ -10,7 +11,6 @@ const User = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fileInputRef = useRef(null);
-  const username = JSON.parse(localStorage.getItem("username"));
   //! modal5
   useEffect(() => {
     fileInputRef.current = document.createElement("input");
@@ -70,7 +70,7 @@ const User = () => {
     <div className="profile-container">
       <div className="profile-title">
         <div className="profile-name">
-          <h2>{username}</h2>
+          <h2>{name}</h2>
           <p>Веб-разработчик</p>
           <span>{followersCount} подписчиков</span>
         </div>
@@ -107,11 +107,7 @@ const User = () => {
                 <span className="modalspan">Имя</span>
                 <div className="modalinp">
                   <img src={LockIcon} alt="" />{" "}
-                  <input
-                    type="text"
-                    value={username}
-                    style={{ color: "white" }}
-                  />
+                  <input type="text" value={name} style={{ color: "white" }} />
                   <div className="icon">
                     <img id="usericon1" src={UserIcon} alt="" />
                   </div>
@@ -203,7 +199,7 @@ const User = () => {
                 <div className="modalinp">
                   <input
                     type="text"
-                    value={username}
+                    value={name}
                     style={{ color: "white", m: "0px important" }}
                   />
                   <div className="icon">
