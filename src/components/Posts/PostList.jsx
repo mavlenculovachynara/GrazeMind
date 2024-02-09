@@ -6,6 +6,7 @@ import Hash from "../../img/hash (1).png";
 import Cross from "../../img/cross-mark.png";
 import { usePost } from "../../context/PostContextPrivder";
 import { useSearchParams } from "react-router-dom";
+import { name } from "../../helpers/const";
 
 const PostList = () => {
   const fileInputRef = useRef(null);
@@ -16,16 +17,14 @@ const PostList = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [hashtag, setHashtag] = useState("");
-  const username = JSON.parse(localStorage.getItem("username"));
+  const [username, setUserName] = useState("");
   const { getCategories, categories, addPost, getPosts, posts } = usePost();
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     getCategories();
     getPosts();
-  }, []);
-
-  useEffect(() => {
+    setUserName(name);
     fileInputRef.current = document.createElement("input");
     fileInputRef.current.type = "file";
     fileInputRef.current.accept = "image/*";
@@ -67,7 +66,7 @@ const PostList = () => {
 
   const handleCategoryClick = (category) => {
     setHashtag(`#${category}`);
-    const input = document.querySelector('.modal-actions textarea');
+    const input = document.querySelector(".modal-actions textarea");
     if (input) {
       input.value += ` #${category} `;
     }
@@ -106,7 +105,7 @@ const PostList = () => {
   return (
     <div className="postlist_container">
       <div className="container postlist">
-        <div className="postitem_add" onClick={toggleModal}>
+        <div className="postitem_add" onClick={() => toggleModal()}>
           <div className="postitem_request">
             <img src={User} alt="img" />
             <span>Создайте ветку...</span>
@@ -142,10 +141,10 @@ const PostList = () => {
             </div>
             <div className="modal-actions">
               {" "}
-                     <textarea
-                     onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Создайте ветку..."
-                />
+              <textarea
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Создайте ветку..."
+              />
               <div className="postitem_addbutton">
                 <div className="postitem_image_container">
                   {" "}
@@ -159,7 +158,7 @@ const PostList = () => {
                     <img
                       src={Gallery}
                       alt="img"
-                      onClick={openFileInput}
+                      onClick={() => openFileInput()}
                       style={{ display: selectedImage ? "none" : "" }}
                     />
                     <img src={Hash} alt="img" onClick={handleHashClick} />
@@ -189,7 +188,7 @@ const PostList = () => {
                 type="file"
                 accept="image/*"
                 style={{ display: "none" }}
-                onChange={(e) => handleFileSelect(e)}
+                onChange={handleFileSelect}
                 onClick={(e) => e.stopPropagation()}
               />
             </div>

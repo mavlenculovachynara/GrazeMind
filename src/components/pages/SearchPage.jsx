@@ -50,7 +50,6 @@ const SearchPage = () => {
     setActiveCategory(category === activeCategory ? null : category);
     setSearchParams({ category });
   };
-
   return (
     <div className="search-container">
       <div className="search-input-container">
@@ -88,7 +87,7 @@ const SearchPage = () => {
                   <img src={elem.avatar} alt="Avatar" className="avatar" />
                   <div className="account-info">
                     <h6 style={{ color: "white" }} className="username">
-                      {elem.username}
+                      {elem.username ? elem.username : "Unknown"}
                     </h6>
                     <p className="bio">{elem.biography}</p>
                   </div>

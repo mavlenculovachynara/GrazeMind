@@ -1,10 +1,9 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { ACTIONS, API } from "../helpers/const";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 const postContext = createContext();
 export const usePost = () => useContext(postContext);
-const INIT_STATE = { categories: [], posts: [], onePost: {}, like: {} };
+const INIT_STATE = { categories: [], posts: [], onePost: {}, like: 0 };
 const reducer = (state = INIT_STATE, action) => {
   switch (action.type) {
     case ACTIONS.GET_CATEGORIES:
@@ -22,7 +21,6 @@ const reducer = (state = INIT_STATE, action) => {
 };
 const PostContextPrivder = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
-  const navigate = useNavigate();
   const getConfig = () => {
     const tokens = JSON.parse(localStorage.getItem("tokens"));
     const Authorization = `Bearer ${tokens.access}`;
