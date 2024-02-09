@@ -1,4 +1,4 @@
-export const API = "http://34.28.172.100";
+export const API = "https://104.198.167.223";
 const email = JSON.parse(localStorage.getItem("email"));
 
 // Разделить строку по символу "@"

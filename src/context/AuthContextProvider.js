@@ -105,7 +105,7 @@ const AuthContextProvider = ({ children }) => {
   }
   async function addVerified(){
     try {
-    const res =  await axios.post(`${API}/account/vip/`, getConfig());
+    const res =  await axios.post(`${API}/api/account/user_vip/`, getConfig());
     console.log(res);
     } catch (error) {
       console.error(error);
