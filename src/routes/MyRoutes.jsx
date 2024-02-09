@@ -11,6 +11,8 @@ import Settings from "../components/settings/Settings";
 import RegisterActive from "../components/Auth/RegisterActive";
 import AddCategory from "../components/Category/AddCategory";
 import ResetPassword from "../components/Auth/ResetPassword";
+import UserDetails from "../components/Profile/UserDetails";
+import MetaVerified from "../components/MetaVerified/MetaVerified";
 
 const PUBLIC_ROUTES = [
   { id: 1, link: "*", element: <NotFound /> },
@@ -24,6 +26,8 @@ const PUBLIC_ROUTES = [
   { id: 9, link: "/register_active", element: <RegisterActive /> },
   { id: 10, link: "addCategory", element: <AddCategory /> },
   { id: 11, link: "/reset_password", element: <ResetPassword /> },
+  {id: 12, link:'/user_details/:id', element: <UserDetails/>},
+  {id: 14, link:'/meta_verified', element: <MetaVerified/>}
 ];
 const MyRoutes = () => {
   return (

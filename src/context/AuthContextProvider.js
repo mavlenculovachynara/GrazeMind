@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom";
 const authContext = createContext();
 export const useAuth = () => useContext(authContext);
 const AuthContextProvider = ({ children }) => {
-  const INIT_STATE = { users: [] };
+  const INIT_STATE = { users: [], oneUser:{} };
   const reducer = (state = INIT_STATE, action) => {
     switch (action.type) {
       case ACTIONS.GET_USERS:
         return { ...state, users: action.payload };
+        case ACTIONS.GET_ONE_USER:
+          return {...state, oneUser: action.payload }
       default:
         return state;
     }
@@ -27,7 +29,7 @@ const AuthContextProvider = ({ children }) => {
     return config;
   };
   // ! Register
-  async function handleRegister(formData, username) {
+  async function handleRegister(formData) {
     try {
       const { data } = await axios.post(`${API}/account/register/`, formData);
       navigate("/register_confirm");
@@ -92,6 +94,23 @@ const AuthContextProvider = ({ children }) => {
       console.error(error);
     }
   }
+  async function getOneUser(id){
+    try {
+      let {data} = await axios(`${API}/account/users/${id}/`, getConfig())
+      console.log(data);
+      dispatch({type: ACTIONS.GET_ONE_USER, payload: data})
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function addVerified(){
+    try {
+    const res =  await axios.post(`${API}/account/vip/`, getConfig());
+    console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   const values = {
     error,
     handleRegister,
@@ -103,6 +122,9 @@ const AuthContextProvider = ({ children }) => {
     users: state.users,
     handleActiveRegister,
     handleResetPassword,
+    getOneUser,
+    oneUser: state.oneUser,
+    addVerified
   };
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
 };

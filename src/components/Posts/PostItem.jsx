@@ -9,7 +9,6 @@ import { usePost } from "../../context/PostContextPrivder";
 const PostItem = ({ elem }) => {
   const { deletePost, likePost, like } = usePost();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -28,7 +27,6 @@ const PostItem = ({ elem }) => {
 
   const postDate = new Date(elem.date_created);
   const formattedDate = postDate.toLocaleDateString();
-
   return (
     <div className="postitem_container">
       <div className="postitem_title">

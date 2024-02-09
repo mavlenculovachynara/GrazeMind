@@ -1,14 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import LockIcon from "../../img/lock.png";
 import UserIcon from "../../img/user.webp";
-import Close from "../../img/blockicon.png";
 import "./User.css";
 import { name } from "../../helpers/const";
 
 const User = () => {
   const [followersCount, setFollowersCount] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fileInputRef = useRef(null);
   //! modal5
@@ -18,22 +16,7 @@ const User = () => {
     fileInputRef.current.accept = "image/*";
     fileInputRef.current.style.display = "none";
   }, []);
-  //! модальное окно для жалоб
-  const [isMenuOpen5, setIsMenuOpen5] = useState(false);
-  const toggleMenu5 = () => {
-    setIsMenuOpen5(!isMenuOpen5);
-  };
-  const handleMenuItemClick = () => {
-    setIsMenuOpen5(false);
-    setIsMenuOpen(false);
-    alert("Спасибо, что сообщили об этом!");
-  };
-  //! Детальный обзор профиля
-  const [isMenuOpenDetailProfile, setIsMenuOpenDetailProfile] = useState(false);
-  const toggleMenuDetailProfile = () => {
-    setIsMenuOpenDetailProfile(!isMenuOpenDetailProfile);
-  };
-
+ 
   //! модальное окно для редактирования профиля
   // const [isActive, setIsActive] = useState(false);
 
@@ -58,9 +41,6 @@ const User = () => {
     }
   };
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
   const [activeTab, setActiveTab] = useState("threads");
 
   const handleTabChange = (tab) => {
@@ -84,18 +64,6 @@ const User = () => {
         <button className="edit-profile-button" onClick={toggleModal}>
           Редактировать профиль
         </button>{" "}
-        {
-          <button
-            className={`follow-button ${isFollowing ? "following" : ""}`}
-            onClick={handleFollow}
-          >
-            {isFollowing ? "Вы подписаны" : "Подписаться"}
-          </button>
-        }
-        <div className="profile-more">
-          {" "}
-          <button onClick={toggleMenu}>...</button>
-        </div>
         {/* //! модальное окно для редактирования профиля*/}
         {isModalOpen && (
           <div className="modal2" onClick={closeModal}>
@@ -125,104 +93,6 @@ const User = () => {
                 <hr className="hrmodal" />
                 <div className="modalbtn">
                   <button onClick={closeModal}>Готово</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        {isMenuOpen && (
-          <ul className="dropdown-menu3">
-            <li onClick={toggleMenuDetailProfile}>Об этом профиле</li>
-            <hr />
-            <li>Выключить уведомление</li>
-            <hr />
-            <li>Ограничить доступ</li>
-            <hr />
-            <li style={{ color: "red" }}>Заблокировать</li>
-            <hr />
-            <li onClick={toggleMenu5} style={{ color: "red" }}>
-              Пожаловаться
-            </li>
-            <hr />
-            <li style={{ color: "red" }}>Удалить</li>
-          </ul>
-        )}
-        {/* //! модальное окно для жалоб */}
-        {isMenuOpen5 && (
-          <ul className="dropdown-menu5">
-            <div style={{ display: "flex" }}>
-              <li>Почему вы хотите пожаловаться на эту публикацию?</li>
-              <img
-                onClick={toggleMenu5}
-                style={{ width: "30px", height: "30px" }}
-                src={Close}
-                alt=""
-              />
-            </div>
-            <hr />
-            <li onClick={handleMenuItemClick}>Мне это не нравится</li>
-            <hr />
-            <li onClick={handleMenuItemClick}>Это спам</li>
-            <hr />
-            <li onClick={handleMenuItemClick}>
-              Изображение обнаженного тела или действий сексуального характера
-            </li>
-            <hr />
-            <li onClick={handleMenuItemClick}>
-              Враждебные высказывания или символы
-            </li>
-            <hr />
-            <li onClick={handleMenuItemClick}>Травля или преследование</li>
-            <hr />
-            <li onClick={handleMenuItemClick}>Ложная информация</li>
-            <hr />
-            <li onClick={handleMenuItemClick}>Мошенничество или обман</li>
-            <hr />
-            <li onClick={handleMenuItemClick}>
-              Насилие или опасные организации
-            </li>
-            <hr />
-            <li onClick={handleMenuItemClick}>
-              Самоубийство или нанесение себе увечий
-            </li>
-          </ul>
-        )}
-        {/*//! Детальный обзор профиля */}
-        {isMenuOpenDetailProfile && (
-          <div className="modal2">
-            <div
-              className="modal-content2"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="modal-actions2">
-                <span className="modalspan">Имя / Название</span>
-                <div className="modalinp">
-                  <input
-                    type="text"
-                    value={name}
-                    style={{ color: "white", m: "0px important" }}
-                  />
-                  <div className="icon">
-                    <img id="usericon2" src={UserIcon} alt="" />
-                  </div>
-                </div>
-                <hr className="hrmodal" />
-                <div>
-                  <span className="modalspan">Дата регистрации</span>
-                  <p className="detailP">Февраль 2024 г. · Более 100 млн</p>
-                </div>
-                <hr className="hrmodal" />
-                <div>
-                  <span className="modalspan">
-                    Предыдущие имена пользователя
-                  </span>
-                  <p className="detailP">
-                    Имя пользователя менялось 3 раз в Instagram
-                  </p>
-                </div>
-                <hr className="hrmodal" />
-                <div className="modalbtndetail">
-                  <button onClick={toggleMenuDetailProfile}>Закрыть</button>
                 </div>
               </div>
             </div>

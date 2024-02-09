@@ -3,7 +3,7 @@ import "./SearchPage.css";
 import SearchIcon from "../../img/search.png";
 import { useAuth } from "../../context/AuthContextProvider";
 import { usePost } from "../../context/PostContextPrivder";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,7 +12,7 @@ const SearchPage = () => {
   const { getUsers, users } = useAuth();
   const { getPosts, posts } = usePost();
   const [searchParams, setSearchParams] = useSearchParams();
-
+const navigate = useNavigate()
   useEffect(() => {
     getUsers();
     getPosts();
@@ -93,7 +93,7 @@ const SearchPage = () => {
                   </div>
                 </div>
                 <div>
-                  <button className="more-button">Перейти</button>
+                  <button className="more-button" onClick={()=> navigate(`/user_details/${elem.id}`)}>Перейти</button>
                 </div>
               </div>
             ))}
