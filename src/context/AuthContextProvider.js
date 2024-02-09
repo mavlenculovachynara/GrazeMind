@@ -30,7 +30,6 @@ const AuthContextProvider = ({ children }) => {
   async function handleRegister(formData, username) {
     try {
       const { data } = await axios.post(`${API}/account/register/`, formData);
-      localStorage.setItem("username", username);
       navigate("/register_confirm");
       console.log(data);
     } catch (error) {

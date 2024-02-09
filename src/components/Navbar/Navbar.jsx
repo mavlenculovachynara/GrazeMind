@@ -15,6 +15,7 @@ import Cross from "../../img/cross-mark.png";
 import { useAuth } from "../../context/AuthContextProvider";
 import LightDark from "../LightDark/LightDark";
 import { usePost } from "../../context/PostContextPrivder";
+import { name } from "../../helpers/const";
 const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,18 +27,20 @@ const Navbar = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [hashtag, setHashtag] = useState("");
+  const [username, setUserName] = useState("");
+  const [mail, setMail] = useState("");
   const [theme, setTheme] = useState("light");
-  const username = JSON.parse(localStorage.getItem("username"));
-  const mail = JSON.parse(localStorage.getItem("email"));
+
   const { categories, getCategories, addPost } = usePost();
 
-  useEffect(() => {
-    getCategories();
-  }, []);
   const { handleLogout } = useAuth();
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
   useEffect(() => {
+    getCategories();
+    const mail = JSON.parse(localStorage.getItem("email"));
+    setUserName(name);
+    setMail(mail);
     const handleScroll = () => {
       const scrollTop = window.pageYOffset;
       setIsTop(scrollTop === 0);
@@ -77,7 +80,9 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
   const openFileInput = () => {
-    fileInputRef.current.click();
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
 
   const handleFileSelect = (e) => {
@@ -95,14 +100,10 @@ const Navbar = () => {
 
   const handleCategoryClick = (category) => {
     setHashtag(`#${category}`);
-
     const input = document.querySelector(".modal-actions textarea");
     if (input) {
       input.value += ` #${category} `;
     }
-  };
-  const handleSearchClick = () => {
-    // логика для поиска
   };
   const clearImageClick = () => {
     setSelectedImage(null);
@@ -113,6 +114,7 @@ const Navbar = () => {
     console.log("Theme toggled:", newTheme);
     setTheme(newTheme);
   };
+
   function postSave() {
     closeModal();
     let formData = new FormData();
@@ -133,7 +135,7 @@ const Navbar = () => {
             <img className="" src={Home} alt="" />
           </Link>
 
-          <Link to="/searchPage" className="link" onClick={handleSearchClick}>
+          <Link to="/searchPage" className="link">
             <img src={Search} alt="" />
           </Link>
           <Link to="/" className="link" onClick={toggleModal}>
@@ -171,7 +173,7 @@ const Navbar = () => {
               <div className="modal-actions">
                 {" "}
                 <textarea
-                  //  onChange={(e) => setDescription(e.target.value)}
+                  onChange={(e) => setDescription(e.target.value)}
                   placeholder="Создайте ветку..."
                 />
                 <div className="postitem_addbutton">

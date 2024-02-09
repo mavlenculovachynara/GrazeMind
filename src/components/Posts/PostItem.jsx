@@ -113,7 +113,11 @@ const PostItem = ({ elem }) => {
           <div>
             {" "}
             <img onClick={() => likePost(elem.id)} src={Like} alt="img" />
-            <img src={Comment} alt="img" />
+            <img
+              onClick={() => navigate(`/post_details/${elem.id}`)}
+              src={Comment}
+              alt="img"
+            />
             <img src={Repost} alt="img" />
           </div>
           <div>

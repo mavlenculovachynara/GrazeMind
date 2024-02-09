@@ -1,10 +1,15 @@
 import React, { createContext, useContext, useReducer } from "react";
 import { ACTIONS, API } from "../helpers/const";
-import axios, { formToJSON } from "axios";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const postContext = createContext();
 export const usePost = () => useContext(postContext);
-const INIT_STATE = { categories: [], posts: [], onePost: {}, like: 0 };
+const INIT_STATE = {
+  categories: [],
+  posts: [],
+  onePost: {},
+  like: 0,
+  comments: [],
+};
 const reducer = (state = INIT_STATE, action) => {
   switch (action.type) {
     case ACTIONS.GET_CATEGORIES:
@@ -21,13 +26,14 @@ const reducer = (state = INIT_STATE, action) => {
         ...state,
         onePost: action.payload,
       };
+    case ACTIONS.GET_COMMENTS:
+      return { ...state, comments: action.payload };
     default:
       return state;
   }
 };
 const PostContextPrivder = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
-  const navigate = useNavigate();
   const getConfig = () => {
     const tokens = JSON.parse(localStorage.getItem("tokens"));
     const Authorization = `Bearer ${tokens.access}`;
@@ -63,6 +69,7 @@ const PostContextPrivder = ({ children }) => {
   async function addPost(formData) {
     try {
       await axios.post(`${API}/api/posts/`, formData, getConfig());
+
       getPosts();
     } catch (error) {
       console.error(error);
@@ -99,8 +106,6 @@ const PostContextPrivder = ({ children }) => {
   async function getOnePost(id) {
     try {
       const { data } = await axios(`${API}/api/posts/${id}/`, getConfig());
-      console.log(data);
-
       dispatch({
         type: ACTIONS.GET_ONE_POST,
         payload: data,
@@ -111,8 +116,26 @@ const PostContextPrivder = ({ children }) => {
   }
   async function addComment(formData) {
     try {
-      let res = await axios.post(`${API}/api/comments/`, formData, getConfig());
-      console.log(res);
+      await axios.post(`${API}/api/comments/`, formData, getConfig());
+      getComments();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function getComments() {
+    try {
+      let { data } = await axios(`${API}/api/comments/`, getConfig());
+      dispatch({ type: ACTIONS.GET_COMMENTS, payload: data });
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  //!delete comment
+  async function deleteComments(id) {
+    try {
+      await axios.delete(`${API}/api/comments/${id}/`, getConfig());
+      getComments();
     } catch (error) {
       console.error(error);
     }
@@ -130,6 +153,9 @@ const PostContextPrivder = ({ children }) => {
     getOnePost,
     onePost: state.onePost,
     addComment,
+    comments: state.comments,
+    getComments,
+    deleteComments,
   };
   return <postContext.Provider value={values}>{children}</postContext.Provider>;
 };

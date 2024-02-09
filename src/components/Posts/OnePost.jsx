@@ -5,18 +5,33 @@ import User from "../../img/user.webp";
 import Like from "../../img/heart-shape.png";
 import Comment from "../../img/comment.png";
 import Repost from "../../img/send.png";
+import { name } from "../../helpers/const";
 import "./Post.css";
 const OnePost = () => {
-  const [comment, setComment] = useState();
-  const { onePost, getOnePost, likePost, like, addComment } = usePost();
+  const [comment, setComment] = useState("");
+  const {
+    onePost,
+    getOnePost,
+    likePost,
+    like,
+    addComment,
+    comments,
+    getComments,
+    deleteComments,
+  } = usePost();
   const { id } = useParams();
   useEffect(() => {
     getOnePost(id);
-    console.log(onePost);
+    getComments();
+    console.log(comments);
   }, []);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+  const [isMenuOpen2, setIsMenuOpen2] = useState(false);
+  const toggleMenu2 = () => {
+    setIsMenuOpen2(!isMenuOpen2);
   };
   const navigate = useNavigate();
   const [isMenuOpen5, setIsMenuOpen5] = useState(false);
@@ -33,6 +48,8 @@ const OnePost = () => {
 
   const postDate = new Date(onePost.date_created);
   const formattedDate = postDate.toLocaleDateString();
+  const postDate2 = new Date(comments.date_created);
+  const formattedDate2 = postDate2.toLocaleDateString();
   function handleComment() {
     let formData = new FormData();
     formData.append("post", id);
@@ -138,7 +155,7 @@ const OnePost = () => {
           <div className="postitem_request">
             <img src={User} alt="img" />
             <div className="postitem_description">
-              <h5>{""}</h5>
+              <h5>{name}</h5>
             </div>
           </div>
         </div>
@@ -153,17 +170,39 @@ const OnePost = () => {
           </button>
         </div>
         <div className="comment_container">
-          <div className="comment_item">
-            <div className="postitem_text">
-              <div className="postitem_request">
-                <img src={User} alt="img" />
-                <div className="postitem_description">
-                  <h5>{""}</h5>
-                  <p>{""}</p>
+          {comments.map((elem) => (
+            <div className="comment_item" key={elem.post}>
+              <div className="postitem_text">
+                <div className="postitem_request">
+                  <img src={User} alt="img" />
+                  <div className="postitem_description">
+                    <h5>{elem.commenter.username}</h5>
+                    <p>{elem.content}</p>
+                  </div>
+                </div>
+                <div className="postitem_actions">
+                  <span>{formattedDate2}</span>
+                  <button onClick={toggleMenu2}>...</button>
+                </div>
+                <div className="postitem_menu">
+                  {isMenuOpen2 && (
+                    <ul className="dropdown-menu2">
+                      <li onClick={toggleMenu2}>Скрыть</li>
+                      <hr />
+                      <li style={{ color: "red" }}>Пожаловаться</li>
+                      <hr />
+                      <li
+                        style={{ color: "red" }}
+                        onClick={() => deleteComments(elem.id)}
+                      >
+                        Удалить
+                      </li>
+                    </ul>
+                  )}
                 </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
