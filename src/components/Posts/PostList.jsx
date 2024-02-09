@@ -22,8 +22,8 @@ const PostList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    getCategories();
     getPosts();
+    getCategories();
     setUserName(name);
     fileInputRef.current = document.createElement("input");
     fileInputRef.current.type = "file";

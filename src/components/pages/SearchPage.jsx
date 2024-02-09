@@ -3,7 +3,7 @@ import "./SearchPage.css";
 import SearchIcon from "../../img/search.png";
 import { useAuth } from "../../context/AuthContextProvider";
 import { usePost } from "../../context/PostContextPrivder";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,7 +12,7 @@ const SearchPage = () => {
   const { getUsers, users } = useAuth();
   const { getPosts, posts } = usePost();
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const navigate = useNavigate();
   useEffect(() => {
     getUsers();
     getPosts();
@@ -109,7 +109,11 @@ const SearchPage = () => {
                   {elem.creator ? elem.creator.username : "Unknown"}
                 </h4>
                 <p className="post-content">{elem.description}</p>
-                <img src={elem.image} alt="img" />
+                <img
+                  src={elem.image}
+                  alt="img"
+                  onClick={() => navigate(`/post_details/${elem.id}`)}
+                />
               </div>
             ))}
           </div>

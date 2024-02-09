@@ -10,11 +10,13 @@ import { useNavigate } from "react-router-dom";
 const PostItem = ({ elem }) => {
   const { deletePost, likePost, like } = usePost();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const postDate = new Date(elem.date_created);
+  const formattedDate = postDate.toLocaleDateString();
   const navigate = useNavigate();
   const toggleMenu = () => {
+    if (isMenuOpen5) setIsMenuOpen5(false);
     setIsMenuOpen(!isMenuOpen);
   };
-
   const [isMenuOpen5, setIsMenuOpen5] = useState(false);
   const toggleMenu5 = () => {
     toggleMenu();
@@ -26,9 +28,6 @@ const PostItem = ({ elem }) => {
     setIsMenuOpen(false);
     alert("Спасибо, что сообщили об этом!");
   };
-
-  const postDate = new Date(elem.date_created);
-  const formattedDate = postDate.toLocaleDateString();
 
   return (
     <div className="postitem_container">
