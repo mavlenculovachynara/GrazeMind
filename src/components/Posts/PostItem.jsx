@@ -5,11 +5,12 @@ import Like from "../../img/heart-shape.png";
 import Comment from "../../img/comment.png";
 import Repost from "../../img/send.png";
 import { usePost } from "../../context/PostContextPrivder";
+import { useNavigate } from "react-router-dom";
 
 const PostItem = ({ elem }) => {
   const { deletePost, likePost, like } = usePost();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const navigate = useNavigate();
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -46,7 +47,11 @@ const PostItem = ({ elem }) => {
           </div>
         </div>
         <div className="postitem_info">
-          <img src={elem.image} alt="img" />
+          <img
+            src={elem.image}
+            alt="img"
+            onClick={() => navigate(`/post_details/${elem.id}`)}
+          />
           <div className="postitem_menu">
             {isMenuOpen && (
               <ul className="dropdown-menu2">
@@ -108,7 +113,11 @@ const PostItem = ({ elem }) => {
           <div>
             {" "}
             <img onClick={() => likePost(elem.id)} src={Like} alt="img" />
-            <img src={Comment} alt="img" />
+            <img
+              onClick={() => navigate(`/post_details/${elem.id}`)}
+              src={Comment}
+              alt="img"
+            />
             <img src={Repost} alt="img" />
           </div>
           <div>

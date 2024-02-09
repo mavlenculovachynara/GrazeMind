@@ -11,6 +11,7 @@ import Settings from "../components/settings/Settings";
 import RegisterActive from "../components/Auth/RegisterActive";
 import AddCategory from "../components/Category/AddCategory";
 import ResetPassword from "../components/Auth/ResetPassword";
+import OnePost from "../components/Posts/OnePost";
 
 const PUBLIC_ROUTES = [
   { id: 1, link: "*", element: <NotFound /> },
@@ -24,6 +25,7 @@ const PUBLIC_ROUTES = [
   { id: 9, link: "/register_active", element: <RegisterActive /> },
   { id: 10, link: "addCategory", element: <AddCategory /> },
   { id: 11, link: "/reset_password", element: <ResetPassword /> },
+  { id: 12, link: "/post_details/:id", element: <OnePost /> },
 ];
 const MyRoutes = () => {
   return (
