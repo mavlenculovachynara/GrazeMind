@@ -59,15 +59,6 @@ const Like = () => {
           Потвержденные
         </button>
       </div>
-
-      <div className="postitem_text">
-        <div className="postitem_request">
-          <img src={User} alt="img" />
-          <div className="postitem_description">
-            <h5>{""}</h5>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
