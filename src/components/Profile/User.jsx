@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import LockIcon from "../../img/lock.png";
 import UserIcon from "../../img/user.webp";
-import "./User.css";
 import { name } from "../../helpers/const";
+import "./User.css";
 
 const User = () => {
   const [followersCount, setFollowersCount] = useState(0);
@@ -16,7 +16,7 @@ const User = () => {
     fileInputRef.current.accept = "image/*";
     fileInputRef.current.style.display = "none";
   }, []);
- 
+
   //! модальное окно для редактирования профиля
   // const [isActive, setIsActive] = useState(false);
 

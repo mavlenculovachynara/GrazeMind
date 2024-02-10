@@ -5,14 +5,18 @@ import Like from "../../img/heart-shape.png";
 import Comment from "../../img/comment.png";
 import Repost from "../../img/send.png";
 import { usePost } from "../../context/PostContextPrivder";
+import { useNavigate } from "react-router-dom";
 
 const PostItem = ({ elem }) => {
   const { deletePost, likePost, like } = usePost();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const postDate = new Date(elem.date_created);
+  const formattedDate = postDate.toLocaleDateString();
+  const navigate = useNavigate();
   const toggleMenu = () => {
+    if (isMenuOpen5) setIsMenuOpen5(false);
     setIsMenuOpen(!isMenuOpen);
   };
-
   const [isMenuOpen5, setIsMenuOpen5] = useState(false);
   const toggleMenu5 = () => {
     toggleMenu();
@@ -25,8 +29,6 @@ const PostItem = ({ elem }) => {
     alert("Спасибо, что сообщили об этом!");
   };
 
-  const postDate = new Date(elem.date_created);
-  const formattedDate = postDate.toLocaleDateString();
   return (
     <div className="postitem_container">
       <div className="postitem_title">
@@ -44,7 +46,11 @@ const PostItem = ({ elem }) => {
           </div>
         </div>
         <div className="postitem_info">
-          <img src={elem.image} alt="img" />
+          <img
+            src={elem.image}
+            alt="img"
+            onClick={() => navigate(`/post_details/${elem.id}`)}
+          />
           <div className="postitem_menu">
             {isMenuOpen && (
               <ul className="dropdown-menu2">
@@ -106,7 +112,11 @@ const PostItem = ({ elem }) => {
           <div>
             {" "}
             <img onClick={() => likePost(elem.id)} src={Like} alt="img" />
-            <img src={Comment} alt="img" />
+            <img
+              onClick={() => navigate(`/post_details/${elem.id}`)}
+              src={Comment}
+              alt="img"
+            />
             <img src={Repost} alt="img" />
           </div>
           <div>

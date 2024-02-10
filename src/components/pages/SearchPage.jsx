@@ -12,7 +12,7 @@ const SearchPage = () => {
   const { getUsers, users } = useAuth();
   const { getPosts, posts } = usePost();
   const [searchParams, setSearchParams] = useSearchParams();
-const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     getUsers();
     getPosts();
@@ -93,7 +93,12 @@ const navigate = useNavigate()
                   </div>
                 </div>
                 <div>
-                  <button className="more-button" onClick={()=> navigate(`/user_details/${elem.id}`)}>Перейти</button>
+                  <button
+                    className="more-button"
+                    onClick={() => navigate(`/user_details/${elem.id}`)}
+                  >
+                    Перейти
+                  </button>
                 </div>
               </div>
             ))}
@@ -109,7 +114,11 @@ const navigate = useNavigate()
                   {elem.creator ? elem.creator.username : "Unknown"}
                 </h4>
                 <p className="post-content">{elem.description}</p>
-                <img src={elem.image} alt="img" />
+                <img
+                  src={elem.image}
+                  alt="img"
+                  onClick={() => navigate(`/post_details/${elem.id}`)}
+                />
               </div>
             ))}
           </div>

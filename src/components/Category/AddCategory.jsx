@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { usePost } from '../../context/PostContextPrivder'
 import './AddCategory.css'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -8,11 +9,15 @@ const AddCategory = () => {
   const [hashtag, setHashtag] = useState('')
   const [hashtagConfirm, setHashtagConfirm] = useState('')
   const {addCategory} = usePost();
+
+  const navigate = useNavigate();
+
 function categorySave(){
   let formData = new FormData()
   formData.append('tag', hashtag)
   formData.append('slug', hashtagConfirm)
-  addCategory(formData)
+  addCategory(formData);
+  navigate('/');
 }
   return (
     <div className='addTag-form'>

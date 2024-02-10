@@ -3,7 +3,13 @@ import { ACTIONS, API } from "../helpers/const";
 import axios from "axios";
 const postContext = createContext();
 export const usePost = () => useContext(postContext);
-const INIT_STATE = { categories: [], posts: [], onePost: {}, like: 0 };
+const INIT_STATE = {
+  categories: [],
+  posts: [],
+  onePost: {},
+  like: 0,
+  comments: [],
+};
 const reducer = (state = INIT_STATE, action) => {
   switch (action.type) {
     case ACTIONS.GET_CATEGORIES:
@@ -15,6 +21,13 @@ const reducer = (state = INIT_STATE, action) => {
         ...state,
         like: action.payload,
       };
+    case ACTIONS.GET_ONE_POST:
+      return {
+        ...state,
+        onePost: action.payload,
+      };
+    case ACTIONS.GET_COMMENTS:
+      return { ...state, comments: action.payload };
     default:
       return state;
   }
@@ -56,6 +69,7 @@ const PostContextPrivder = ({ children }) => {
   async function addPost(formData) {
     try {
       await axios.post(`${API}/api/posts/`, formData, getConfig());
+
       getPosts();
     } catch (error) {
       console.error(error);
@@ -88,7 +102,44 @@ const PostContextPrivder = ({ children }) => {
       console.error("Error liking post:", error);
     }
   };
-
+  // !detail
+  async function getOnePost(id) {
+    try {
+      const { data } = await axios(`${API}/api/posts/${id}/`, getConfig());
+      dispatch({
+        type: ACTIONS.GET_ONE_POST,
+        payload: data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function addComment(formData) {
+    try {
+      await axios.post(`${API}/api/comments/`, formData, getConfig());
+      getComments();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function getComments() {
+    try {
+      let { data } = await axios(`${API}/api/comments/`, getConfig());
+      dispatch({ type: ACTIONS.GET_COMMENTS, payload: data });
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  //!delete comment
+  async function deleteComments(id) {
+    try {
+      await axios.delete(`${API}/api/comments/${id}/`, getConfig());
+      getComments();
+    } catch (error) {
+      console.error(error);
+    }
+  }
   const values = {
     getCategories,
     categories: state.categories,
@@ -99,6 +150,12 @@ const PostContextPrivder = ({ children }) => {
     deletePost,
     likePost,
     like: state.like,
+    getOnePost,
+    onePost: state.onePost,
+    addComment,
+    comments: state.comments,
+    getComments,
+    deleteComments,
   };
   return <postContext.Provider value={values}>{children}</postContext.Provider>;
 };
