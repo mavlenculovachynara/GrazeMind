@@ -16,6 +16,7 @@ import { useAuth } from "../../context/AuthContextProvider";
 import LightDark from "../LightDark/LightDark";
 import { usePost } from "../../context/PostContextPrivder";
 import { name } from "../../helpers/const";
+
 const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,12 +31,13 @@ const Navbar = () => {
   const [username, setUserName] = useState("");
   const [mail, setMail] = useState("");
   const [theme, setTheme] = useState("light");
+  const [problemMessage, setProblemMessage] = useState("");
 
   const { categories, getCategories, addPost } = usePost();
-
   const { handleLogout } = useAuth();
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+
   useEffect(() => {
     getCategories();
     const mail = JSON.parse(localStorage.getItem("email"));
@@ -62,23 +64,34 @@ const Navbar = () => {
     document.body.style.overflow = "";
   };
 
+  const handleSendMessage = () => {
+    const message = document.querySelector(".modal-content3 textarea").value;
+    localStorage.setItem("problemMessage", message);
+    setIsModalOpen3(false);
+  };
+
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+
   const closeModal3 = () => {
     setIsModalOpen3(false);
   };
+
   const toggleModal3 = () => {
     setIsModalOpen3(!isModalOpen3);
     setIsMenuOpen(false);
   };
+
   const closeModal4 = () => {
     setIsModalOpen4(false);
   };
+
   const toggleModal4 = () => {
     setIsModalOpen4(!isModalOpen4);
     setIsMenuOpen(false);
   };
+
   const openFileInput = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -105,6 +118,7 @@ const Navbar = () => {
       input.value += ` #${category} `;
     }
   };
+
   const clearImageClick = () => {
     setSelectedImage(null);
     fileInputRef.current.value = null;
@@ -123,6 +137,7 @@ const Navbar = () => {
     formData.append("image", image);
     addPost(formData);
   }
+
   return (
     <div className={`navbar-wrapper ${isTop ? "" : "fixed"}`}>
       <nav className="nav-bar">
@@ -157,11 +172,15 @@ const Navbar = () => {
             <hr />
             <li onClick={() => navigate("/settings")}>Настройки</li>
             <hr />
-            <li onClick={()=> navigate('/meta_verified')}>Meta Verified</li>
+            <li onClick={() => navigate("/meta_verified")}>Meta Verified</li>
             <hr />
             <li onClick={toggleModal3}>Сообщить о проблеме</li>
             <hr />
-            <li onClick={handleLogout}>Выйти</li>
+            <li onClick={() => navigate("/register")}>Зарегистрироваться</li>
+            <hr />
+            <li onClick={() => navigate("/login")}>Авторизация</li>
+            <hr />
+            <li onClick={() => navigate("/logout")}>Выйти</li>
           </ul>
         )}
         {isModalOpen && (
@@ -243,12 +262,12 @@ const Navbar = () => {
                 <textarea
                   placeholder="Предоставьте как можно более подробную информацию"
                   style={{ whiteSpace: "pre-wrap", overflowWrap: "break-word" }}
+                  onChange={(e) => setProblemMessage(e.target.value)}
                 />
-                {/* <input /> */}
               </div>
               <div className="modal-addbutton3">
                 {" "}
-                <button>Отправить</button>
+                <button onClick={handleSendMessage}>Отправить</button>
               </div>
             </div>
           </div>
