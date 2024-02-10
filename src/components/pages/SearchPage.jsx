@@ -89,7 +89,6 @@ const SearchPage = () => {
                     <h6 style={{ color: "white" }} className="username">
                       {elem.username ? elem.username : "Unknown"}
                     </h6>
-                    <p className="bio">{elem.biography}</p>
                   </div>
                 </div>
                 <div>

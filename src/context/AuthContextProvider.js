@@ -17,7 +17,6 @@ const AuthContextProvider = ({ children }) => {
     }
   };
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
-  const [currentUser, setCurrentUser] = useState(false);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   const getConfig = () => {
@@ -55,8 +54,9 @@ const AuthContextProvider = ({ children }) => {
   async function handleResetPassword(formData) {
     try {
       const { data } = await axios.post(
-        `${API}/account/reset_password/`,
-        formData
+        `${API}/api/account/reset_password/`,
+        formData,
+        getConfig()
       );
       console.log(data);
       navigate("/login");
@@ -68,6 +68,7 @@ const AuthContextProvider = ({ children }) => {
   async function handleLogin(formData, email) {
     try {
       const { data } = await axios.post(`${API}/api/account/login/`, formData);
+      window.location.reload();
       localStorage.setItem("tokens", JSON.stringify(data));
       localStorage.setItem("email", JSON.stringify(email));
       navigate("/");
@@ -83,7 +84,7 @@ const AuthContextProvider = ({ children }) => {
       localStorage.removeItem("tokens");
       localStorage.removeItem("email");
       localStorage.removeItem("username");
-      setCurrentUser(null);
+      window.location.reload();
       navigate("/login");
     } catch (error) {
       console.error(error);
@@ -101,11 +102,23 @@ const AuthContextProvider = ({ children }) => {
   async function getOneUser(id) {
     try {
       let { data } = await axios(
-        `${API}/api/account/users/${id}/`,
+        `${API}/api/account/user_full/${id}/`,
         getConfig()
       );
       console.log(data);
       dispatch({ type: ACTIONS.GET_ONE_USER, payload: data });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function editUser(formData) {
+    try {
+      let { data } = await axios.put(
+        `${API}/api/account/profile_update/`,
+        formData,
+        getConfig()
+      );
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -118,13 +131,49 @@ const AuthContextProvider = ({ children }) => {
       console.error(error);
     }
   }
+  async function getSubscribers() {
+    try {
+      let res = await axios(`${API}/api/subscriptions/`, getConfig());
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function toSubscribe(id) {
+    try {
+      let res = await axios.post(
+        `${API}/api/subscriptions/${id}/`,
+        getConfig()
+      );
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function deleteUser() {
+    try {
+      const res = await axios.delete(
+        `${API}/api/account/delete_user/`,
+        getConfig()
+      );
+      window.location.reload();
+      navigate("/login");
+      localStorage.removeItem("tokens");
+      localStorage.removeItem("email");
+      localStorage.removeItem("username");
+      localStorage.removeItem("bio");
+      localStorage.removeItem("link");
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   const values = {
     error,
     handleRegister,
     setError,
     handleLogin,
     handleLogout,
-    currentUser,
     getUsers,
     users: state.users,
     handleActiveRegister,
@@ -132,6 +181,10 @@ const AuthContextProvider = ({ children }) => {
     getOneUser,
     oneUser: state.oneUser,
     addVerified,
+    editUser,
+    getSubscribers,
+    toSubscribe,
+    deleteUser,
   };
   return <authContext.Provider value={values}>{children}</authContext.Provider>;
 };

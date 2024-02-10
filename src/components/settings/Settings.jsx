@@ -6,12 +6,13 @@ import PostIcon from "../../img/edit.png";
 import Block from "../../img/blockicon.png";
 import Dislike from "../../img/nolove.png";
 import "./Settings.css";
+import { useAuth } from "../../context/AuthContextProvider";
 
 const Settings = () => {
   const [isActivePrivacy, setIsActivePrivacy] = useState(true);
   const [isActiveAccount, setIsActiveAccount] = useState(false);
   const [isActiveHelp, setIsActiveHelp] = useState(false);
-
+  const { deleteUser } = useAuth();
   const handleToggle = (type) => {
     setIsActivePrivacy(type === "privacy");
     setIsActiveAccount(type === "account");
@@ -66,7 +67,6 @@ const Settings = () => {
                   ></div>
                 </div>
               </div>
-              
             </div>
 
             <div className="section">
@@ -145,7 +145,9 @@ const Settings = () => {
 
             <div>
               <div>
-                <div className="text">Деактивировать или удалить профиль</div>
+                <div className="text" onClick={deleteUser}>
+                  Деактивировать или удалить профиль
+                </div>
               </div>
               <hr />
             </div>
