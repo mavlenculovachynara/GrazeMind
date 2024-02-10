@@ -8,11 +8,6 @@ import Repost from "../../img/send.png";
 import { name } from "../../helpers/const";
 import "./Post.css";
 const OnePost = () => {
-  useEffect(() => {
-    getOnePost(id);
-    getComments();
-    console.log(comments);
-  }, []);
   const [comment, setComment] = useState("");
   const {
     onePost,
@@ -25,17 +20,21 @@ const OnePost = () => {
     deleteComments,
   } = usePost();
   const { id } = useParams();
+  useEffect(() => {
+    getOnePost(id);
+    getComments();
+    console.log(comments);
+  }, []);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMenuOpen2, setIsMenuOpen2] = useState(false);
-  const [isMenuOpen5, setIsMenuOpen5] = useState(false);
   const toggleMenu = () => {
-    if (isMenuOpen5) setIsMenuOpen5(false);
     setIsMenuOpen(!isMenuOpen);
   };
+  const [isMenuOpen2, setIsMenuOpen2] = useState(false);
   const toggleMenu2 = () => {
     setIsMenuOpen2(!isMenuOpen2);
   };
   const navigate = useNavigate();
+  const [isMenuOpen5, setIsMenuOpen5] = useState(false);
   const toggleMenu5 = () => {
     toggleMenu();
     setIsMenuOpen5(!isMenuOpen5);
@@ -61,7 +60,7 @@ const OnePost = () => {
   return (
     <div className="postitem_container2" key={onePost.id}>
       {onePost && onePost.creator && (
-        <div className="postitem_title" style={{ width: "100%" }}>
+        <div className="postitem_title">
           <div className="postitem_text">
             <div className="postitem_request">
               <img src={User} alt="img" />
@@ -77,12 +76,11 @@ const OnePost = () => {
           </div>
           <div className="postitem_info">
             <img
-              style={{ width: "50%" }}
               src={onePost.image}
               alt="img"
               onClick={() => navigate(`/post_details/${onePost.id}`)}
             />
-            <div className="postitem_menu" style={{ right: "325px" }}>
+            <div className="postitem_menu">
               {isMenuOpen && (
                 <ul className="dropdown-menu2">
                   <li onClick={toggleMenu}>Скрыть</li>
@@ -134,7 +132,7 @@ const OnePost = () => {
               )}
             </div>
           </div>
-          <div className="postitem_buttons" style={{ width: "45%" }}>
+          <div className="postitem_buttons">
             <div>
               {" "}
               <img onClick={() => likePost(onePost.id)} src={Like} alt="img" />
