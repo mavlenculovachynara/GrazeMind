@@ -70,7 +70,7 @@ const User = () => {
       <div className="profile-title">
         <div className="profile-name">
           <h2>{name}</h2>
-          <h4 style={{ color: "white" }}>{bio}</h4>
+          <h4 style={{ color: "white", maxWidth: "100px" }}>{bio}</h4>
           <p style={{ maxWidth: "80px" }}>
             <a href={link}>{link}</a>
           </p>

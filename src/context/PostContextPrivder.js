@@ -91,7 +91,7 @@ const PostContextPrivder = ({ children }) => {
   // !like
   const likePost = async (id) => {
     try {
-      const { data } = await axios.post(`${API}/api/likes/${id}/`, getConfig());
+      const { data } = await axios.post(`${API}/api/likes/`, getConfig());
       console.log(data);
       dispatch({
         type: ACTIONS.LIKE_POST,

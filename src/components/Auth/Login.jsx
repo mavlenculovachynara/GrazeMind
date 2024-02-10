@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContextProvider";
 import "./Auth.css";
 
 const Login = () => {
-  const { error, handleLogin, setError } = useAuth();
+  const { error, handleLogin, setError, handleResetPassword } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   useEffect(() => {
@@ -42,7 +42,9 @@ const Login = () => {
           className="login-input"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <a href="reset_password">Забыли пароль?</a>
+        <a href="reset_password" onClick={handleResetPassword}>
+          Забыли пароль?
+        </a>
         <button className="login-button" type="submit">
           Войти
         </button>

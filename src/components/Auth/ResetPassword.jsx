@@ -10,7 +10,7 @@ const ResetPassword = () => {
   }, []);
   function handleReset(e) {
     e.preventDefault();
-    if (!newPassword.trim() || !newPasswordConfirm.trim()) {
+    if (newPassword.trim() !== newPasswordConfirm.trim()) {
       setError("Ваши пароли не совпадают!");
       return;
     } else if (
@@ -30,7 +30,7 @@ const ResetPassword = () => {
       <form action="#" className="login-container" onSubmit={handleReset}>
         <h3>Восстановление пароля</h3>
         {error ? <h5 style={{ color: "red" }}>{error}</h5> : null}
-        <h5>Вам на почту пришло сообщение</h5>
+        <span>Вам на почту пришло сообщение</span>
         <input
           type="password"
           placeholder="Введите новый пароль"
