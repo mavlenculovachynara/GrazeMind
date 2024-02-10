@@ -5,7 +5,7 @@ import Gallery from "../../img/gallery.png";
 import Hash from "../../img/hash (1).png";
 import Cross from "../../img/cross-mark.png";
 import { usePost } from "../../context/PostContextPrivder";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { name } from "../../helpers/const";
 
 const PostList = () => {
@@ -20,6 +20,8 @@ const PostList = () => {
   const [username, setUserName] = useState("");
   const { getCategories, categories, addPost, getPosts, posts } = usePost();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPosts();
@@ -200,9 +202,12 @@ const PostList = () => {
         </div>
       )}
       <div>
+       <div className="bntContainer">
+       <button className="addCategoryBtn" onClick={()=>navigate('/addCategory')}>Добавить хэштег</button>
         <button className="fixed-button" onClick={toggleModal2}>
           Фильтровать
         </button>
+       </div>
         {isModalOpen2 && (
           <div className="categories-modal">
             <ul className="categories">

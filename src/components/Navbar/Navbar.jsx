@@ -152,9 +152,9 @@ const Navbar = () => {
           <ul className="dropdown-menu">
             <li onClick={toggleModal4}>Внешний вид</li>
             <hr />
-            <li onClick={() => navigate("/settings")}>Настройки</li>
+            <li onClick={() => { navigate("/settings"); toggleMenu(false); }}>Настройки</li>
             <hr />
-            <li onClick={() => navigate("/meta_verified")}>Meta Verified</li>
+            <li onClick={()=> {navigate('/meta_verified'); }}>Meta Verified</li>
             <hr />
             <li onClick={toggleModal3}>Сообщить о проблеме</li>
             <hr />
