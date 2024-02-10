@@ -137,7 +137,7 @@
 .modal-actions2 input {
   border: none;
   background: none;
-  color: gray;
+  color: white;
   font-size: 16px;
   padding: 5px;
   margin: 0;
@@ -149,6 +149,7 @@
 }
 .modalinp {
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 .detailP {

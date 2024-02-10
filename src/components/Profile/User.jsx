@@ -2,14 +2,21 @@ import React, { useEffect, useRef, useState } from "react";
 import LockIcon from "../../img/lock.png";
 import UserIcon from "../../img/user.webp";
 import { name } from "../../helpers/const";
+import { useAuth } from "../../context/AuthContextProvider";
 import "./User.css";
 
 const User = () => {
   const [followersCount, setFollowersCount] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBio, setIsBio] = useState("");
+  const [isLink, setIsLink] = useState("");
   const fileInputRef = useRef(null);
+  const { editUser } = useAuth();
+  const bio = JSON.parse(localStorage.getItem("bio"));
+  const link = JSON.parse(localStorage.getItem("link"));
   //! modal5
+
   useEffect(() => {
     fileInputRef.current = document.createElement("input");
     fileInputRef.current.type = "file";
@@ -46,19 +53,30 @@ const User = () => {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
+  function handleEditUser() {
+    if (!isBio.trim()) return;
+    if (!isLink.startsWith("https://")) return;
+    closeModal();
+    let formData = new FormData();
+    formData.append("biography", isBio);
+    localStorage.setItem("bio", JSON.stringify(isBio));
+    formData.append("link", isLink);
+    localStorage.setItem("link", JSON.stringify(isLink));
+    editUser(formData);
+  }
+
   return (
     <div className="profile-container">
       <div className="profile-title">
         <div className="profile-name">
           <h2>{name}</h2>
-          <p>Веб-разработчик</p>
+          <h4 style={{ color: "white" }}>{bio}</h4>
+          <p style={{ maxWidth: "80px" }}>
+            <a href={link}>{link}</a>
+          </p>
           <span>{followersCount} подписчиков</span>
         </div>
-        <img
-          src="https://i.pinimg.com/474x/31/af/f1/31aff1f41b565d819acc5ab0003be45e.jpg"
-          alt="Аватар пользователя"
-          className="avatar"
-        />
+        <img src={UserIcon} alt="Аватар пользователя" className="avatar" />
       </div>
       <div className="profile-buttons">
         <button className="edit-profile-button" onClick={toggleModal}>
@@ -74,8 +92,16 @@ const User = () => {
               <div className="modal-actions2">
                 <span className="modalspan">Имя</span>
                 <div className="modalinp">
-                  <img src={LockIcon} alt="" />{" "}
-                  <input type="text" value={name} style={{ color: "white" }} />
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    {" "}
+                    <img src={LockIcon} alt="" />{" "}
+                    <input
+                      type="text"
+                      defaultValue={name}
+                      style={{ color: "white" }}
+                    />
+                  </div>
+
                   <div className="icon">
                     <img id="usericon1" src={UserIcon} alt="" />
                   </div>
@@ -83,16 +109,24 @@ const User = () => {
                 <hr className="hrmodal" />
                 <div>
                   <span className="modalspan">Биография</span>
-                  <input type="text" value="+ Добавить биографию" />
+                  <input
+                    type="text"
+                    placeholder="+ Добавить биографию"
+                    onChange={(e) => setIsBio(e.target.value)}
+                  />
                 </div>
                 <hr className="hrmodal" />
                 <div>
                   <span className="modalspan">Ссылка</span>
-                  <input type="text" value="+ Добавить ссылку" />
+                  <input
+                    type="text"
+                    placeholder="+ Добавить ссылку"
+                    onChange={(e) => setIsLink(e.target.value)}
+                  />
                 </div>
                 <hr className="hrmodal" />
                 <div className="modalbtn">
-                  <button onClick={closeModal}>Готово</button>
+                  <button onClick={handleEditUser}>Готово</button>
                 </div>
               </div>
             </div>

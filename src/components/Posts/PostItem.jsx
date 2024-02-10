@@ -6,6 +6,7 @@ import Comment from "../../img/comment.png";
 import Repost from "../../img/send.png";
 import { usePost } from "../../context/PostContextPrivder";
 import { useNavigate } from "react-router-dom";
+import { admin_email, email } from "../../helpers/const";
 
 const PostItem = ({ elem }) => {
   const { deletePost, likePost, like } = usePost();
@@ -28,7 +29,6 @@ const PostItem = ({ elem }) => {
     setIsMenuOpen(false);
     alert("Спасибо, что сообщили об этом!");
   };
-
   return (
     <div className="postitem_container">
       <div className="postitem_title">
@@ -63,13 +63,18 @@ const PostItem = ({ elem }) => {
                 <li style={{ color: "red" }} onClick={toggleMenu5}>
                   Пожаловаться
                 </li>
-                <hr />
-                <li
-                  style={{ color: "red" }}
-                  onClick={() => deletePost(elem.id)}
-                >
-                  Удалить
-                </li>
+                {email === admin_email ? (
+                  <>
+                    {" "}
+                    <hr />
+                    <li
+                      style={{ color: "red" }}
+                      onClick={() => deletePost(elem.id)}
+                    >
+                      Удалить
+                    </li>
+                  </>
+                ) : null}
               </ul>
             )}
             {isMenuOpen5 && (

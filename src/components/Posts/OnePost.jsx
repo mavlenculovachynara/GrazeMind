@@ -5,7 +5,7 @@ import User from "../../img/user.webp";
 import Like from "../../img/heart-shape.png";
 import Comment from "../../img/comment.png";
 import Repost from "../../img/send.png";
-import { name } from "../../helpers/const";
+import { admin_email, email, name } from "../../helpers/const";
 import "./Post.css";
 const OnePost = () => {
   useEffect(() => {
@@ -143,7 +143,7 @@ const OnePost = () => {
             </div>
             <div>
               <p>
-                <span>84 ответов</span>
+                <span>{comments.length} ответов</span>
                 <span>• {like} отметок "Нравится"</span>
               </p>
             </div>
@@ -192,13 +192,18 @@ const OnePost = () => {
                       <li onClick={toggleMenu2}>Скрыть</li>
                       <hr />
                       <li style={{ color: "red" }}>Пожаловаться</li>
-                      <hr />
-                      <li
-                        style={{ color: "red" }}
-                        onClick={() => deleteComments(elem.id)}
-                      >
-                        Удалить
-                      </li>
+                      {email === admin_email ? (
+                        <>
+                          {" "}
+                          <hr />
+                          <li
+                            style={{ color: "red" }}
+                            onClick={() => deleteComments(elem.id)}
+                          >
+                            Удалить
+                          </li>
+                        </>
+                      ) : null}
                     </ul>
                   )}
                 </div>
