@@ -63,7 +63,7 @@ const PostItem = ({ elem }) => {
                 <li style={{ color: "red" }} onClick={toggleMenu5}>
                   Пожаловаться
                 </li>
-                {email === admin_email ? (
+                {email === admin_email || email === elem.creator.email ? (
                   <>
                     {" "}
                     <hr />
