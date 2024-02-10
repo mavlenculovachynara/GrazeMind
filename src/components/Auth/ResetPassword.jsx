@@ -3,7 +3,6 @@ import { useAuth } from "../../context/AuthContextProvider";
 
 const ResetPassword = () => {
   const { error, setError, handleResetPassword } = useAuth();
-  const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
   useEffect(() => {
@@ -11,16 +10,19 @@ const ResetPassword = () => {
   }, []);
   function handleReset(e) {
     e.preventDefault();
-    if (!password.trim()) {
+    if (!newPassword.trim() || !newPasswordConfirm.trim()) {
+      setError("Ваши пароли не совпадают!");
       return;
-    } else if (password.trim().length < 8) {
+    } else if (
+      newPassword.trim().length < 8 ||
+      newPasswordConfirm.trim().length < 8
+    ) {
       setError("Пароль должен содержать не менее 8 символов");
       return;
     }
     let formData = new FormData();
-    formData.append("password", password);
-    formData.append("password", newPassword);
-    formData.append("password", newPasswordConfirm);
+    formData.append("new_password", newPassword);
+    formData.append("password_confirm", newPasswordConfirm);
     handleResetPassword(formData);
   }
   return (
@@ -28,13 +30,7 @@ const ResetPassword = () => {
       <form action="#" className="login-container" onSubmit={handleReset}>
         <h3>Восстановление пароля</h3>
         {error ? <h5 style={{ color: "red" }}>{error}</h5> : null}
-
-        <input
-          type="password"
-          placeholder="Текущий пароль"
-          className="login-input"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <h5>Вам на почту пришло сообщение</h5>
         <input
           type="password"
           placeholder="Введите новый пароль"

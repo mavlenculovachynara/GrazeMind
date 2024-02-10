@@ -15,7 +15,7 @@ import Cross from "../../img/cross-mark.png";
 import { useAuth } from "../../context/AuthContextProvider";
 import LightDark from "../LightDark/LightDark";
 import { usePost } from "../../context/PostContextPrivder";
-import { name } from "../../helpers/const";
+import { name, tokens } from "../../helpers/const";
 const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,7 +28,6 @@ const Navbar = () => {
   const [image, setImage] = useState(null);
   const [hashtag, setHashtag] = useState("");
   const [username, setUserName] = useState("");
-  const [mail, setMail] = useState("");
   const [theme, setTheme] = useState("light");
 
   const { categories, getCategories, addPost } = usePost();
@@ -38,9 +37,7 @@ const Navbar = () => {
   const fileInputRef = useRef(null);
   useEffect(() => {
     getCategories();
-    const mail = JSON.parse(localStorage.getItem("email"));
     setUserName(name);
-    setMail(mail);
     const handleScroll = () => {
       const scrollTop = window.pageYOffset;
       setIsTop(scrollTop === 0);
@@ -144,7 +141,7 @@ const Navbar = () => {
           <Link to="/like" className="link">
             <img src={Like} alt="" />
           </Link>
-          <Link to={mail ? "/user" : "/login"} id="userIcon" className="link">
+          <Link to={tokens ? "/user" : "/login"} id="userIcon" className="link">
             <img src={User} alt="" />
           </Link>
         </div>
@@ -157,7 +154,7 @@ const Navbar = () => {
             <hr />
             <li onClick={() => navigate("/settings")}>Настройки</li>
             <hr />
-            <li onClick={()=> navigate('/meta_verified')}>Meta Verified</li>
+            <li onClick={() => navigate("/meta_verified")}>Meta Verified</li>
             <hr />
             <li onClick={toggleModal3}>Сообщить о проблеме</li>
             <hr />

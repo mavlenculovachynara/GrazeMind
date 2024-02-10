@@ -236,5 +236,6 @@ button {
 }
 
 .text {
+  cursor: pointer;
   padding: 10px;
 }
