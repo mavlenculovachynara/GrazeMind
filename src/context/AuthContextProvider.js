@@ -19,7 +19,7 @@ const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
-  const getConfig = () => {
+ const  getConfig = () => {
     const tokens = JSON.parse(localStorage.getItem("tokens"));
     const Authorization = `Bearer ${tokens.access}`;
     const config = {
@@ -30,7 +30,10 @@ const AuthContextProvider = ({ children }) => {
   // ! Register
   async function handleRegister(formData, username) {
     try {
-      const { data } = await axios.post(`${API}/account/register/`, formData);
+      const { data } = await axios.post(
+        `${API}/account/register/`,
+        formData
+      );
       navigate("/register_active");
       localStorage.setItem("username", JSON.stringify(username));
       console.log(data);
@@ -40,7 +43,10 @@ const AuthContextProvider = ({ children }) => {
   }
   async function handleActiveRegister(formData) {
     try {
-      const { data } = await axios.post(`${API}/account/activate/`, formData);
+      const { data } = await axios.post(
+        `${API}/account/activate/`,
+        formData
+      );
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -48,11 +54,10 @@ const AuthContextProvider = ({ children }) => {
   }
   async function handleResetPassword() {
     try {
-      const res = await axios.post(
+      const { data } = await axios.post(
         `${API}/account/reset_password/`,
         getConfig()
       );
-      console.log(res);
       navigate("/login");
     } catch (error) {
       console.error(error);
@@ -95,7 +100,10 @@ const AuthContextProvider = ({ children }) => {
   }
   async function getOneUser(id) {
     try {
-      let { data } = await axios(`${API}/account/user/${id}/`, getConfig());
+      let { data } = await axios(
+        `${API}/api/account/user_full/${id}/`,
+        getConfig()
+      );
       console.log(data);
       dispatch({ type: ACTIONS.GET_ONE_USER, payload: data });
     } catch (error) {
@@ -117,7 +125,7 @@ const AuthContextProvider = ({ children }) => {
   }
   async function addVerified() {
     try {
-      const res = await axios.post(`${API}/account/user_vip/`, getConfig());
+      const res = await axios.post(`${API}/api/account/vip/`, getConfig());
       console.log(res);
     } catch (error) {
       console.error(error);
@@ -125,7 +133,7 @@ const AuthContextProvider = ({ children }) => {
   }
   async function getSubscribers() {
     try {
-      let res = await axios(`${API}/post/subscriptions/`, getConfig());
+      let res = await axios(`${API}/api/subscriptions/`, getConfig());
       console.log(res);
     } catch (error) {
       console.error(error);
@@ -134,7 +142,7 @@ const AuthContextProvider = ({ children }) => {
   async function toSubscribe(id) {
     try {
       let res = await axios.post(
-        `${API}/post/subscriptions/${id}/`,
+        `${API}/api/subscriptions/${id}/`,
         getConfig()
       );
       console.log(res);

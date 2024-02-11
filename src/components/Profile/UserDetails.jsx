@@ -16,6 +16,7 @@ const UserDetails = () => {
   const [followersCount, setFollowersCount] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfilePhotoModalOpen, setIsProfilePhotoModalOpen] = useState(false);
   const fileInputRef = useRef(null);
   //! modal5
   useEffect(() => {
@@ -25,6 +26,9 @@ const UserDetails = () => {
     fileInputRef.current.accept = "image/*";
     fileInputRef.current.style.display = "none";
   }, []);
+  const toggleProfilePhotoModal = () => {
+    setIsProfilePhotoModalOpen(!isProfilePhotoModalOpen);
+  };  
   //! модальное окно для жалоб
   const [isMenuOpen5, setIsMenuOpen5] = useState(false);
   const toggleMenu5 = () => {
@@ -92,12 +96,24 @@ const UserDetails = () => {
             <span>{followersCount} подписчиков</span>
           </div>
           <img
-            src={UserIcon}
+           onClick={toggleProfilePhotoModal}
+            src={oneUser.avatar || UserIcon}
             alt="Аватар пользователя"
             className="avatar"
             style={{ width: "70px", height: "70px" }}
           />
         </div>
+        {isProfilePhotoModalOpen && (
+  <div className="profile-photo-modal" onClick={toggleProfilePhotoModal}>
+    <div className="profile-photo-content">
+      <img
+        style={{ borderRadius: '50%', width: '200px', height: '200px' }}
+        src={UserIcon}
+        alt=""
+      />
+    </div>
+  </div>
+)}
         <div className="profile-buttons">
           {
             <button
