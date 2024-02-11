@@ -28,7 +28,7 @@ const UserDetails = () => {
   }, []);
   const toggleProfilePhotoModal = () => {
     setIsProfilePhotoModalOpen(!isProfilePhotoModalOpen);
-  };  
+  };
   //! модальное окно для жалоб
   const [isMenuOpen5, setIsMenuOpen5] = useState(false);
   const toggleMenu5 = () => {
@@ -82,7 +82,7 @@ const UserDetails = () => {
       <div className="profile-container">
         <div className="profile-title">
           <div className="profile-name">
-            <h2>{oneUser.username ? oneUser.username : "Unknown"}</h2>
+            <h2>{oneUser.username}</h2>
             <h4 style={{ color: "white", maxWidth: "100px" }}>
               {oneUser.biography}
             </h4>
@@ -96,7 +96,7 @@ const UserDetails = () => {
             <span>{followersCount} подписчиков</span>
           </div>
           <img
-           onClick={toggleProfilePhotoModal}
+            onClick={toggleProfilePhotoModal}
             src={oneUser.avatar || UserIcon}
             alt="Аватар пользователя"
             className="avatar"
@@ -104,16 +104,19 @@ const UserDetails = () => {
           />
         </div>
         {isProfilePhotoModalOpen && (
-  <div className="profile-photo-modal" onClick={toggleProfilePhotoModal}>
-    <div className="profile-photo-content">
-      <img
-        style={{ borderRadius: '50%', width: '200px', height: '200px' }}
-        src={UserIcon}
-        alt=""
-      />
-    </div>
-  </div>
-)}
+          <div
+            className="profile-photo-modal"
+            onClick={toggleProfilePhotoModal}
+          >
+            <div className="profile-photo-content">
+              <img
+                style={{ borderRadius: "50%", width: "200px", height: "200px" }}
+                src={UserIcon}
+                alt=""
+              />
+            </div>
+          </div>
+        )}
         <div className="profile-buttons">
           {
             <button

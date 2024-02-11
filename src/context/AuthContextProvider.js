@@ -19,7 +19,7 @@ const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
- const  getConfig = () => {
+  const getConfig = () => {
     const tokens = JSON.parse(localStorage.getItem("tokens"));
     const Authorization = `Bearer ${tokens.access}`;
     const config = {
@@ -30,10 +30,7 @@ const AuthContextProvider = ({ children }) => {
   // ! Register
   async function handleRegister(formData, username) {
     try {
-      const { data } = await axios.post(
-        `${API}/account/register/`,
-        formData
-      );
+      const { data } = await axios.post(`${API}/account/register/`, formData);
       navigate("/register_active");
       localStorage.setItem("username", JSON.stringify(username));
       console.log(data);
@@ -43,10 +40,7 @@ const AuthContextProvider = ({ children }) => {
   }
   async function handleActiveRegister(formData) {
     try {
-      const { data } = await axios.post(
-        `${API}/account/activate/`,
-        formData
-      );
+      const { data } = await axios.post(`${API}/account/activate/`, formData);
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -100,10 +94,7 @@ const AuthContextProvider = ({ children }) => {
   }
   async function getOneUser(id) {
     try {
-      let { data } = await axios(
-        `${API}/api/account/user_full/${id}/`,
-        getConfig()
-      );
+      let { data } = await axios(`${API}/account/user/${id}/`, getConfig());
       console.log(data);
       dispatch({ type: ACTIONS.GET_ONE_USER, payload: data });
     } catch (error) {
