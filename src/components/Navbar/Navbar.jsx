@@ -179,10 +179,6 @@ const Navbar = () => {
             <hr />
             <li onClick={toggleModal3}>Сообщить о проблеме</li>
             <hr />
-            <li onClick={() => navigate("/register")}>Зарегистрироваться</li>
-            <hr />
-            <li onClick={() => navigate("/login")}>Авторизация</li>
-            <hr />
             <li onClick={() => navigate("/logout")}>Выйти</li>
           </ul>
         )}

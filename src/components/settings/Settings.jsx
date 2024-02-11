@@ -136,7 +136,6 @@ const Settings = () => {
 
         {isActiveAccount && (
           <div style={{ height: "700px" }}>
-            {/* Контент Аккаунта */}
             <div>
               <div>
                 <div className="text">Использовать без профиля</div>

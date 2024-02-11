@@ -51,14 +51,13 @@ const AuthContextProvider = ({ children }) => {
       console.error(error);
     }
   }
-  async function handleResetPassword(formData) {
+  async function handleResetPassword() {
     try {
-      const { data } = await axios.post(
-        `${API}/account/reset_password/`,
-        formData,
+      const res = await axios.post(
+        `${API}/api/account/reset_password/`,
         getConfig()
       );
-      console.log(data);
+      console.log(res);
       navigate("/login");
     } catch (error) {
       console.error(error);

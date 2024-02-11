@@ -6,7 +6,7 @@ import Hash from "../../img/hash (1).png";
 import Cross from "../../img/cross-mark.png";
 import { usePost } from "../../context/PostContextPrivder";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { name } from "../../helpers/const";
+import { admin_email, email, name } from "../../helpers/const";
 
 const PostList = () => {
   const fileInputRef = useRef(null);
@@ -18,6 +18,7 @@ const PostList = () => {
   const [image, setImage] = useState(null);
   const [hashtag, setHashtag] = useState("");
   const [username, setUserName] = useState("");
+  const [showAddCategoryBtn, setShowAddCategoryBtn] = useState(true);
   const { getCategories, categories, addPost, getPosts, posts } = usePost();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -42,7 +43,9 @@ const PostList = () => {
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-
+  useEffect(() => {
+    setShowAddCategoryBtn(!isModalOpen2);
+  }, [isModalOpen2]);
   const toggleModal2 = () => {
     setIsModalOpen2(!isModalOpen2);
   };
@@ -202,12 +205,20 @@ const PostList = () => {
         </div>
       )}
       <div>
-       <div className="bntContainer">
-       <button className="addCategoryBtn" onClick={()=>navigate('/addCategory')}>Добавить хэштег</button>
-        <button className="fixed-button" onClick={toggleModal2}>
-          Фильтровать
-        </button>
-       </div>
+        <div className="bntContainer">
+          {email === admin_email && showAddCategoryBtn && (
+            <button
+              className="addCategoryBtn"
+              onClick={() => navigate("/addCategory")}
+            >
+              Добавить хэштег
+            </button>
+          )}
+
+          <button className="fixed-button" onClick={toggleModal2}>
+            Фильтровать
+          </button>
+        </div>
         {isModalOpen2 && (
           <div className="categories-modal">
             <ul className="categories">
