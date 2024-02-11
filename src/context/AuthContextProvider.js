@@ -41,10 +41,7 @@ const AuthContextProvider = ({ children }) => {
   }
   async function handleResetPassword() {
     try {
-      const { data } = await axios.post(
-        `${API}/account/reset_password/`,
-        getConfig()
-      );
+      await axios.post(`${API}/account/reset_password/`, getConfig());
       navigate("/login");
     } catch (error) {
       console.error(error);
@@ -101,32 +98,22 @@ const AuthContextProvider = ({ children }) => {
       );
       console.log(res);
       window.location.reload();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  async function addVerified() {
-    try {
-      const res = await axios.post(`${API}/api/account/vip/`, getConfig());
-      console.log(res);
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
   }
   async function getSubscribers() {
     try {
-      let res = await axios(`${API}/api/subscriptions/`, getConfig());
+      let res = await axios(`${API}/posts/subscriptions/`, getConfig());
       console.log(res);
     } catch (error) {
       console.error(error);
     }
   }
-  async function toSubscribe(id) {
+  async function toSubscribe() {
     try {
-      let res = await axios.post(
-        `${API}/api/subscriptions/${id}/`,
-        getConfig()
-      );
+      let res = await axios.post(`${API}/posts/subscriptions/`, getConfig());
       console.log(res);
     } catch (error) {
       console.error(error);
@@ -162,7 +149,6 @@ const AuthContextProvider = ({ children }) => {
     handleResetPassword,
     getOneUser,
     oneUser: state.oneUser,
-    addVerified,
     editUser,
     getSubscribers,
     toSubscribe,

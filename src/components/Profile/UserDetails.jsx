@@ -4,6 +4,7 @@ import UserIcon from "../../img/user.webp";
 import Close from "../../img/blockicon.png";
 import "./User.css";
 import { useNavigate, useParams } from "react-router-dom";
+import { email } from "../../helpers/const";
 
 const UserDetails = () => {
   const { getOneUser, oneUser, toSubscribe, getSubscribers } = useAuth();
@@ -11,7 +12,6 @@ const UserDetails = () => {
   const { id } = useParams();
   useEffect(() => {
     getOneUser(id);
-    console.log(oneUser);
   }, []);
   const [followersCount, setFollowersCount] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
@@ -21,6 +21,7 @@ const UserDetails = () => {
   //! modal5
   useEffect(() => {
     getSubscribers();
+    console.log(oneUser);
     fileInputRef.current = document.createElement("input");
     fileInputRef.current.type = "file";
     fileInputRef.current.accept = "image/*";
@@ -70,13 +71,13 @@ const UserDetails = () => {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
-  // function handleSubscribe() {
-  //   let formData = new FormData();
-  //   // formData.append("subscriber", name);
-  //   formData.append("subscribed_to");
-  //   handleFollow();
-  //   toSubscribe(formData, id);
-  // }
+  function handleSubscribe(user_email) {
+    let formData = new FormData();
+    formData.append("subscriber", email);
+    formData.append("subscribed_to", user_email);
+    handleFollow();
+    toSubscribe(formData);
+  }
   return (
     <div>
       <div className="profile-container">
@@ -127,7 +128,7 @@ const UserDetails = () => {
           {
             <button
               className={`follow-button ${isFollowing ? "following" : ""}`}
-              // onClick={handleSubscribe}
+              onClick={() => handleSubscribe(oneUser.email)}
             >
               {isFollowing ? "Вы подписаны" : "Подписаться"}
             </button>

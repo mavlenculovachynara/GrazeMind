@@ -101,7 +101,7 @@ const User = () => {
           src={avatar || UserIcon}
           alt="Аватар пользователя"
           className="avatar"
-          style={{ width: "60px", height: "60px" }}
+          style={{ width: "80px", height: "80px", zIndex: "1001" }}
         />
         {isProfilePhotoModalOpen && (
           <div
@@ -111,8 +111,8 @@ const User = () => {
             <div className="profile-photo-content">
               <img
                 style={{ borderRadius: "50%", width: "200px", height: "200px" }}
-                src={UserIcon}
-                alt=""
+                src={avatar || UserIcon}
+                alt="img"
               />
             </div>
           </div>

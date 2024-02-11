@@ -7,7 +7,7 @@ const INIT_STATE = {
   categories: [],
   posts: [],
   onePost: {},
-  like: 0,
+  like: [],
   comments: [],
   messages: [],
 };
@@ -90,9 +90,13 @@ const PostContextPrivder = ({ children }) => {
     }
   }
   // !like
-  const likePost = async (id) => {
+  const likePost = async (formData) => {
     try {
-      const { data } = await axios.post(`${API}/posts/likes/`, getConfig());
+      const { data } = await axios.post(
+        `${API}/posts/likes/`,
+        formData,
+        getConfig()
+      );
       console.log(data);
       dispatch({
         type: ACTIONS.LIKE_POST,
@@ -100,7 +104,7 @@ const PostContextPrivder = ({ children }) => {
       });
       console.log("Post liked:", data);
     } catch (error) {
-      console.error("Error liking post:", error);
+      console.error(error);
     }
   };
   // !detail
@@ -143,7 +147,7 @@ const PostContextPrivder = ({ children }) => {
   //!delete comment
   async function deleteComments(id) {
     try {
-      await axios.delete(`${API}/posts/comments/${id}/`, getConfig());
+      await axios.delete(`${API}/posts/posts/${id}/comments/`, getConfig());
       getComments();
     } catch (error) {
       console.error(error);
@@ -151,11 +155,16 @@ const PostContextPrivder = ({ children }) => {
   }
   async function addMessage(formData) {
     try {
-      const { data } = await axios.post(
-        `${ws.url}/chat/send-messages/`,
-        formData,
-        getConfig()
-      );
+      const { data } = await axios.post(`${ws}/chat/send-messages/`, formData);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function getMessages() {
+    try {
+      const { data } = await axios(`${ws}/chat/send-messages/`);
+      dispatch({ type: ACTIONS.GET_MESSAGES, payload: data });
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -178,6 +187,7 @@ const PostContextPrivder = ({ children }) => {
     getComments,
     deleteComments,
     addMessage,
+    getMessages,
   };
   return <postContext.Provider value={values}>{children}</postContext.Provider>;
 };
