@@ -92,9 +92,10 @@ const UserDetails = () => {
             <span>{followersCount} подписчиков</span>
           </div>
           <img
-            src="https://i.pinimg.com/474x/31/af/f1/31aff1f41b565d819acc5ab0003be45e.jpg"
+            src={UserIcon}
             alt="Аватар пользователя"
             className="avatar"
+            style={{ width: "70px", height: "70px" }}
           />
         </div>
         <div className="profile-buttons">
@@ -231,7 +232,6 @@ const UserDetails = () => {
               </div>
             </div>
           </div>{" "}
-          <hr />
         </div>{" "}
         <div className="contentForUser">
           {activeTab === "threads" && <p>Контент для веток</p>}
