@@ -17,7 +17,6 @@ const PostList = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [hashtag, setHashtag] = useState("");
-  const [username, setUserName] = useState("");
   const [showAddCategoryBtn, setShowAddCategoryBtn] = useState(true);
   const { getCategories, categories, addPost, getPosts, posts } = usePost();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -27,7 +26,6 @@ const PostList = () => {
   useEffect(() => {
     getPosts();
     getCategories();
-    setUserName(name);
     fileInputRef.current = document.createElement("input");
     fileInputRef.current.type = "file";
     fileInputRef.current.accept = "image/*";
@@ -142,7 +140,7 @@ const PostList = () => {
             <div className="postitem_request">
               {" "}
               <img src={User} alt="img" />
-              <h5>{username}</h5>
+              <h5>{name}</h5>
             </div>
             <div className="modal-actions">
               {" "}

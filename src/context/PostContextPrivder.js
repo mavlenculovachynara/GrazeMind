@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { ACTIONS, API } from "../helpers/const";
+import { ACTIONS, API, getConfig, ws } from "../helpers/const";
 import axios from "axios";
 const postContext = createContext();
 export const usePost = () => useContext(postContext);
@@ -9,6 +9,7 @@ const INIT_STATE = {
   onePost: {},
   like: 0,
   comments: [],
+  messages: [],
 };
 const reducer = (state = INIT_STATE, action) => {
   switch (action.type) {
@@ -28,20 +29,15 @@ const reducer = (state = INIT_STATE, action) => {
       };
     case ACTIONS.GET_COMMENTS:
       return { ...state, comments: action.payload };
+    case ACTIONS.GET_MESSAGES:
+      return { ...state, messages: action.payload };
     default:
       return state;
   }
 };
 const PostContextPrivder = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
-  const getConfig = () => {
-    const tokens = JSON.parse(localStorage.getItem("tokens"));
-    const Authorization = `Bearer ${tokens.access}`;
-    const config = {
-      headers: { Authorization },
-    };
-    return config;
-  };
+
   async function getCategories() {
     try {
       const { data } = await axios(`${API}/posts/hashtags/`);
@@ -68,8 +64,8 @@ const PostContextPrivder = ({ children }) => {
   // !addpost
   async function addPost(formData) {
     try {
-      await axios.post(`${API}/posts/posts/`, formData, getConfig());
-
+      let res = await axios.post(`${API}/posts/posts/`, formData, getConfig());
+      console.log(res);
       getPosts();
     } catch (error) {
       console.error(error);
@@ -77,16 +73,21 @@ const PostContextPrivder = ({ children }) => {
   }
   async function getPosts() {
     try {
-      const { data } = await axios(`${API}/posts/posts/`, getConfig());
-      dispatch({ type: ACTIONS.GET_POSTS, payload: data });
+      const res = await axios(`${API}/posts/posts/`, getConfig());
+      console.log(res);
+      dispatch({ type: ACTIONS.GET_POSTS, payload: res.data });
     } catch (error) {
       console.error(error);
     }
   }
   // !delete
   async function deletePost(id) {
-    await axios.delete(`${API}/posts/posts/${id}/`, getConfig());
-    getPosts();
+    try {
+      await axios.delete(`${API}/posts/posts/${id}/`, getConfig());
+      getPosts();
+    } catch (error) {
+      console.error(error);
+    }
   }
   // !like
   const likePost = async (id) => {
@@ -114,17 +115,25 @@ const PostContextPrivder = ({ children }) => {
       console.error(error);
     }
   }
-  async function addComment(formData) {
+  async function addComment(formData, id) {
     try {
-      await axios.post(`${API}/posts/comments/`, formData, getConfig());
+      let res = await axios.post(
+        `${API}/posts/posts/${id}/comments/`,
+        formData,
+        getConfig()
+      );
+      console.log(res);
       getComments();
     } catch (error) {
       console.error(error);
     }
   }
-  async function getComments() {
+  async function getComments(id) {
     try {
-      let { data } = await axios(`${API}/posts/comments/`, getConfig());
+      let { data } = await axios(
+        `${API}/posts/posts/${id}/comments/`,
+        getConfig()
+      );
       dispatch({ type: ACTIONS.GET_COMMENTS, payload: data });
       console.log(data);
     } catch (error) {
@@ -136,6 +145,18 @@ const PostContextPrivder = ({ children }) => {
     try {
       await axios.delete(`${API}/posts/comments/${id}/`, getConfig());
       getComments();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function addMessage(formData) {
+    try {
+      const { data } = await axios.post(
+        `${ws.url}/chat/send-messages/`,
+        formData,
+        getConfig()
+      );
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -156,6 +177,7 @@ const PostContextPrivder = ({ children }) => {
     comments: state.comments,
     getComments,
     deleteComments,
+    addMessage,
   };
   return <postContext.Provider value={values}>{children}</postContext.Provider>;
 };

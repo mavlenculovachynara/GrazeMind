@@ -3,11 +3,11 @@ import { useAuth } from "../../context/AuthContextProvider";
 import UserIcon from "../../img/user.webp";
 import Close from "../../img/blockicon.png";
 import "./User.css";
-import { name } from "../../helpers/const";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const UserDetails = () => {
   const { getOneUser, oneUser, toSubscribe, getSubscribers } = useAuth();
+  const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
     getOneUser(id);
@@ -70,19 +70,19 @@ const UserDetails = () => {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
-  function handleSubscribe() {
-    let formData = new FormData();
-    formData.append("subscriber", name);
-    formData.append("subscribed_to");
-    handleFollow();
-    toSubscribe(formData, id);
-  }
+  // function handleSubscribe() {
+  //   let formData = new FormData();
+  //   // formData.append("subscriber", name);
+  //   formData.append("subscribed_to");
+  //   handleFollow();
+  //   toSubscribe(formData, id);
+  // }
   return (
     <div>
       <div className="profile-container">
         <div className="profile-title">
           <div className="profile-name">
-            <h2>{oneUser.username}</h2>
+            <h2>{oneUser.username ? oneUser.username : "Неизвестно"}</h2>
             <h4 style={{ color: "white", maxWidth: "100px" }}>
               {oneUser.biography}
             </h4>
@@ -90,7 +90,7 @@ const UserDetails = () => {
               {oneUser.last_online &&
                 new Date(oneUser.last_online).toLocaleDateString()}
             </p>
-            <p style={{ maxWidth: "80px" }}>
+            <p style={{ maxWidth: "110px" }}>
               <a href={oneUser.link}>{oneUser.link}</a>
             </p>
             <span>{followersCount} подписчиков</span>
@@ -118,10 +118,16 @@ const UserDetails = () => {
           </div>
         )}
         <div className="profile-buttons">
+          <button
+            className="edit-profile-button"
+            onClick={() => navigate(`/chat/${id}`)}
+          >
+            Написать
+          </button>
           {
             <button
               className={`follow-button ${isFollowing ? "following" : ""}`}
-              onClick={handleSubscribe}
+              // onClick={handleSubscribe}
             >
               {isFollowing ? "Вы подписаны" : "Подписаться"}
             </button>
