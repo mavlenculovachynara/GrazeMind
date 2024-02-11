@@ -28,13 +28,11 @@ const AuthContextProvider = ({ children }) => {
     return config;
   };
   // ! Register
-  async function handleRegister(formData) {
+  async function handleRegister(formData, username) {
     try {
-      const { data } = await axios.post(
-        `${API}/api/account/register/`,
-        formData
-      );
+      const { data } = await axios.post(`${API}/account/register/`, formData);
       navigate("/register_active");
+      localStorage.setItem("username", JSON.stringify(username));
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -42,10 +40,7 @@ const AuthContextProvider = ({ children }) => {
   }
   async function handleActiveRegister(formData) {
     try {
-      const { data } = await axios.post(
-        `${API}/api/account/activate/`,
-        formData
-      );
+      const { data } = await axios.post(`${API}/account/activate/`, formData);
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -54,7 +49,7 @@ const AuthContextProvider = ({ children }) => {
   async function handleResetPassword() {
     try {
       const res = await axios.post(
-        `${API}/api/account/reset_password/`,
+        `${API}/account/reset_password/`,
         getConfig()
       );
       console.log(res);
@@ -66,7 +61,7 @@ const AuthContextProvider = ({ children }) => {
   // !Login
   async function handleLogin(formData, email) {
     try {
-      const { data } = await axios.post(`${API}/api/account/login/`, formData);
+      const { data } = await axios.post(`${API}/account/login/`, formData);
       window.location.reload();
       localStorage.setItem("tokens", JSON.stringify(data));
       localStorage.setItem("email", JSON.stringify(email));
@@ -79,7 +74,7 @@ const AuthContextProvider = ({ children }) => {
   // !Logout
   const handleLogout = async () => {
     try {
-      await axios.post(`${API}/api/account/logout/`, getConfig());
+      await axios.post(`${API}/account/logout/`, getConfig());
       localStorage.removeItem("tokens");
       localStorage.removeItem("email");
       localStorage.removeItem("username");
@@ -91,7 +86,7 @@ const AuthContextProvider = ({ children }) => {
   };
   async function getUsers() {
     try {
-      let { data } = await axios(`${API}/api/account/users/`, getConfig());
+      let { data } = await axios(`${API}/account/users/`, getConfig());
       dispatch({ type: ACTIONS.GET_USERS, payload: data });
       console.log(data);
     } catch (error) {
@@ -100,10 +95,7 @@ const AuthContextProvider = ({ children }) => {
   }
   async function getOneUser(id) {
     try {
-      let { data } = await axios(
-        `${API}/api/account/user_full/${id}/`,
-        getConfig()
-      );
+      let { data } = await axios(`${API}/account/user/${id}/`, getConfig());
       console.log(data);
       dispatch({ type: ACTIONS.GET_ONE_USER, payload: data });
     } catch (error) {
@@ -113,7 +105,7 @@ const AuthContextProvider = ({ children }) => {
   async function editUser(formData) {
     try {
       let { data } = await axios.put(
-        `${API}/api/account/profile_update/`,
+        `${API}/account/profile_update/`,
         formData,
         getConfig()
       );
@@ -124,7 +116,7 @@ const AuthContextProvider = ({ children }) => {
   }
   async function addVerified() {
     try {
-      const res = await axios.post(`${API}/api/account/vip/`, getConfig());
+      const res = await axios.post(`${API}/account/user_vip/`, getConfig());
       console.log(res);
     } catch (error) {
       console.error(error);
@@ -132,7 +124,7 @@ const AuthContextProvider = ({ children }) => {
   }
   async function getSubscribers() {
     try {
-      let res = await axios(`${API}/api/subscriptions/`, getConfig());
+      let res = await axios(`${API}/post/subscriptions/`, getConfig());
       console.log(res);
     } catch (error) {
       console.error(error);
@@ -141,7 +133,7 @@ const AuthContextProvider = ({ children }) => {
   async function toSubscribe(id) {
     try {
       let res = await axios.post(
-        `${API}/api/subscriptions/${id}/`,
+        `${API}/post/subscriptions/${id}/`,
         getConfig()
       );
       console.log(res);
@@ -152,7 +144,7 @@ const AuthContextProvider = ({ children }) => {
   async function deleteUser() {
     try {
       const res = await axios.delete(
-        `${API}/api/account/delete_user/`,
+        `${API}/account/delete_user/`,
         getConfig()
       );
       window.location.reload();
