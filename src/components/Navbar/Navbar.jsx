@@ -15,7 +15,7 @@ import Cross from "../../img/cross-mark.png";
 import { useAuth } from "../../context/AuthContextProvider";
 import LightDark from "../LightDark/LightDark";
 import { usePost } from "../../context/PostContextPrivder";
-import { name, tokens } from "../../helpers/const";
+import { avatar, name, tokens } from "../../helpers/const";
 const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -185,8 +185,8 @@ const Navbar = () => {
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <div className="postitem_request">
                 {" "}
-                <img src={User2} alt="img" />
-                <h5>{name}</h5>
+                <img src={avatar || User2} alt="img" />
+                <h5>{name ? name : "Guest"}</h5>
               </div>
               <div className="modal-actions">
                 {" "}

@@ -49,11 +49,17 @@ const ChatWithUser = () => {
       <div className="chat-header">
         <div className="user-info">
           <img
+            onClick={() => navigate(`/user_details/${id}`)}
             src={oneUser.avatar || User}
             alt="User Avatar"
             className="avatar"
           />
-          <h4 className="username">{oneUser.username}</h4>
+          <h4
+            className="username"
+            onClick={() => navigate(`/user_details/${id}`)}
+          >
+            {oneUser.username}
+          </h4>
         </div>
         <button className="close-button" onClick={() => navigate("/")}>
           X
@@ -61,11 +67,17 @@ const ChatWithUser = () => {
       </div>
       <div className="chat-messages">
         <div className="message received">
-          <div className="message-content">{name}: Привет! Как дела?</div>
+          <div className="message-content">
+            <p>{name}: Привет! Как дела?</p>
+          </div>
         </div>
         <div className="message sent">
           <div className="message-content">
-            {oneUser.username}: Привет! Всё отлично, спасибо!
+            <p>
+              {" "}
+              {oneUser.username ? oneUser.username : "Unknown"}: Привет! Всё
+              отлично, спасибо!
+            </p>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import User from "../../img/user.webp";
 import Like from "../../img/heart-shape.png";
 import Comment from "../../img/comment.png";
 import Repost from "../../img/send.png";
-import { admin_email, email, name } from "../../helpers/const";
+import { admin_email, avatar, email, name } from "../../helpers/const";
 import "./Post.css";
 const OnePost = () => {
   const [comment, setComment] = useState("");
@@ -48,8 +48,6 @@ const OnePost = () => {
 
   const postDate = new Date(onePost.date_created);
   const formattedDate = postDate.toLocaleDateString();
-  const postDate2 = new Date(comments.date_created);
-  const formattedDate2 = postDate2.toLocaleDateString();
   function handleComment() {
     let formData = new FormData();
     formData.append("post", id);
@@ -57,15 +55,25 @@ const OnePost = () => {
     formData.append("content", comment);
     addComment(formData, id);
   }
+  function handleLike() {
+    let formData = new FormData();
+    formData.append("post", id);
+    formData.append("user", name);
+    likePost(formData);
+  }
   return (
     <div className="postitem_container2" key={onePost.id}>
       {onePost && onePost.creator && (
         <div className="postitem_title">
           <div className="postitem_text">
             <div className="postitem_request">
-              <img src={User} alt="img" />
+              <img src={onePost.avatar || User} alt="img" />
               <div className="postitem_description">
-                <h5>{onePost.creator.username}</h5>
+                <h5>
+                  {onePost.creator.username
+                    ? onePost.creator.username
+                    : "Unknown"}
+                </h5>
                 <p>{onePost.description}</p>
               </div>
             </div>
@@ -135,14 +143,14 @@ const OnePost = () => {
           <div className="postitem_buttons">
             <div>
               {" "}
-              <img onClick={() => likePost(onePost.id)} src={Like} alt="img" />
+              <img onClick={handleLike} src={Like} alt="img" />
               <img src={Comment} alt="img" />
               <img src={Repost} alt="img" />
             </div>
             <div>
               <p>
                 <span>{comments.length} ответов</span>
-                <span>• {like} отметок "Нравится"</span>
+                <span>• {like.length} отметок "Нравится"</span>
               </p>
             </div>
           </div>
@@ -153,7 +161,7 @@ const OnePost = () => {
       <div className="comment">
         <div className="postitem_text">
           <div className="postitem_request">
-            <img src={User} alt="img" />
+            <img src={avatar || User} alt="img" />
             <div className="postitem_description">
               <h5>{name}</h5>
             </div>
@@ -173,18 +181,33 @@ const OnePost = () => {
           {comments.map((elem) => (
             <div className="comment_item" key={elem.post}>
               <div className="postitem_text">
-                <div className="postitem_request">
-                  <img src={User} alt="img" />
+                <div
+                  className="postitem_request"
+                  style={{ margin: "0px 10px" }}
+                >
+                  <img
+                    src={elem.avatar || User}
+                    alt="img"
+                    style={{ width: "55px" }}
+                  />
                   <div className="postitem_description">
-                    <h5>{elem.commenter.username}</h5>
+                    <h5>{elem.commenter.email.split("@")[0]}</h5>
                     <p>{elem.content}</p>
                   </div>
                 </div>
-                <div className="postitem_actions">
-                  <span>{formattedDate2}</span>
+                <div
+                  className="postitem_actions"
+                  style={{ margin: "0px 10px" }}
+                >
+                  <span>
+                    {new Date(elem.date_created).toLocaleDateString()}
+                  </span>
                   <button onClick={toggleMenu2}>...</button>
                 </div>
-                <div className="postitem_menu">
+                <div
+                  className="postitem_menu"
+                  style={{ right: "710px", bottom: "-245px" }}
+                >
                   {isMenuOpen2 && (
                     <ul className="dropdown-menu2">
                       <li onClick={toggleMenu2}>Скрыть</li>

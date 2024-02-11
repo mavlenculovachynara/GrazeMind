@@ -6,7 +6,7 @@ import Hash from "../../img/hash (1).png";
 import Cross from "../../img/cross-mark.png";
 import { usePost } from "../../context/PostContextPrivder";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { admin_email, email, name } from "../../helpers/const";
+import { admin_email, avatar, email, name } from "../../helpers/const";
 
 const PostList = () => {
   const fileInputRef = useRef(null);
@@ -110,7 +110,7 @@ const PostList = () => {
       <div className="container postlist">
         <div className="postitem_add" onClick={() => toggleModal()}>
           <div className="postitem_request">
-            <img src={User} alt="img" />
+            <img src={avatar || User} alt="img" />
             <span>Создайте ветку...</span>
           </div>
           <div className="postitem_addbutton">
@@ -139,8 +139,8 @@ const PostList = () => {
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="postitem_request">
               {" "}
-              <img src={User} alt="img" />
-              <h5>{name}</h5>
+              <img src={avatar || User} alt="img" />
+              <h5>{name ? name : "Guest"}</h5>
             </div>
             <div className="modal-actions">
               {" "}
