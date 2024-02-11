@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import LockIcon from "../../img/lock.png";
 import UserIcon from "../../img/user.webp";
-import { name } from "../../helpers/const";
+import { avatar, bio, link, name } from "../../helpers/const";
 import { useAuth } from "../../context/AuthContextProvider";
 import "./User.css";
 
@@ -13,10 +13,9 @@ const User = () => {
 
   const [isBio, setIsBio] = useState("");
   const [isLink, setIsLink] = useState("");
+  const [profileImage, setProfileImage] = useState(null);
   const fileInputRef = useRef(null);
   const { editUser } = useAuth();
-  const bio = JSON.parse(localStorage.getItem("bio"));
-  const link = JSON.parse(localStorage.getItem("link"));
   //! modal5
 
   useEffect(() => {
@@ -37,9 +36,25 @@ const User = () => {
   // const handleToggle = () => {
   //   setIsActive(!isActive);
   // };
+  const handleChooseFile = () => {
+    fileInputRef.current.click();
+  };
+  function handleFileChange(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const fileData = reader.result;
+        localStorage.setItem("avatar", JSON.stringify(fileData));
+        setProfileImage(fileData);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setProfileImage(null);
   };
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -65,6 +80,7 @@ const User = () => {
     if (!isLink.startsWith("https://")) return;
     closeModal();
     let formData = new FormData();
+    formData.append("avatar", fileInputRef.current.files[0]);
     formData.append("biography", isBio);
     localStorage.setItem("bio", JSON.stringify(isBio));
     formData.append("link", isLink);
@@ -78,13 +94,13 @@ const User = () => {
         <div className="profile-name">
           <h2>{name}</h2>
           <h4 style={{ color: "white", maxWidth: "100px" }}>{bio}</h4>
-          <p style={{ maxWidth: "80px" }}>
+          <p style={{ maxWidth: "60px" }}>
             <a href={link}>{link}</a>
           </p>
           <span>{followersCount} подписчиков</span>
         </div>
         <img  onClick={toggleProfilePhotoModal}
-          src={UserIcon}
+          src={avatar || UserIcon}
           alt="Аватар пользователя"
           className="avatar"
           style={{ width: "60px", height: "60px" }}
@@ -117,33 +133,44 @@ const User = () => {
                 <div className="modalinp">
                   <div style={{ display: "flex", alignItems: "center" }}>
                     {" "}
-                    <img src={LockIcon} alt="" />{" "}
+                    <img src={LockIcon} alt="img" />{" "}
                     <input
                       type="text"
                       defaultValue={name}
                       style={{ color: "white" }}
                     />
                   </div>
-
-                  <div className="icon">
-                    <img id="usericon1" src={UserIcon} alt="img" />
+                  <div className="icon2">
+                    <img src={profileImage || UserIcon} alt="img" />
+                    &nbsp;<span onClick={handleChooseFile}>+</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      ref={fileInputRef}
+                      onChange={handleFileChange}
+                    />
                   </div>
                 </div>
                 <hr className="hrmodal" />
                 <div>
                   <span className="modalspan">Биография</span>
-                  <input
+                  <textarea
+                    style={{ height: "25px" }}
                     type="text"
                     placeholder="+ Добавить биографию"
+                    defaultValue={bio}
                     onChange={(e) => setIsBio(e.target.value)}
                   />
                 </div>
                 <hr className="hrmodal" />
                 <div>
                   <span className="modalspan">Ссылка</span>
-                  <input
+                  <textarea
+                    style={{ height: "65px" }}
                     type="text"
                     placeholder="+ Добавить ссылку"
+                    defaultValue={link}
                     onChange={(e) => setIsLink(e.target.value)}
                   />
                 </div>
@@ -177,7 +204,6 @@ const User = () => {
             </div>
           </div>
         </div>{" "}
-        <hr />
       </div>{" "}
       <div className="contentForUser">
         {activeTab === "threads" && <p>Контент для веток</p>}

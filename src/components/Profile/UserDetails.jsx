@@ -97,9 +97,10 @@ const UserDetails = () => {
           </div>
           <img
            onClick={toggleProfilePhotoModal}
-            src="https://i.pinimg.com/474x/31/af/f1/31aff1f41b565d819acc5ab0003be45e.jpg"
+            src={oneUser.avatar || UserIcon}
             alt="Аватар пользователя"
             className="avatar"
+            style={{ width: "70px", height: "70px" }}
           />
         </div>
         {isProfilePhotoModalOpen && (
@@ -247,7 +248,6 @@ const UserDetails = () => {
               </div>
             </div>
           </div>{" "}
-          <hr />
         </div>{" "}
         <div className="contentForUser">
           {activeTab === "threads" && <p>Контент для веток</p>}
