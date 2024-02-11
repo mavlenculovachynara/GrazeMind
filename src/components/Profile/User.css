@@ -142,10 +142,21 @@
   padding: 5px;
   margin: 0;
   cursor: pointer;
-}
-.modal-actions2 input:focus {
   outline: none;
+}
+.modal-actions2 textarea {
   border: none;
+  background: none;
+  color: white;
+  font-size: 16px;
+  padding: 5px;
+  margin: 0;
+  cursor: pointer;
+  overflow: hidden;
+  resize: none;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  outline: none;
 }
 .modalinp {
   display: flex;
@@ -181,11 +192,6 @@
   background-color: #fff;
   color: #000000;
 }
-#usericon1 {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-}
 #usericon2 {
   width: 35px;
   height: 35px;
@@ -200,4 +206,30 @@
 }
 .contentForUser {
   margin-top: 60px;
+}
+.icon2 {
+  position: relative;
+}
+
+.icon2 img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.icon2 span {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: none;
+  background-color: white;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 50%;
+  cursor: pointer;
+  text-align: center;
+  margin: 0 !important;
 }

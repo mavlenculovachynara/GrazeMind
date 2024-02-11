@@ -88,7 +88,11 @@ const SearchPage = () => {
                 elem.email !== email && (
                   <div className="account" key={elem.id}>
                     <div style={{ display: "flex" }}>
-                      <img src={User} alt="Аватар" className="avatar" />
+                      <img
+                        src={elem.avatar || User}
+                        alt="Аватар"
+                        className="avatar"
+                      />
                       <div className="account-info">
                         <h6 style={{ color: "white" }} className="username">
                           {elem.username ? elem.username : "Неизвестно"}

@@ -104,12 +104,13 @@ const AuthContextProvider = ({ children }) => {
   }
   async function editUser(formData) {
     try {
-      let { data } = await axios.put(
+      let res = await axios.put(
         `${API}/account/profile_update/`,
         formData,
         getConfig()
       );
-      console.log(data);
+      console.log(res);
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }
