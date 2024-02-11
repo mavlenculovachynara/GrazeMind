@@ -78,8 +78,17 @@ const UserDetails = () => {
       <div className="profile-container">
         <div className="profile-title">
           <div className="profile-name">
-            <h2>{name}</h2>
-            <p>Веб-разработчик</p>
+            <h2>{oneUser.username ? oneUser.username : "Unknown"}</h2>
+            <h4 style={{ color: "white", maxWidth: "100px" }}>
+              {oneUser.biography}
+            </h4>
+            <p style={{ maxWidth: "80px" }}>
+              {oneUser.last_online &&
+                new Date(oneUser.last_online).toLocaleDateString()}
+            </p>
+            <p style={{ maxWidth: "80px" }}>
+              <a href={oneUser.link}>{oneUser.link}</a>
+            </p>
             <span>{followersCount} подписчиков</span>
           </div>
           <img
@@ -171,7 +180,7 @@ const UserDetails = () => {
                   <div className="modalinp">
                     <input
                       type="text"
-                      value={name}
+                      value={oneUser.username && "Unknown"}
                       style={{ color: "white", m: "0px important" }}
                     />
                     <div className="icon">

@@ -76,7 +76,12 @@ const User = () => {
           </p>
           <span>{followersCount} подписчиков</span>
         </div>
-        <img src={UserIcon} alt="Аватар пользователя" className="avatar" />
+        <img
+          src={UserIcon}
+          alt="Аватар пользователя"
+          className="avatar"
+          style={{ width: "70px", height: "70px" }}
+        />
       </div>
       <div className="profile-buttons">
         <button className="edit-profile-button" onClick={toggleModal}>
@@ -103,7 +108,7 @@ const User = () => {
                   </div>
 
                   <div className="icon">
-                    <img id="usericon1" src={UserIcon} alt="" />
+                    <img id="usericon1" src={UserIcon} alt="img" />
                   </div>
                 </div>
                 <hr className="hrmodal" />
