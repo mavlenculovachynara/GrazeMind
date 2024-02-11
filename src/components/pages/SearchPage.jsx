@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./SearchPage.css";
 import SearchIcon from "../../img/search.png";
+import User from "../../img/user.webp";
 import { useAuth } from "../../context/AuthContextProvider";
 import { usePost } from "../../context/PostContextPrivder";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { email } from "../../helpers/const";
 
 const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,7 +28,6 @@ const SearchPage = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    // Функция фильтрации данных по значению поиска и активной категории
     const filterData = () => {
       if (activeCategory === "accounts") {
         setFilteredData(
@@ -50,6 +51,7 @@ const SearchPage = () => {
     setActiveCategory(category === activeCategory ? null : category);
     setSearchParams({ category });
   };
+
   return (
     <div className="search-container">
       <div className="search-input-container">
@@ -81,26 +83,29 @@ const SearchPage = () => {
       {activeCategory === "accounts" && (
         <div className="search-account">
           <div className="account-list">
-            {filteredData.map((elem) => (
-              <div className="account" key={elem.id}>
-                <div style={{ display: "flex" }}>
-                  <img src={elem.avatar} alt="Avatar" className="avatar" />
-                  <div className="account-info">
-                    <h6 style={{ color: "white" }} className="username">
-                      {elem.username ? elem.username : "Unknown"}
-                    </h6>
+            {filteredData.map(
+              (elem) =>
+                elem.email !== email && (
+                  <div className="account" key={elem.id}>
+                    <div style={{ display: "flex" }}>
+                      <img src={User} alt="Аватар" className="avatar" />
+                      <div className="account-info">
+                        <h6 style={{ color: "white" }} className="username">
+                          {elem.username ? elem.username : "Неизвестно"}
+                        </h6>
+                      </div>
+                    </div>
+                    <div>
+                      <button
+                        className="more-button"
+                        onClick={() => navigate(`/user_details/${elem.id}`)}
+                      >
+                        Перейти
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <button
-                    className="more-button"
-                    onClick={() => navigate(`/user_details/${elem.id}`)}
-                  >
-                    Перейти
-                  </button>
-                </div>
-              </div>
-            ))}
+                )
+            )}
           </div>
         </div>
       )}

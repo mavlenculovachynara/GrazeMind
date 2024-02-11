@@ -28,13 +28,14 @@ const AuthContextProvider = ({ children }) => {
     return config;
   };
   // ! Register
-  async function handleRegister(formData) {
+  async function handleRegister(formData, username) {
     try {
       const { data } = await axios.post(
         `${API}/account/register/`,
         formData
       );
       navigate("/register_active");
+      localStorage.setItem("username", JSON.stringify(username));
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -53,17 +54,10 @@ const AuthContextProvider = ({ children }) => {
   }
   async function handleResetPassword() {
     try {
-<<<<<<< HEAD
       const { data } = await axios.post(
         `${API}/account/reset_password/`,
-        formData,
-=======
-      const res = await axios.post(
-        `${API}/api/account/reset_password/`,
->>>>>>> 7b418943246ee0d4b6d8dbe0ee555ccf6728b588
         getConfig()
       );
-      console.log(res);
       navigate("/login");
     } catch (error) {
       console.error(error);
@@ -107,7 +101,7 @@ const AuthContextProvider = ({ children }) => {
   async function getOneUser(id) {
     try {
       let { data } = await axios(
-        `${API}/account/user_full/${id}/`,
+        `${API}/api/account/user_full/${id}/`,
         getConfig()
       );
       console.log(data);
@@ -130,7 +124,7 @@ const AuthContextProvider = ({ children }) => {
   }
   async function addVerified() {
     try {
-      const res = await axios.post(`${API}/account/vip/`, getConfig());
+      const res = await axios.post(`${API}/api/account/vip/`, getConfig());
       console.log(res);
     } catch (error) {
       console.error(error);
@@ -138,7 +132,7 @@ const AuthContextProvider = ({ children }) => {
   }
   async function getSubscribers() {
     try {
-      let res = await axios(`${API}/categoty/subscriptions/`, getConfig());
+      let res = await axios(`${API}/api/subscriptions/`, getConfig());
       console.log(res);
     } catch (error) {
       console.error(error);
@@ -147,7 +141,7 @@ const AuthContextProvider = ({ children }) => {
   async function toSubscribe(id) {
     try {
       let res = await axios.post(
-        `${API}/categoty/subscriptions/${id}/`,
+        `${API}/api/subscriptions/${id}/`,
         getConfig()
       );
       console.log(res);

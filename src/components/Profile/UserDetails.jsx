@@ -16,6 +16,7 @@ const UserDetails = () => {
   const [followersCount, setFollowersCount] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfilePhotoModalOpen, setIsProfilePhotoModalOpen] = useState(false);
   const fileInputRef = useRef(null);
   //! modal5
   useEffect(() => {
@@ -25,6 +26,9 @@ const UserDetails = () => {
     fileInputRef.current.accept = "image/*";
     fileInputRef.current.style.display = "none";
   }, []);
+  const toggleProfilePhotoModal = () => {
+    setIsProfilePhotoModalOpen(!isProfilePhotoModalOpen);
+  };  
   //! модальное окно для жалоб
   const [isMenuOpen5, setIsMenuOpen5] = useState(false);
   const toggleMenu5 = () => {
@@ -78,16 +82,37 @@ const UserDetails = () => {
       <div className="profile-container">
         <div className="profile-title">
           <div className="profile-name">
-            <h2>{name}</h2>
-            <p>Веб-разработчик</p>
+            <h2>{oneUser.username ? oneUser.username : "Unknown"}</h2>
+            <h4 style={{ color: "white", maxWidth: "100px" }}>
+              {oneUser.biography}
+            </h4>
+            <p style={{ maxWidth: "80px" }}>
+              {oneUser.last_online &&
+                new Date(oneUser.last_online).toLocaleDateString()}
+            </p>
+            <p style={{ maxWidth: "80px" }}>
+              <a href={oneUser.link}>{oneUser.link}</a>
+            </p>
             <span>{followersCount} подписчиков</span>
           </div>
           <img
+           onClick={toggleProfilePhotoModal}
             src="https://i.pinimg.com/474x/31/af/f1/31aff1f41b565d819acc5ab0003be45e.jpg"
             alt="Аватар пользователя"
             className="avatar"
           />
         </div>
+        {isProfilePhotoModalOpen && (
+  <div className="profile-photo-modal" onClick={toggleProfilePhotoModal}>
+    <div className="profile-photo-content">
+      <img
+        style={{ borderRadius: '50%', width: '200px', height: '200px' }}
+        src={UserIcon}
+        alt=""
+      />
+    </div>
+  </div>
+)}
         <div className="profile-buttons">
           {
             <button
@@ -171,7 +196,7 @@ const UserDetails = () => {
                   <div className="modalinp">
                     <input
                       type="text"
-                      value={name}
+                      value={oneUser.username && "Unknown"}
                       style={{ color: "white", m: "0px important" }}
                     />
                     <div className="icon">
