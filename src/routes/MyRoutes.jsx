@@ -14,6 +14,7 @@ import ResetPassword from "../components/Auth/ResetPassword";
 import OnePost from "../components/Posts/OnePost";
 import UserDetails from "../components/Profile/UserDetails";
 import MetaVerified from "../components/MetaVerified/MetaVerified";
+import ChatWithUser from "../components/Profile/ChatWithUser";
 
 const PUBLIC_ROUTES = [
   { id: 1, link: "*", element: <NotFound /> },
@@ -30,6 +31,7 @@ const PUBLIC_ROUTES = [
   { id: 12, link: "/post_details/:id", element: <OnePost /> },
   { id: 13, link: "/user_details/:id", element: <UserDetails /> },
   { id: 14, link: "/meta_verified", element: <MetaVerified /> },
+  { id: 15, link: "/chat/:id", element: <ChatWithUser /> },
 ];
 const MyRoutes = () => {
   return (

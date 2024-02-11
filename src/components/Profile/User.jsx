@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import LockIcon from "../../img/lock.png";
 import UserIcon from "../../img/user.webp";
-import { avatar, bio, link, name } from "../../helpers/const";
+import { avatar, bio, link, email } from "../../helpers/const";
 import { useAuth } from "../../context/AuthContextProvider";
 import "./User.css";
 
@@ -10,32 +10,27 @@ const User = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProfilePhotoModalOpen, setIsProfilePhotoModalOpen] = useState(false);
-
   const [isBio, setIsBio] = useState("");
   const [isLink, setIsLink] = useState("");
   const [profileImage, setProfileImage] = useState(null);
   const fileInputRef = useRef(null);
-  const { editUser } = useAuth();
-  //! modal5
-
+  const { editUser, oneUser, getOneUser, users, getUsers } = useAuth();
+  const userWithEmail = users.find((user) => user.email === email);
   useEffect(() => {
+    getUsers();
+    if (userWithEmail) {
+      getOneUser(userWithEmail.id);
+    }
     fileInputRef.current = document.createElement("input");
     fileInputRef.current.type = "file";
     fileInputRef.current.accept = "image/*";
     fileInputRef.current.style.display = "none";
   }, []);
 
-  //! фото профиля
   const toggleProfilePhotoModal = () => {
     setIsProfilePhotoModalOpen(!isProfilePhotoModalOpen);
-  };  
+  };
 
-  //! модальное окно для редактирования профиля
-  // const [isActive, setIsActive] = useState(false);
-
-  // const handleToggle = () => {
-  //   setIsActive(!isActive);
-  // };
   const handleChooseFile = () => {
     fileInputRef.current.click();
   };
@@ -45,7 +40,6 @@ const User = () => {
       const reader = new FileReader();
       reader.onload = () => {
         const fileData = reader.result;
-        localStorage.setItem("avatar", JSON.stringify(fileData));
         setProfileImage(fileData);
       };
       reader.readAsDataURL(file);
@@ -81,6 +75,7 @@ const User = () => {
     closeModal();
     let formData = new FormData();
     formData.append("avatar", fileInputRef.current.files[0]);
+    localStorage.setItem("avatar", JSON.stringify(profileImage));
     formData.append("biography", isBio);
     localStorage.setItem("bio", JSON.stringify(isBio));
     formData.append("link", isLink);
@@ -92,36 +87,41 @@ const User = () => {
     <div className="profile-container">
       <div className="profile-title">
         <div className="profile-name">
-          <h2>{name}</h2>
-          <h4 style={{ color: "white", maxWidth: "100px" }}>{bio}</h4>
-          <p style={{ maxWidth: "60px" }}>
-            <a href={link}>{link}</a>
+          <h2>{oneUser.username}</h2>
+          <h4 style={{ color: "white", maxWidth: "100px" }}>
+            {oneUser.biography}
+          </h4>
+          <p style={{ maxWidth: "110px" }}>
+            <a href={oneUser.link}>{oneUser.link}</a>
           </p>
           <span>{followersCount} подписчиков</span>
         </div>
-        <img  onClick={toggleProfilePhotoModal}
+        <img
+          onClick={toggleProfilePhotoModal}
           src={avatar || UserIcon}
           alt="Аватар пользователя"
           className="avatar"
           style={{ width: "60px", height: "60px" }}
         />
         {isProfilePhotoModalOpen && (
-  <div className="profile-photo-modal" onClick={toggleProfilePhotoModal}>
-    <div className="profile-photo-content">
-      <img
-        style={{ borderRadius: '50%', width: '200px', height: '200px' }}
-        src={UserIcon}
-        alt=""
-      />
-    </div>
-  </div>
-)}
+          <div
+            className="profile-photo-modal"
+            onClick={toggleProfilePhotoModal}
+          >
+            <div className="profile-photo-content">
+              <img
+                style={{ borderRadius: "50%", width: "200px", height: "200px" }}
+                src={UserIcon}
+                alt=""
+              />
+            </div>
+          </div>
+        )}
       </div>
       <div className="profile-buttons">
         <button className="edit-profile-button" onClick={toggleModal}>
           Редактировать профиль
         </button>{" "}
-        {/* //! модальное окно для редактирования профиля*/}
         {isModalOpen && (
           <div className="modal2" onClick={closeModal}>
             <div
@@ -136,7 +136,7 @@ const User = () => {
                     <img src={LockIcon} alt="img" />{" "}
                     <input
                       type="text"
-                      defaultValue={name}
+                      value={oneUser.username}
                       style={{ color: "white" }}
                     />
                   </div>

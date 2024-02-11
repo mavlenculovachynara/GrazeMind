@@ -22,7 +22,7 @@ const OnePost = () => {
   const { id } = useParams();
   useEffect(() => {
     getOnePost(id);
-    getComments();
+    getComments(id);
     console.log(comments);
   }, []);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -55,7 +55,7 @@ const OnePost = () => {
     formData.append("post", id);
     formData.append("commenter", name);
     formData.append("content", comment);
-    addComment(formData);
+    addComment(formData, id);
   }
   return (
     <div className="postitem_container2" key={onePost.id}>

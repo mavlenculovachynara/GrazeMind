@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { createContext, useContext, useReducer, useState } from "react";
-import { ACTIONS, API } from "../helpers/const";
+import { ACTIONS, API, getConfig } from "../helpers/const";
 import { useNavigate } from "react-router-dom";
 const authContext = createContext();
 export const useAuth = () => useContext(authContext);
@@ -19,14 +19,7 @@ const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
-  const getConfig = () => {
-    const tokens = JSON.parse(localStorage.getItem("tokens"));
-    const Authorization = `Bearer ${tokens.access}`;
-    const config = {
-      headers: { Authorization },
-    };
-    return config;
-  };
+
   // ! Register
   async function handleRegister(formData, username) {
     try {
@@ -76,7 +69,6 @@ const AuthContextProvider = ({ children }) => {
       await axios.post(`${API}/account/logout/`, getConfig());
       localStorage.removeItem("tokens");
       localStorage.removeItem("email");
-      localStorage.removeItem("username");
       window.location.reload();
       navigate("/login");
     } catch (error) {
@@ -95,7 +87,6 @@ const AuthContextProvider = ({ children }) => {
   async function getOneUser(id) {
     try {
       let { data } = await axios(`${API}/account/user/${id}/`, getConfig());
-      console.log(data);
       dispatch({ type: ACTIONS.GET_ONE_USER, payload: data });
     } catch (error) {
       console.error(error);
