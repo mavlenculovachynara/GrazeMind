@@ -44,7 +44,7 @@ const PostContextPrivder = ({ children }) => {
   };
   async function getCategories() {
     try {
-      const { data } = await axios(`${API}/api/hashtags/`);
+      const { data } = await axios(`${API}/posts/hashtags/`);
       dispatch({
         type: ACTIONS.GET_CATEGORIES,
         payload: data,
@@ -56,7 +56,7 @@ const PostContextPrivder = ({ children }) => {
   async function addCategory(formData) {
     try {
       const res = await axios.post(
-        `${API}/api/hashtags/`,
+        `${API}/posts/hashtags/`,
         formData,
         getConfig()
       );
@@ -68,7 +68,7 @@ const PostContextPrivder = ({ children }) => {
   // !addpost
   async function addPost(formData) {
     try {
-      await axios.post(`${API}/api/posts/`, formData, getConfig());
+      await axios.post(`${API}/posts/posts/`, formData, getConfig());
 
       getPosts();
     } catch (error) {
@@ -77,7 +77,7 @@ const PostContextPrivder = ({ children }) => {
   }
   async function getPosts() {
     try {
-      const { data } = await axios(`${API}/api/posts/`, getConfig());
+      const { data } = await axios(`${API}/posts/posts/`, getConfig());
       dispatch({ type: ACTIONS.GET_POSTS, payload: data });
     } catch (error) {
       console.error(error);
@@ -85,13 +85,13 @@ const PostContextPrivder = ({ children }) => {
   }
   // !delete
   async function deletePost(id) {
-    await axios.delete(`${API}/api/posts/${id}/`, getConfig());
+    await axios.delete(`${API}/posts/posts/${id}/`, getConfig());
     getPosts();
   }
   // !like
   const likePost = async (id) => {
     try {
-      const { data } = await axios.post(`${API}/api/likes/`, getConfig());
+      const { data } = await axios.post(`${API}/posts/likes/`, getConfig());
       console.log(data);
       dispatch({
         type: ACTIONS.LIKE_POST,
@@ -105,7 +105,7 @@ const PostContextPrivder = ({ children }) => {
   // !detail
   async function getOnePost(id) {
     try {
-      const { data } = await axios(`${API}/api/posts/${id}/`, getConfig());
+      const { data } = await axios(`${API}/posts/posts/${id}/`, getConfig());
       dispatch({
         type: ACTIONS.GET_ONE_POST,
         payload: data,
@@ -116,7 +116,7 @@ const PostContextPrivder = ({ children }) => {
   }
   async function addComment(formData) {
     try {
-      await axios.post(`${API}/api/comments/`, formData, getConfig());
+      await axios.post(`${API}/posts/comments/`, formData, getConfig());
       getComments();
     } catch (error) {
       console.error(error);
@@ -124,7 +124,7 @@ const PostContextPrivder = ({ children }) => {
   }
   async function getComments() {
     try {
-      let { data } = await axios(`${API}/api/comments/`, getConfig());
+      let { data } = await axios(`${API}/comments/`, getConfig());
       dispatch({ type: ACTIONS.GET_COMMENTS, payload: data });
       console.log(data);
     } catch (error) {
@@ -134,7 +134,7 @@ const PostContextPrivder = ({ children }) => {
   //!delete comment
   async function deleteComments(id) {
     try {
-      await axios.delete(`${API}/api/comments/${id}/`, getConfig());
+      await axios.delete(`${API}/comments/${id}/`, getConfig());
       getComments();
     } catch (error) {
       console.error(error);

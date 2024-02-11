@@ -1,5 +1,5 @@
 
-export const API = "http://104.198.167.223";
+export const API = "http://34.28.172.100";
 export let email = JSON.parse(localStorage.getItem("email"));
 export const tokens = JSON.parse(localStorage.getItem("tokens"));
 if (!email) {
