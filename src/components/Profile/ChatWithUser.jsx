@@ -1,49 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import User from "../../img/user.webp";
 import { useNavigate, useParams } from "react-router-dom";
-import { usePost } from "../../context/PostContextPrivder";
-import { email, name, ws } from "../../helpers/const";
+import { name } from "../../helpers/const";
 import { useAuth } from "../../context/AuthContextProvider";
 import "./User.css";
 
 const ChatWithUser = () => {
-  const { addMessage } = usePost();
   const { getOneUser, oneUser } = useAuth();
   const navigate = useNavigate();
-  const [messages, setMessages] = useState([]);
   const { id } = useParams();
   useEffect(() => {
     getOneUser(id);
   }, []);
-
-  useEffect(() => {
-    ws.onopen = () => {
-      console.log("Connected to WebSocket");
-    };
-    ws.onmessage = (e) => {
-      JSON.parse(e.data);
-    };
-    ws.onclose = () => {
-      console.log("Disconnected from WebSocket");
-    };
-    return () => {
-      ws.close();
-    };
-  }, []);
-
-  function handleMessage() {
-    if (messages.trim() !== "") {
-      const data = {
-        sender: { email: email, username: name },
-        receiver: { email: oneUser.email, username: oneUser.username },
-        message: messages,
-      };
-      ws.send(JSON.stringify(data));
-      addMessage(data);
-      setMessages("");
-    }
-    addMessage(messages);
-  }
   return (
     <div className="chat-container">
       <div className="chat-header">
@@ -82,12 +50,8 @@ const ChatWithUser = () => {
         </div>
       </div>
       <div className="chat-input">
-        <input
-          type="text"
-          placeholder="Напишите сообщение..."
-          onChange={(e) => setMessages(e.target.value)}
-        />
-        <button onClick={handleMessage}>Отправить</button>
+        <input type="text" placeholder="Напишите сообщение..." />
+        <button>Отправить</button>
       </div>
     </div>
   );

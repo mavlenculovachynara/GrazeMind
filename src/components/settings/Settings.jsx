@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LockIcon from "../../img/lock.png";
 import ThreadsIcon from "../../img/threadslogo.svg";
 import Hidden from "../../img/hidden.png";
@@ -15,6 +15,7 @@ const Settings = () => {
   const [isActiveHelp, setIsActiveHelp] = useState(false);
   const { deleteUser } = useAuth();
   const navigate = useNavigate();
+
   const handleToggle = (type) => {
     setIsActivePrivacy(type === "privacy");
     setIsActiveAccount(type === "account");
@@ -149,9 +150,6 @@ const Settings = () => {
                   Деактивировать или удалить профиль
                 </div>
               </div>
-              <hr />
-            </div>
-            <div>
               <hr />
             </div>
             <div className="other-settings">

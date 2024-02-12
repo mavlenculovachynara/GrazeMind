@@ -15,7 +15,7 @@ import Cross from "../../img/cross-mark.png";
 import { useAuth } from "../../context/AuthContextProvider";
 import LightDark from "../LightDark/LightDark";
 import { usePost } from "../../context/PostContextPrivder";
-import { avatar, name, tokens } from "../../helpers/const";
+import { avatar, email, name, tokens } from "../../helpers/const";
 const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -126,8 +126,13 @@ const Navbar = () => {
   function postSave() {
     closeModal();
     let formData = new FormData();
+    formData.append("creator", name);
     formData.append("description", description);
-    formData.append("description", hashtag);
+    const hashtagsArray = new Set([
+      ...description.split(" "),
+      ...hashtag.split(" "),
+    ]);
+    formData.append("description", Array.from(hashtagsArray).join(" "));
     formData.append("image", image);
     addPost(formData);
   }
@@ -186,7 +191,7 @@ const Navbar = () => {
               <div className="postitem_request">
                 {" "}
                 <img src={avatar || User2} alt="img" />
-                <h5>{name ? name : "Guest"}</h5>
+                <h5>{email.split("@")[0]}</h5>
               </div>
               <div className="modal-actions">
                 {" "}

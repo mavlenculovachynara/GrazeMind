@@ -253,6 +253,10 @@ p {
   display: flex;
   justify-content: flex-start;
 }
+.hash-dropdown img {
+  width: 50px !important;
+  height: 30px;
+}
 .categories-modal {
   position: fixed;
   bottom: 110px;
@@ -373,7 +377,7 @@ p {
   padding: 10px 0;
 }
 .comment {
-  justify-content: center;
+  height: 60vh;
   width: 100%;
 }
 .add_comment {

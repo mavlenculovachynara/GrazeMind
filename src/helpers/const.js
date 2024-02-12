@@ -13,6 +13,7 @@ export const ACTIONS = {
   GET_COMMENTS: "GET_COMMENTS",
   GET_ONE_USER: "GET_ONE_USER",
   GET_MESSAGES: "GET_MESSAGES",
+  TRANSLATE_COMMENTS: "TRANSLATE_COMMENTS",
 };
 export const admin_email = "malikramzaev@gmail.com";
 export const getConfig = () => {
@@ -23,4 +24,3 @@ export const getConfig = () => {
   };
   return config;
 };
-export const ws = new WebSocket("ws://34.28.172.100");

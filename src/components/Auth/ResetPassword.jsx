@@ -8,7 +8,6 @@ const ResetPassword = () => {
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
-    handleResetPassword();
     setError(false);
   }, []);
   function handleReset(e) {
@@ -34,7 +33,6 @@ const ResetPassword = () => {
       <form action="#" className="login-container">
         <h3>Восстановление пароля</h3>
         {error ? <h5 style={{ color: "red" }}>{error}</h5> : null}
-        <span>Вам на почту пришло сообщение</span>
         <input
           type="password"
           placeholder="Введите новый пароль"
@@ -50,9 +48,6 @@ const ResetPassword = () => {
         <button className="login-button" type="submit" onClick={handleReset}>
           Сбросить пароль
         </button>
-        <div className="auth-actions">
-          <a href="/login">Войти</a>
-        </div>
       </form>
     </div>
   );
