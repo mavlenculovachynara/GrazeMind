@@ -7,6 +7,7 @@ import Comment from "../../img/comment.png";
 import Repost from "../../img/send.png";
 import { admin_email, avatar, email, name } from "../../helpers/const";
 import "./Post.css";
+
 const OnePost = () => {
   const [comment, setComment] = useState("");
   const {
@@ -18,22 +19,28 @@ const OnePost = () => {
     comments,
     getComments,
     deleteComments,
+    translateComments,
+    translateComment,
+    unLikePost,
   } = usePost();
   const { id } = useParams();
   useEffect(() => {
     getOnePost(id);
     getComments(id);
-    console.log(comments);
   }, []);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  const [isMenuOpen2, setIsMenuOpen2] = useState(false);
-  const toggleMenu2 = () => {
-    setIsMenuOpen2(!isMenuOpen2);
+
+  const [activeMenuId, setActiveMenuId] = useState(null);
+  const toggleMenu2 = (id) => {
+    setActiveMenuId((prevId) => (prevId === id ? null : id));
   };
+
   const navigate = useNavigate();
+
   const [isMenuOpen5, setIsMenuOpen5] = useState(false);
   const toggleMenu5 = () => {
     toggleMenu();
@@ -48,6 +55,7 @@ const OnePost = () => {
 
   const postDate = new Date(onePost.date_created);
   const formattedDate = postDate.toLocaleDateString();
+
   function handleComment() {
     let formData = new FormData();
     formData.append("post", id);
@@ -55,12 +63,36 @@ const OnePost = () => {
     formData.append("content", comment);
     addComment(formData, id);
   }
+
   function handleLike() {
     let formData = new FormData();
     formData.append("post", id);
     formData.append("user", name);
     likePost(formData);
   }
+
+  function handleUnlike() {
+    let formData = new FormData();
+    formData.append("post", id);
+    formData.append("user", name);
+    unLikePost(formData);
+  }
+
+  const [translatedComments, setTranslatedComments] = useState({});
+
+  function toggleTranslate(id) {
+    setTranslatedComments((prevComments) => ({
+      ...prevComments,
+      [id]: !prevComments[id],
+    }));
+  }
+
+  function handleTranslate(id) {
+    translateComments(id);
+    toggleTranslate(id);
+    toggleMenu2();
+  }
+
   return (
     <div className="postitem_container2" key={onePost.id}>
       {onePost && onePost.creator && (
@@ -69,11 +101,7 @@ const OnePost = () => {
             <div className="postitem_request">
               <img src={onePost.avatar || User} alt="img" />
               <div className="postitem_description">
-                <h5>
-                  {onePost.creator.username
-                    ? onePost.creator.username
-                    : "Unknown"}
-                </h5>
+                <h5>{onePost.creator.email.split("@")[0]}</h5>
                 <p>{onePost.description}</p>
               </div>
             </div>
@@ -143,7 +171,11 @@ const OnePost = () => {
           <div className="postitem_buttons">
             <div>
               {" "}
-              <img onClick={handleLike} src={Like} alt="img" />
+              {like.find((user) => user.email === email) ? (
+                <img onClick={handleUnlike} src={Like} alt="img" />
+              ) : (
+                <img onClick={handleLike} src={Like} alt="img" />
+              )}
               <img src={Comment} alt="img" />
               <img src={Repost} alt="img" />
             </div>
@@ -163,7 +195,7 @@ const OnePost = () => {
           <div className="postitem_request">
             <img src={avatar || User} alt="img" />
             <div className="postitem_description">
-              <h5>{name}</h5>
+              <h5>{email.split("@")[0]}</h5>
             </div>
           </div>
         </div>
@@ -179,8 +211,8 @@ const OnePost = () => {
         </div>
         <div className="comment_container">
           {comments.map((elem) => (
-            <div className="comment_item" key={elem.post}>
-              <div className="postitem_text">
+            <div className="comment_item" key={elem.id}>
+              <div className="postitem_text" style={{ width: "500px" }}>
                 <div
                   className="postitem_request"
                   style={{ margin: "0px 10px" }}
@@ -192,41 +224,55 @@ const OnePost = () => {
                   />
                   <div className="postitem_description">
                     <h5>{elem.commenter.email.split("@")[0]}</h5>
-                    <p>{elem.content}</p>
+                    <p>
+                      {translatedComments[elem.id]
+                        ? translateComment.translated
+                        : elem.content}
+                    </p>
                   </div>
                 </div>
                 <div
                   className="postitem_actions"
-                  style={{ margin: "0px 10px" }}
+                  style={{ margin: "0px 10px", position: "relative" }}
                 >
                   <span>
                     {new Date(elem.date_created).toLocaleDateString()}
                   </span>
-                  <button onClick={toggleMenu2}>...</button>
-                </div>
-                <div
-                  className="postitem_menu"
-                  style={{ right: "710px", bottom: "-245px" }}
-                >
-                  {isMenuOpen2 && (
-                    <ul className="dropdown-menu2">
-                      <li onClick={toggleMenu2}>Скрыть</li>
-                      <hr />
-                      <li style={{ color: "red" }}>Пожаловаться</li>
-                      {email === admin_email ? (
-                        <>
-                          {" "}
-                          <hr />
-                          <li
-                            style={{ color: "red" }}
-                            onClick={() => deleteComments(elem.id)}
-                          >
-                            Удалить
-                          </li>
-                        </>
-                      ) : null}
-                    </ul>
-                  )}
+                  <button onClick={() => toggleMenu2(elem.id)}>...</button>
+                  <div className="postitem_menu">
+                    {activeMenuId === elem.id && (
+                      <ul
+                        className="dropdown-menu2"
+                        style={{
+                          position: "absolute",
+                          left: "290px",
+                          top: "30px",
+                          zIndex: 1,
+                        }}
+                      >
+                        <li onClick={toggleMenu2}>Скрыть</li>
+                        <hr />
+                        <li onClick={() => handleTranslate(elem.id)}>
+                          {translatedComments[elem.id]
+                            ? "Оригинал"
+                            : "Перевести"}
+                        </li>
+                        <hr />
+                        <li style={{ color: "red" }}>Пожаловаться</li>
+                        {email === admin_email ? (
+                          <>
+                            <hr />
+                            <li
+                              style={{ color: "red" }}
+                              onClick={() => deleteComments(elem.id)}
+                            >
+                              Удалить
+                            </li>
+                          </>
+                        ) : null}
+                      </ul>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

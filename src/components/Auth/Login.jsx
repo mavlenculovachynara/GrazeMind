@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContextProvider";
 import "./Auth.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { error, handleLogin, setError } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
     setError(false);
   }, []);
@@ -23,6 +25,7 @@ const Login = () => {
     let formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
+    navigate("/");
     handleLogin(formData, email);
   }
   return (

@@ -19,13 +19,14 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  z-index: 2;
 }
 
 .profile-name h2,
+h4,
 .profile-name p,
 .profile-name span {
   color: white;
+  max-width: 110px;
 }
 
 .profile-buttons {
@@ -35,12 +36,6 @@
   flex-direction: column;
   align-items: center;
   margin-top: 10px;
-}
-
-.avatar {
-  width: 100px;
-  border-radius: 50%;
-  object-fit: cover;
 }
 
 .edit-profile-button,
@@ -286,7 +281,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  margin-right: 10px;
+  object-fit: cover;
 }
 
 .username {

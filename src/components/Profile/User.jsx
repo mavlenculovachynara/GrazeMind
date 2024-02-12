@@ -4,6 +4,7 @@ import UserIcon from "../../img/user.webp";
 import { avatar, bio, link, email } from "../../helpers/const";
 import { useAuth } from "../../context/AuthContextProvider";
 import "./User.css";
+import { usePost } from "../../context/PostContextPrivder";
 
 const User = () => {
   const [followersCount, setFollowersCount] = useState(0);
@@ -88,10 +89,8 @@ const User = () => {
       <div className="profile-title">
         <div className="profile-name">
           <h2>{oneUser.username}</h2>
-          <h4 style={{ color: "white", maxWidth: "100px" }}>
-            {oneUser.biography}
-          </h4>
-          <p style={{ maxWidth: "110px" }}>
+          <h4>{oneUser.biography}</h4>
+          <p>
             <a href={oneUser.link}>{oneUser.link}</a>
           </p>
           <span>{followersCount} подписчиков</span>
@@ -101,7 +100,7 @@ const User = () => {
           src={avatar || UserIcon}
           alt="Аватар пользователя"
           className="avatar"
-          style={{ width: "80px", height: "80px", zIndex: "1001" }}
+          style={{ width: "80px", height: "80px" }}
         />
         {isProfilePhotoModalOpen && (
           <div
@@ -202,7 +201,7 @@ const User = () => {
         </div>{" "}
       </div>{" "}
       <div className="contentForUser">
-        {activeTab === "threads" && <p>Контент для веток</p>}
+        {activeTab === "threads" && <div>{}</div>}
         {activeTab === "replies" && <p>Контент для ответов</p>}
         {activeTab === "likes" && <p>Контент для лайков</p>}
       </div>

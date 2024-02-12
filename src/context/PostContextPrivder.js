@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { ACTIONS, API, getConfig, ws } from "../helpers/const";
+import { ACTIONS, API, getConfig } from "../helpers/const";
 import axios from "axios";
 const postContext = createContext();
 export const usePost = () => useContext(postContext);
@@ -10,6 +10,7 @@ const INIT_STATE = {
   like: [],
   comments: [],
   messages: [],
+  translateComment: [],
 };
 const reducer = (state = INIT_STATE, action) => {
   switch (action.type) {
@@ -31,6 +32,8 @@ const reducer = (state = INIT_STATE, action) => {
       return { ...state, comments: action.payload };
     case ACTIONS.GET_MESSAGES:
       return { ...state, messages: action.payload };
+    case ACTIONS.TRANSLATE_COMMENTS:
+      return { ...state, translateComment: action.payload };
     default:
       return state;
   }
@@ -64,7 +67,11 @@ const PostContextPrivder = ({ children }) => {
   // !addpost
   async function addPost(formData) {
     try {
-      let res = await axios.post(`${API}/posts/posts/`, formData, getConfig());
+      const res = await axios.post(
+        `${API}/posts/posts/add/`,
+        formData,
+        getConfig()
+      );
       console.log(res);
       getPosts();
     } catch (error) {
@@ -93,7 +100,7 @@ const PostContextPrivder = ({ children }) => {
   const likePost = async (formData) => {
     try {
       const { data } = await axios.post(
-        `${API}/posts/likes/`,
+        `${API}/posts/likes/toggle/`,
         formData,
         getConfig()
       );
@@ -103,6 +110,18 @@ const PostContextPrivder = ({ children }) => {
         payload: data,
       });
       console.log("Post liked:", data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const unLikePost = async () => {
+    try {
+      const { data } = await axios.delete(
+        `${API}/posts/likes/toggle/`,
+        getConfig()
+      );
+      console.log(data);
+      console.log("Post unliked:", data);
     } catch (error) {
       console.error(error);
     }
@@ -119,13 +138,14 @@ const PostContextPrivder = ({ children }) => {
       console.error(error);
     }
   }
-  async function addComment(formData, id) {
+  async function addComment(formData) {
     try {
-      let res = await axios.post(
-        `${API}/posts/posts/${id}/comments/`,
+      const res = await axios.post(
+        `${API}/posts/comments/add/`,
         formData,
         getConfig()
       );
+      window.location.reload();
       console.log(res);
       getComments();
     } catch (error) {
@@ -134,12 +154,23 @@ const PostContextPrivder = ({ children }) => {
   }
   async function getComments(id) {
     try {
-      let { data } = await axios(
+      const { data } = await axios(
         `${API}/posts/posts/${id}/comments/`,
         getConfig()
       );
       dispatch({ type: ACTIONS.GET_COMMENTS, payload: data });
-      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function translateComments(id) {
+    try {
+      const res = await axios(
+        `${API}/posts/posts/comments/${id}/translate/`,
+        getConfig()
+      );
+      dispatch({ type: ACTIONS.TRANSLATE_COMMENTS, payload: res.data });
+      console.log(res);
     } catch (error) {
       console.error(error);
     }
@@ -147,25 +178,8 @@ const PostContextPrivder = ({ children }) => {
   //!delete comment
   async function deleteComments(id) {
     try {
-      await axios.delete(`${API}/posts/posts/${id}/comments/`, getConfig());
+      await axios.delete(`${API}/posts/comments/${id}`, getConfig());
       getComments();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  async function addMessage(formData) {
-    try {
-      const { data } = await axios.post(`${ws}/chat/send-messages/`, formData);
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  async function getMessages() {
-    try {
-      const { data } = await axios(`${ws}/chat/send-messages/`);
-      dispatch({ type: ACTIONS.GET_MESSAGES, payload: data });
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -186,8 +200,9 @@ const PostContextPrivder = ({ children }) => {
     comments: state.comments,
     getComments,
     deleteComments,
-    addMessage,
-    getMessages,
+    translateComments,
+    translateComment: state.translateComment,
+    unLikePost,
   };
   return <postContext.Provider value={values}>{children}</postContext.Provider>;
 };

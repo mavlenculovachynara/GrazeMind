@@ -6,7 +6,8 @@ import Hash from "../../img/hash (1).png";
 import Cross from "../../img/cross-mark.png";
 import { usePost } from "../../context/PostContextPrivder";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { admin_email, avatar, email, name } from "../../helpers/const";
+import { admin_email, avatar, email } from "../../helpers/const";
+import { useAuth } from "../../context/AuthContextProvider";
 
 const PostList = () => {
   const fileInputRef = useRef(null);
@@ -16,16 +17,19 @@ const PostList = () => {
   const [showCategories, setShowCategories] = useState(false);
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
-  const [hashtag, setHashtag] = useState([]);
+  const [hashtag, setHashtag] = useState("");
   const [showAddCategoryBtn, setShowAddCategoryBtn] = useState(true);
   const { getCategories, categories, addPost, getPosts, posts } = usePost();
+  const { users, getOneUser, oneUser } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
-
   const navigate = useNavigate();
-
+  const userWithEmail = users.find((user) => user.email === email);
   useEffect(() => {
     getPosts();
     getCategories();
+    if (userWithEmail) {
+      getOneUser(userWithEmail.id);
+    }
     fileInputRef.current = document.createElement("input");
     fileInputRef.current.type = "file";
     fileInputRef.current.accept = "image/*";
@@ -68,7 +72,7 @@ const PostList = () => {
   };
 
   const handleCategoryClick = (category) => {
-    setHashtag(`#${category}`);
+    setHashtag((prevHashtag) => prevHashtag + `#${category} `);
     const input = document.querySelector(".modal-actions textarea");
     if (input) {
       input.value += ` #${category} `;
@@ -83,10 +87,13 @@ const PostList = () => {
   function postSave() {
     closeModal();
     let formData = new FormData();
-    formData.append("creator", name);
+    formData.append("creator", oneUser.username);
     formData.append("description", description);
-    const hashtagsArray = hashtag.split(" ");
-    hashtagsArray.forEach((tag) => formData.append("hashtags", tag));
+    const hashtagsArray = new Set([
+      ...description.split(" "),
+      ...hashtag.split(" "),
+    ]);
+    formData.append("description", Array.from(hashtagsArray).join(" "));
     formData.append("image", image);
     addPost(formData);
   }
@@ -142,7 +149,7 @@ const PostList = () => {
             <div className="postitem_request">
               {" "}
               <img src={avatar || User} alt="img" />
-              <h5>{name ? name : "Guest"}</h5>
+              <h5>{oneUser.creator.email.split("@")[0]}</h5>
             </div>
             <div className="modal-actions">
               {" "}
@@ -232,8 +239,8 @@ const PostList = () => {
               {categories.map((elem) => (
                 <>
                   <li
-                    className="category-button"
                     key={elem.id}
+                    className="category-button"
                     onClick={() => handleFilterCategory(elem.tag)}
                   >
                     {elem.tag}

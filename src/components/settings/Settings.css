@@ -31,10 +31,6 @@
   border-bottom: 2px solid #fff;
 }
 
-.content {
-  margin-top: 20px;
-}
-
 .section {
   display: flex;
   justify-content: space-between;

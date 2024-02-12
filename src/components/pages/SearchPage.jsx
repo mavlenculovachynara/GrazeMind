@@ -19,9 +19,7 @@ const SearchPage = () => {
     getUsers();
     getPosts();
   }, []);
-
   useEffect(() => {
-    console.log(posts);
     const categoryParam = searchParams.get("category");
     if (categoryParam) {
       setActiveCategory(categoryParam);
@@ -119,7 +117,7 @@ const SearchPage = () => {
             {filteredData.map((elem) => (
               <div className="post" key={elem.id}>
                 <h4 className="post-title" style={{ color: "white" }}>
-                  {elem.cretor ? elem.creator.username : "Unknown"}
+                  {elem.creator ? elem.creator.username : "Unknown"}
                   <p> {new Date(elem.date_created).toLocaleDateString()}</p>
                   <p className="post-content">{elem.description}</p>
                 </h4>

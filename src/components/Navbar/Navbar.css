@@ -44,10 +44,11 @@
 }
 .dropdown-menu {
   position: absolute;
-  right: 180px !important;
-  top: 65px !important;
+  right: 180px;
+  top: 65px;
   background-color: #1a1a1a;
   border-radius: 10px;
+  z-index: 1002;
 }
 
 .dropdown-menu li {

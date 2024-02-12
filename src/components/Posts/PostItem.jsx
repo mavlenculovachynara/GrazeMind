@@ -11,9 +11,9 @@ import { admin_email, email, name } from "../../helpers/const";
 const PostItem = ({ elem }) => {
   const { deletePost, likePost, like, getComments, comments } = usePost();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMenuOpen5, setIsMenuOpen5] = useState(false);
   const postDate = new Date(elem.date_created);
   const formattedDate = postDate.toLocaleDateString();
+  const [isMenuOpen5, setIsMenuOpen5] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     getComments(elem.id);
@@ -49,7 +49,7 @@ const PostItem = ({ elem }) => {
               onClick={() => navigate(`/user_details/${elem.id}`)}
             />
             <div className="postitem_description">
-              <h5>{elem.creator.username}</h5>
+              <h5>{elem.creator.email.split("@")[0]}</h5>
               <p>{elem.description}</p>
             </div>
           </div>
