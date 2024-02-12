@@ -109,11 +109,7 @@ const User = () => {
             onClick={toggleProfilePhotoModal}
           >
             <div className="profile-photo-content">
-              <img
-                style={{ borderRadius: "50%", width: "200px", height: "200px" }}
-                src={avatar || UserIcon}
-                alt="img"
-              />
+              <img src={avatar || UserIcon} alt="img" />
             </div>
           </div>
         )}

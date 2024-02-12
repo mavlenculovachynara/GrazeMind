@@ -11,6 +11,7 @@ import { admin_email, email, name } from "../../helpers/const";
 const PostItem = ({ elem }) => {
   const { deletePost, likePost, like, getComments, comments } = usePost();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen5, setIsMenuOpen5] = useState(false);
   const postDate = new Date(elem.date_created);
   const formattedDate = postDate.toLocaleDateString();
   const navigate = useNavigate();
@@ -21,7 +22,6 @@ const PostItem = ({ elem }) => {
     if (isMenuOpen5) setIsMenuOpen5(false);
     setIsMenuOpen(!isMenuOpen);
   };
-  const [isMenuOpen5, setIsMenuOpen5] = useState(false);
   const toggleMenu5 = () => {
     toggleMenu();
     setIsMenuOpen5(!isMenuOpen5);

@@ -41,8 +41,14 @@ const AuthContextProvider = ({ children }) => {
   }
   async function handleResetPassword() {
     try {
-      await axios.post(`${API}/account/reset_password/`, getConfig());
-      navigate("/login");
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      if (!tokens || !tokens.access) {
+        throw new Error("No access token available");
+      }
+      const config = {
+        headers: { Authorization: `Bearer ${tokens.access}` },
+      };
+      await axios.post(`${API}/account/reset_password/`, {}, config);
     } catch (error) {
       console.error(error);
     }
@@ -63,7 +69,17 @@ const AuthContextProvider = ({ children }) => {
   // !Logout
   const handleLogout = async () => {
     try {
-      await axios.post(`${API}/account/logout/`, getConfig());
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      if (!tokens || !tokens.access) {
+        throw new Error("No access token available");
+      }
+      const config = {
+        headers: { Authorization: `Bearer ${tokens.access}` },
+      };
+      const configData = {
+        refresh: tokens.refresh,
+      };
+      await axios.post(`${API}/account/logout/`, configData, config);
       localStorage.removeItem("tokens");
       localStorage.removeItem("email");
       window.location.reload();
@@ -130,6 +146,7 @@ const AuthContextProvider = ({ children }) => {
       localStorage.removeItem("tokens");
       localStorage.removeItem("email");
       localStorage.removeItem("username");
+      localStorage.removeItem("avatar");
       localStorage.removeItem("bio");
       localStorage.removeItem("link");
       console.log(res);
