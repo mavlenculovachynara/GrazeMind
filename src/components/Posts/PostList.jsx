@@ -16,7 +16,7 @@ const PostList = () => {
   const [showCategories, setShowCategories] = useState(false);
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
-  const [hashtag, setHashtag] = useState("");
+  const [hashtag, setHashtag] = useState([]);
   const [showAddCategoryBtn, setShowAddCategoryBtn] = useState(true);
   const { getCategories, categories, addPost, getPosts, posts } = usePost();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -83,8 +83,10 @@ const PostList = () => {
   function postSave() {
     closeModal();
     let formData = new FormData();
+    formData.append("creator", name);
     formData.append("description", description);
-    formData.append("description", hashtag);
+    const hashtagsArray = hashtag.split(" ");
+    hashtagsArray.forEach((tag) => formData.append("hashtags", tag));
     formData.append("image", image);
     addPost(formData);
   }
