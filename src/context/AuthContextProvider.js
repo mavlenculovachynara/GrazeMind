@@ -82,6 +82,9 @@ const AuthContextProvider = ({ children }) => {
       await axios.post(`${API}/account/logout/`, configData, config);
       localStorage.removeItem("tokens");
       localStorage.removeItem("email");
+      localStorage.removeItem("avatar");
+      localStorage.removeItem("link");
+      localStorage.removeItem("bio");
       window.location.reload();
       navigate("/login");
     } catch (error) {

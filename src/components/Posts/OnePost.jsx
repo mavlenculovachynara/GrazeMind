@@ -170,7 +170,7 @@ const OnePost = () => {
               )}
             </div>
           </div>
-          <div className="postitem_buttons">
+          <div className="postitem_buttons" style={{ width: "70%" }}>
             <div>
               {" "}
               {isLiked ? (
