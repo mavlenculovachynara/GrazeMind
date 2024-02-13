@@ -63,12 +63,13 @@ const OnePost = () => {
     formData.append("content", comment);
     addComment(formData, id);
   }
-
+  const [isLiked, setIsLiked] = useState(false);
   function handleLike() {
     let formData = new FormData();
     formData.append("post", id);
     formData.append("user", name);
     likePost(formData);
+    setIsLiked(true);
   }
 
   function handleUnlike() {
@@ -76,6 +77,7 @@ const OnePost = () => {
     formData.append("post", id);
     formData.append("user", name);
     unLikePost(formData);
+    setIsLiked(false);
   }
 
   const [translatedComments, setTranslatedComments] = useState({});
@@ -171,10 +173,10 @@ const OnePost = () => {
           <div className="postitem_buttons">
             <div>
               {" "}
-              {like.find((user) => user.email === email) ? (
-                <img onClick={handleUnlike} src={Like} alt="img" />
-              ) : (
+              {isLiked ? (
                 <img onClick={handleLike} src={Like} alt="img" />
+              ) : (
+                <img onClick={handleUnlike} src={Like} alt="img" />
               )}
               <img src={Comment} alt="img" />
               <img src={Repost} alt="img" />

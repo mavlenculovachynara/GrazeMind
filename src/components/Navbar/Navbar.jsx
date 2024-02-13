@@ -191,7 +191,7 @@ const Navbar = () => {
               <div className="postitem_request">
                 {" "}
                 <img src={avatar || User2} alt="img" />
-                <h5>{email.split("@")[0]}</h5>
+                {/* <h5>{name}</h5> */}
               </div>
               <div className="modal-actions">
                 {" "}
