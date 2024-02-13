@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import LockIcon from "../../img/lock.png";
 import UserIcon from "../../img/user.webp";
-import { avatar, bio, link, name } from "../../helpers/const";
+import { avatar, bio, email, link, name } from "../../helpers/const";
 import { useAuth } from "../../context/AuthContextProvider";
 import { usePost } from "../../context/PostContextPrivder";
 import "./User.css";
@@ -207,7 +207,7 @@ const User = () => {
   <div className="search-publications">
     <div className="publication-list">
       {posts
-        .filter((elem) => elem.creator.email === 'mavlenkulovachynara@gmail.com')
+        .filter((elem) => elem.creator.email === email)
         .map((elem) => (
           <div className="post" key={elem.id}>
             <img src={elem.image} alt="img" />
