@@ -6,7 +6,7 @@ import Hash from "../../img/hash (1).png";
 import Cross from "../../img/cross-mark.png";
 import { usePost } from "../../context/PostContextPrivder";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { admin_email, avatar, email } from "../../helpers/const";
+import { admin_email, avatar, email, name } from "../../helpers/const";
 import { useAuth } from "../../context/AuthContextProvider";
 
 const PostList = () => {
@@ -149,7 +149,7 @@ const PostList = () => {
             <div className="postitem_request">
               {" "}
               <img src={avatar || User} alt="img" />
-              <h5>{oneUser.creator.email.split("@")[0]}</h5>
+              {/* <h5>{name}</h5> */}
             </div>
             <div className="modal-actions">
               {" "}

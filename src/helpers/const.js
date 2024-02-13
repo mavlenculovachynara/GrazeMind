@@ -5,6 +5,7 @@ export const avatar = JSON.parse(localStorage.getItem("avatar"));
 export const bio = JSON.parse(localStorage.getItem("bio"));
 export const link = JSON.parse(localStorage.getItem("link"));
 export const name = JSON.parse(localStorage.getItem("username"));
+
 export const ACTIONS = {
   GET_CATEGORIES: "GET_CATEGORIES",
   GET_POSTS: "GET_POSTS",

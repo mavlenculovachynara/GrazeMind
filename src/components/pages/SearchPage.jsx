@@ -5,7 +5,7 @@ import User from "../../img/user.webp";
 import { useAuth } from "../../context/AuthContextProvider";
 import { usePost } from "../../context/PostContextPrivder";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { email } from "../../helpers/const";
+import { name } from "../../helpers/const";
 
 const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -83,7 +83,7 @@ const SearchPage = () => {
         <div className="search-account">
           <div className="account-list">
             {filteredData.map((elem) =>
-              elem.email !== email ? (
+              elem.username !== name ? (
                 <div className="account" key={elem.id}>
                   <div style={{ display: "flex" }}>
                     <img

@@ -115,7 +115,7 @@ p {
   justify-content: flex-start;
 }
 .postitem_info img {
-  width: 75%;
+  width: 60%;
   object-fit: contain;
   cursor: pointer;
   padding: 20px 25px;
@@ -282,7 +282,7 @@ p {
 .postitem_buttons {
   display: flex;
   justify-content: space-around;
-  width: 70%;
+  width: 45%;
   margin: 0 15px;
 }
 .postitem_buttons div {

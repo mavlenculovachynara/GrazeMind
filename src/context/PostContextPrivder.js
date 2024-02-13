@@ -114,12 +114,17 @@ const PostContextPrivder = ({ children }) => {
       console.error(error);
     }
   };
-  const unLikePost = async () => {
+  const unLikePost = async (formData) => {
     try {
       const { data } = await axios.delete(
         `${API}/posts/likes/toggle/`,
+        formData,
         getConfig()
       );
+      dispatch({
+        type: ACTIONS.LIKE_POST,
+        payload: data,
+      });
       console.log(data);
       console.log("Post unliked:", data);
     } catch (error) {
