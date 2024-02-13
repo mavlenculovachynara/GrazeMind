@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LockIcon from "../../img/lock.png";
 import ThreadsIcon from "../../img/threadslogo.svg";
 import Hidden from "../../img/hidden.png";
@@ -7,12 +7,15 @@ import Block from "../../img/blockicon.png";
 import Dislike from "../../img/nolove.png";
 import "./Settings.css";
 import { useAuth } from "../../context/AuthContextProvider";
+import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
   const [isActivePrivacy, setIsActivePrivacy] = useState(true);
   const [isActiveAccount, setIsActiveAccount] = useState(false);
   const [isActiveHelp, setIsActiveHelp] = useState(false);
   const { deleteUser } = useAuth();
+  const navigate = useNavigate();
+
   const handleToggle = (type) => {
     setIsActivePrivacy(type === "privacy");
     setIsActiveAccount(type === "account");
@@ -45,7 +48,6 @@ const Settings = () => {
       <div className="content">
         {isActivePrivacy && (
           <div>
-            {/* Контент Конфиденциальности */}
             <div className="section">
               <div>
                 <div className="icon">
@@ -150,7 +152,6 @@ const Settings = () => {
               </div>
               <hr />
             </div>
-
             <div className="other-settings">
               <div className="text">Другие настройки аккаунта</div>
               <p className="textP">
@@ -225,6 +226,22 @@ const Settings = () => {
               <div>
                 <div className="icon"></div>
                 <div className="text">Перенос информации</div>
+              </div>
+              <div>
+                <div className="posticon">
+                  <img className="posticon" src={PostIcon} alt="" />
+                </div>
+              </div>
+            </div>
+            <div className="section">
+              <div>
+                <div className="icon"></div>
+                <div
+                  className="text"
+                  onClick={() => navigate("/reset_password")}
+                >
+                  Сбросить пароль
+                </div>
               </div>
               <div>
                 <div className="posticon">

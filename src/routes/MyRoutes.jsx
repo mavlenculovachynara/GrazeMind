@@ -17,6 +17,7 @@ import MetaVerified from "../components/MetaVerified/MetaVerified";
 import AllPage from "../components/LikePages/AllPage";
 import Answers from "../components/LikePages/Answers";
 import LikePage from "../components/LikePages/LikePage";
+import ChatWithUser from "../components/Profile/ChatWithUser";
 
 const PUBLIC_ROUTES = [
   { id: 1, link: "*", element: <NotFound /> },
@@ -36,6 +37,7 @@ const PUBLIC_ROUTES = [
   { id: 15, link: "/all_likes", element: <AllPage /> },
   { id: 16, link: "/answers", element: <Answers /> },
   { id: 17, link: "/like_page", element: <LikePage /> },
+  { id: 18, link: "/chat/:id", element: <ChatWithUser /> },
 ];
 const MyRoutes = () => {
   return (

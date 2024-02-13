@@ -1,4 +1,4 @@
-@media (max-width: 1550px) {
+@media (max-width: 1950px) {
   .nav-wrapper {
     display: none !important;
   }
@@ -36,6 +36,12 @@
   }
 }
 @media (max-width: 1025px) {
+  .modal-content {
+    width: 45% !important;
+  }
+  .profile-container {
+    width: 70% !important;
+  }
   .postlist {
     width: 60% !important;
   }
@@ -53,6 +59,12 @@
   }
 }
 @media (max-width: 769px) {
+  .modal-content {
+    width: 60% !important;
+  }
+  .profile-container {
+    width: 80% !important;
+  }
   .postlist {
     width: 80% !important;
     margin-top: 30px;
@@ -64,10 +76,10 @@
     right: 120px !important;
   }
   .fixed-button {
-    padding: 10px 35px;
-    height: 40px !important;
-    top: 80px !important;
-    left: 15px !important;
+    display: none;
+  }
+  .addCategoryBtn {
+    display: none;
   }
   .categories-modal {
     top: 125px !important;
@@ -88,6 +100,18 @@
 }
 
 @media (max-width: 426px) {
+  .profile-name p {
+    max-width: 60px;
+  }
+  .modal-content2 {
+    width: 360px;
+  }
+  .modal-content {
+    width: 80% !important;
+  }
+  .profile-container {
+    width: 100% !important;
+  }
   .nav-links {
     display: none !important;
   }
@@ -112,8 +136,8 @@
     padding: 10px 25px !important;
   }
   .link2 img {
-    width: 24px !important;
-    height: 24px !important;
+    width: 35px !important;
+    height: 35px !important;
   }
   .postlist {
     width: 100% !important;
@@ -136,8 +160,23 @@
     width: 100% !important;
     margin: 0px 10px !important;
   }
+  .modal_content {
+    width: 70%;
+  }
+  .search-input-container {
+    width: 400px !important;
+  }
+  .account {
+    width: 400px !important;
+  }
 }
 @media (max-width: 376px) {
+  .modal-content2 {
+    width: 330px;
+  }
+  .modal-content {
+    width: 85% !important;
+  }
   .postitem_description h5,
   p {
     font-size: 13px !important;
@@ -147,6 +186,19 @@
   }
   .postitem_buttons img {
     width: 30px !important;
+  }
+  .search-input-container {
+    width: 350px !important;
+  }
+  .account {
+    width: 350px !important;
+  }
+  .link2 img {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .link2 {
+    padding: 10px 20px !important;
   }
 }
 @media (max-width: 321px) {
@@ -177,6 +229,19 @@
   .link img {
     width: 20px !important;
     height: 20px !important;
+  }
+  .search-input-container {
+    width: 300px !important;
+  }
+  .account {
+    width: 300px !important;
+  }
+  .link2 {
+    padding: 10px 13px !important;
+  }
+  .link2 img {
+    width: 30px !important;
+    height: 30px !important;
   }
 }
 @media (max-width: 425){

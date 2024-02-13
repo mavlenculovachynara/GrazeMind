@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { createContext, useContext, useReducer, useState } from "react";
-import { ACTIONS, API } from "../helpers/const";
+import { ACTIONS, API, getConfig } from "../helpers/const";
 import { useNavigate } from "react-router-dom";
 const authContext = createContext();
 export const useAuth = () => useContext(authContext);
@@ -19,14 +19,7 @@ const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
-  const getConfig = () => {
-    const tokens = JSON.parse(localStorage.getItem("tokens"));
-    const Authorization = `Bearer ${tokens.access}`;
-    const config = {
-      headers: { Authorization },
-    };
-    return config;
-  };
+
   // ! Register
   async function handleRegister(formData, username) {
     try {
@@ -48,11 +41,14 @@ const AuthContextProvider = ({ children }) => {
   }
   async function handleResetPassword() {
     try {
-      const { data } = await axios.post(
-        `${API}/account/reset_password/`,
-        getConfig()
-      );
-      navigate("/login");
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      if (!tokens || !tokens.access) {
+        throw new Error("No access token available");
+      }
+      const config = {
+        headers: { Authorization: `Bearer ${tokens.access}` },
+      };
+      await axios.post(`${API}/account/reset_password/`, {}, config);
     } catch (error) {
       console.error(error);
     }
@@ -73,10 +69,22 @@ const AuthContextProvider = ({ children }) => {
   // !Logout
   const handleLogout = async () => {
     try {
-      await axios.post(`${API}/account/logout/`, getConfig());
+      const tokens = JSON.parse(localStorage.getItem("tokens"));
+      if (!tokens || !tokens.access) {
+        throw new Error("No access token available");
+      }
+      const config = {
+        headers: { Authorization: `Bearer ${tokens.access}` },
+      };
+      const configData = {
+        refresh: tokens.refresh,
+      };
+      await axios.post(`${API}/account/logout/`, configData, config);
       localStorage.removeItem("tokens");
       localStorage.removeItem("email");
-      localStorage.removeItem("username");
+      localStorage.removeItem("avatar");
+      localStorage.removeItem("link");
+      localStorage.removeItem("bio");
       window.location.reload();
       navigate("/login");
     } catch (error) {
@@ -95,7 +103,6 @@ const AuthContextProvider = ({ children }) => {
   async function getOneUser(id) {
     try {
       let { data } = await axios(`${API}/account/user/${id}/`, getConfig());
-      console.log(data);
       dispatch({ type: ACTIONS.GET_ONE_USER, payload: data });
     } catch (error) {
       console.error(error);
@@ -130,7 +137,7 @@ const AuthContextProvider = ({ children }) => {
       console.error(error);
     }
   }
-  async function toSubscribe(id) {
+  async function toSubscribe() {
     try {
       let res = await axios.post(
         `${API}/posts//subscriptions/${id}/`,
@@ -152,6 +159,7 @@ const AuthContextProvider = ({ children }) => {
       localStorage.removeItem("tokens");
       localStorage.removeItem("email");
       localStorage.removeItem("username");
+      localStorage.removeItem("avatar");
       localStorage.removeItem("bio");
       localStorage.removeItem("link");
       console.log(res);
@@ -171,7 +179,6 @@ const AuthContextProvider = ({ children }) => {
     handleResetPassword,
     getOneUser,
     oneUser: state.oneUser,
-    addVerified,
     editUser,
     getSubscribers,
     toSubscribe,

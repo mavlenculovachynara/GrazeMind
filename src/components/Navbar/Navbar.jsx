@@ -15,7 +15,7 @@ import Cross from "../../img/cross-mark.png";
 import { useAuth } from "../../context/AuthContextProvider";
 import LightDark from "../LightDark/LightDark";
 import { usePost } from "../../context/PostContextPrivder";
-import { name, tokens } from "../../helpers/const";
+import { avatar, email, name, tokens } from "../../helpers/const";
 const Navbar = () => {
   const [isTop, setIsTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,7 +27,6 @@ const Navbar = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
   const [hashtag, setHashtag] = useState("");
-  const [username, setUserName] = useState("");
   const [theme, setTheme] = useState("light");
   const [problemMessage, setProblemMessage] = useState("");
 
@@ -38,7 +37,6 @@ const Navbar = () => {
 
   useEffect(() => {
     getCategories();
-    setUserName(name);
     const handleScroll = () => {
       const scrollTop = window.pageYOffset;
       setIsTop(scrollTop === 0);
@@ -128,8 +126,13 @@ const Navbar = () => {
   function postSave() {
     closeModal();
     let formData = new FormData();
+    formData.append("creator", name);
     formData.append("description", description);
-    formData.append("description", hashtag);
+    const hashtagsArray = new Set([
+      ...description.split(" "),
+      ...hashtag.split(" "),
+    ]);
+    formData.append("description", Array.from(hashtagsArray).join(" "));
     formData.append("image", image);
     addPost(formData);
   }
@@ -179,7 +182,7 @@ const Navbar = () => {
             <hr />
             <li onClick={toggleModal3}>Сообщить о проблеме</li>
             <hr />
-            <li onClick={() => navigate("/logout")}>Выйти</li>
+            <li onClick={handleLogout}>Выйти</li>
           </ul>
         )}
         {isModalOpen && (
@@ -187,8 +190,8 @@ const Navbar = () => {
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <div className="postitem_request">
                 {" "}
-                <img src={User2} alt="img" />
-                <h5>{username}</h5>
+                <img src={avatar || User2} alt="img" />
+                {/* <h5>{name}</h5> */}
               </div>
               <div className="modal-actions">
                 {" "}

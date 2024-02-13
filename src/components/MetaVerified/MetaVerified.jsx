@@ -2,9 +2,7 @@ import React from "react";
 import TickVipUset from "../../img/checklist (2).png";
 import "./MetaVerified.css";
 import { useAuth } from "../../context/AuthContextProvider";
-
 const MetaVerified = () => {
-  const { addVerified } = useAuth();
   return (
     <div className="containerMeta">
       <div className="container-form">
@@ -22,7 +20,7 @@ const MetaVerified = () => {
           </p>
         </div>
         <div className="btn">
-          <button onClick={addVerified}>Приобрести</button>
+          <button>Приобрести</button>
         </div>
         <div>
           <p className="lastP">

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContextProvider";
 import UserIcon from "../../img/user.webp";
 import Close from "../../img/blockicon.png";
@@ -9,23 +9,19 @@ import { useParams } from "react-router-dom";
 
 const UserDetails = () => {
   const { getOneUser, oneUser, toSubscribe, getSubscribers } = useAuth();
+  const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
     getOneUser(id);
-    console.log(oneUser);
   }, []);
   const [followersCount, setFollowersCount] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfilePhotoModalOpen, setIsProfilePhotoModalOpen] = useState(false);
-  const fileInputRef = useRef(null);
   //! modal5
   useEffect(() => {
     getSubscribers();
-    fileInputRef.current = document.createElement("input");
-    fileInputRef.current.type = "file";
-    fileInputRef.current.accept = "image/*";
-    fileInputRef.current.style.display = "none";
+    console.log(oneUser);
   }, []);
   const toggleProfilePhotoModal = () => {
     setIsProfilePhotoModalOpen(!isProfilePhotoModalOpen);
@@ -46,13 +42,6 @@ const UserDetails = () => {
     setIsMenuOpenDetailProfile(!isMenuOpenDetailProfile);
   };
 
-  //! модальное окно для редактирования профиля
-  // const [isActive, setIsActive] = useState(false);
-
-  // const handleToggle = () => {
-  //   setIsActive(!isActive);
-  // };
-
   const handleFollow = () => {
     if (isFollowing) {
       setIsFollowing(false);
@@ -71,19 +60,19 @@ const UserDetails = () => {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
-  function handleSubscribe() {
+  function handleSubscribe(user_email) {
     let formData = new FormData();
-    formData.append("subscriber", name);
-    formData.append("subscribed_to");
+    formData.append("subscriber", email);
+    formData.append("subscribed_to", user_email);
     handleFollow();
-    toSubscribe(formData, id);
+    toSubscribe(formData);
   }
   return (
     <div>
       <div className="profile-container">
         <div className="profile-title">
           <div className="profile-name">
-            <h2>{oneUser.username}</h2>
+            <h2>{oneUser.username ? oneUser.username : "Неизвестно"}</h2>
             <h4 style={{ color: "white", maxWidth: "100px" }}>
               {oneUser.biography}
             </h4>
@@ -91,7 +80,7 @@ const UserDetails = () => {
               {oneUser.last_online &&
                 new Date(oneUser.last_online).toLocaleDateString()}
             </p>
-            <p style={{ maxWidth: "80px" }}>
+            <p style={{ maxWidth: "110px" }}>
               <a href={oneUser.link}>{oneUser.link}</a>
             </p>
             <span>{followersCount} подписчиков</span>
@@ -119,10 +108,16 @@ const UserDetails = () => {
           </div>
         )}
         <div className="profile-buttons">
+          <button
+            className="edit-profile-button"
+            onClick={() => navigate(`/chat/${id}`)}
+          >
+            Написать
+          </button>
           {
             <button
               className={`follow-button ${isFollowing ? "following" : ""}`}
-              onClick={handleSubscribe}
+              onClick={() => handleSubscribe(oneUser.email)}
             >
               {isFollowing ? "Вы подписаны" : "Подписаться"}
             </button>

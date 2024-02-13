@@ -36,9 +36,6 @@ const Register = () => {
     } else if (!email.includes("@")) {
       setError("Некорректный адрес электронной почты");
       return;
-    } else {
-      setError("Вы успешно зарегистрировались!");
-      navigate("/register_active");
     }
     let formData = new FormData();
     formData.append("email", email);

@@ -5,7 +5,7 @@ import User from "../../img/user.webp";
 import { useAuth } from "../../context/AuthContextProvider";
 import { usePost } from "../../context/PostContextPrivder";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { email } from "../../helpers/const";
+import { name } from "../../helpers/const";
 
 const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,7 +19,6 @@ const SearchPage = () => {
     getUsers();
     getPosts();
   }, []);
-
   useEffect(() => {
     const categoryParam = searchParams.get("category");
     if (categoryParam) {
@@ -83,32 +82,31 @@ const SearchPage = () => {
       {activeCategory === "accounts" && (
         <div className="search-account">
           <div className="account-list">
-            {filteredData.map(
-              (elem) =>
-                elem.email !== email && (
-                  <div className="account" key={elem.id}>
-                    <div style={{ display: "flex" }}>
-                      <img
-                        src={elem.avatar || User}
-                        alt="Аватар"
-                        className="avatar"
-                      />
-                      <div className="account-info">
-                        <h6 style={{ color: "white" }} className="username">
-                          {elem.username ? elem.username : "Неизвестно"}
-                        </h6>
-                      </div>
-                    </div>
-                    <div>
-                      <button
-                        className="more-button"
-                        onClick={() => navigate(`/user_details/${elem.id}`)}
-                      >
-                        Перейти
-                      </button>
+            {filteredData.map((elem) =>
+              elem.username !== name ? (
+                <div className="account" key={elem.id}>
+                  <div style={{ display: "flex" }}>
+                    <img
+                      src={elem.avatar || User}
+                      alt="Аватар"
+                      className="avatar"
+                    />
+                    <div className="account-info">
+                      <h6 style={{ color: "white" }} className="username">
+                        {elem.username ? elem.username : "Неизвестно"}
+                      </h6>
                     </div>
                   </div>
-                )
+                  <div>
+                    <button
+                      className="more-button"
+                      onClick={() => navigate(`/user_details/${elem.id}`)}
+                    >
+                      Перейти
+                    </button>
+                  </div>
+                </div>
+              ) : null
             )}
           </div>
         </div>
@@ -120,8 +118,9 @@ const SearchPage = () => {
               <div className="post" key={elem.id}>
                 <h4 className="post-title" style={{ color: "white" }}>
                   {elem.creator ? elem.creator.username : "Unknown"}
+                  <p> {new Date(elem.date_created).toLocaleDateString()}</p>
+                  <p className="post-content">{elem.description}</p>
                 </h4>
-                <p className="post-content">{elem.description}</p>
                 <img
                   src={elem.image}
                   alt="img"
