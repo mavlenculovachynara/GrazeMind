@@ -116,7 +116,7 @@ const AuthContextProvider = ({ children }) => {
   }
   async function addVerified() {
     try {
-      const res = await axios.post(`${API}/api/account/vip/`, getConfig());
+      const res = await axios.post(`${API}/account/user_vip/`, getConfig());
       console.log(res);
     } catch (error) {
       console.error(error);
@@ -124,7 +124,7 @@ const AuthContextProvider = ({ children }) => {
   }
   async function getSubscribers() {
     try {
-      let res = await axios(`${API}/api/subscriptions/`, getConfig());
+      let res = await axios(`${API}/posts/subscriptions/`, getConfig());
       console.log(res);
     } catch (error) {
       console.error(error);
@@ -133,7 +133,7 @@ const AuthContextProvider = ({ children }) => {
   async function toSubscribe(id) {
     try {
       let res = await axios.post(
-        `${API}/api/subscriptions/${id}/`,
+        `${API}/posts//subscriptions/${id}/`,
         getConfig()
       );
       console.log(res);

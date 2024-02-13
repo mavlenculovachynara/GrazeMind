@@ -79,7 +79,7 @@
 }
 .postitem_text {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .postitem_description {
   display: flex;
@@ -379,23 +379,35 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid gray;
+  border: 1px solid none;
 }
 .add_comment textarea {
-  border: none;
-  background: none;
-  color: white;
-  font-size: 16px;
-  padding: 5px;
   white-space: pre-wrap;
   overflow-wrap: break-word;
   overflow: hidden;
   resize: none;
-  margin: 0 !important;
   outline: none;
+  padding: 15px 10px;
+  border-radius: 10px;
+  border: 1px solid #444;
+  width: 50%;
+  background: none;
+  color: white;
+  font-size: 16px;
+  margin: 10px 0;
+  transition: color 0.3s, border-color 0.3s;
 }
 .add_comment button {
-  color: black;
+  padding: 15px;
+    border-radius: 10px;
+    border: none;
+    width: 150px;
+    color: black;
+    background-color: white;
+    font-size: 16px;
+    margin-bottom: 1px;
+    cursor: pointer;
+    height: 68px;
 }
 .comment_container {
   display: flex;
@@ -406,4 +418,8 @@ p {
 .comment_item {
   display: flex;
   margin: 10px 0;
+}
+.postAuthor{
+  display: flex;
+  margin-right: 200px;
 }

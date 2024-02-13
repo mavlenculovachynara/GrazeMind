@@ -3,6 +3,7 @@ import LockIcon from "../../img/lock.png";
 import UserIcon from "../../img/user.webp";
 import { avatar, bio, link, name } from "../../helpers/const";
 import { useAuth } from "../../context/AuthContextProvider";
+import { usePost } from "../../context/PostContextPrivder";
 import "./User.css";
 
 const User = () => {
@@ -16,7 +17,7 @@ const User = () => {
   const [profileImage, setProfileImage] = useState(null);
   const fileInputRef = useRef(null);
   const { editUser } = useAuth();
-  //! modal5
+  const { getPosts, posts, likePost } = usePost();
 
   useEffect(() => {
     fileInputRef.current = document.createElement("input");
@@ -25,20 +26,14 @@ const User = () => {
     fileInputRef.current.style.display = "none";
   }, []);
 
-  //! фото профиля
   const toggleProfilePhotoModal = () => {
     setIsProfilePhotoModalOpen(!isProfilePhotoModalOpen);
-  };  
+  };
 
-  //! модальное окно для редактирования профиля
-  // const [isActive, setIsActive] = useState(false);
-
-  // const handleToggle = () => {
-  //   setIsActive(!isActive);
-  // };
   const handleChooseFile = () => {
     fileInputRef.current.click();
   };
+
   function handleFileChange(e) {
     const file = e.target.files[0];
     if (file) {
@@ -56,6 +51,7 @@ const User = () => {
     setIsModalOpen(false);
     setProfileImage(null);
   };
+
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
@@ -75,6 +71,7 @@ const User = () => {
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
+
   function handleEditUser() {
     if (!isBio.trim()) return;
     if (!isLink.startsWith("https://")) return;
@@ -88,6 +85,10 @@ const User = () => {
     editUser(formData);
   }
 
+  useEffect(() => {
+    getPosts();
+  }, [getPosts]);
+
   return (
     <div className="profile-container">
       <div className="profile-title">
@@ -99,35 +100,32 @@ const User = () => {
           </p>
           <span>{followersCount} подписчиков</span>
         </div>
-        <img  onClick={toggleProfilePhotoModal}
+        <img
+          onClick={toggleProfilePhotoModal}
           src={avatar || UserIcon}
           alt="Аватар пользователя"
           className="avatar"
           style={{ width: "60px", height: "60px" }}
         />
         {isProfilePhotoModalOpen && (
-  <div className="profile-photo-modal" onClick={toggleProfilePhotoModal}>
-    <div className="profile-photo-content">
-      <img
-        style={{ borderRadius: '50%', width: '200px', height: '200px' }}
-        src={UserIcon}
-        alt=""
-      />
-    </div>
-  </div>
-)}
+          <div className="profile-photo-modal" onClick={toggleProfilePhotoModal}>
+            <div className="profile-photo-content">
+              <img
+                style={{ borderRadius: '50%', width: '200px', height: '200px' }}
+                src={avatar || UserIcon}
+                alt=""
+              />
+            </div>
+          </div>
+        )}
       </div>
       <div className="profile-buttons">
         <button className="edit-profile-button" onClick={toggleModal}>
           Редактировать профиль
-        </button>{" "}
-        {/* //! модальное окно для редактирования профиля*/}
+        </button>
         {isModalOpen && (
           <div className="modal2" onClick={closeModal}>
-            <div
-              className="modal-content2"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="modal-content2" onClick={(e) => e.stopPropagation()}>
               <div className="modal-actions2">
                 <span className="modalspan">Имя</span>
                 <div className="modalinp">
@@ -203,12 +201,23 @@ const User = () => {
               Лайки
             </div>
           </div>
-        </div>{" "}
-      </div>{" "}
-      <div className="contentForUser">
-        {activeTab === "threads" && <p>Контент для веток</p>}
-        {activeTab === "replies" && <p>Контент для ответов</p>}
-        {activeTab === "likes" && <p>Контент для лайков</p>}
+        </div>
+        <div className="contentForUser">
+        {activeTab === "threads" && (
+  <div className="search-publications">
+    <div className="publication-list">
+      {posts
+        .filter((elem) => elem.creator.email === 'mavlenkulovachynara@gmail.com')
+        .map((elem) => (
+          <div className="post" key={elem.id}>
+            <img src={elem.image} alt="img" />
+            <p className="post-content">{elem.description}</p>
+          </div>
+        ))}
+    </div>
+  </div>
+)}
+        </div>
       </div>
     </div>
   );

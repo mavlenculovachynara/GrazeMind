@@ -6,7 +6,7 @@ import Comment from "../../img/comment.png";
 import Repost from "../../img/send.png";
 import { usePost } from "../../context/PostContextPrivder";
 import { useNavigate } from "react-router-dom";
-import { admin_email, email } from "../../helpers/const";
+import { admin_email, email, avatar } from "../../helpers/const";
 
 const PostItem = ({ elem }) => {
   const { deletePost, likePost, like } = usePost();
@@ -34,11 +34,13 @@ const PostItem = ({ elem }) => {
       <div className="postitem_title">
         <div className="postitem_text">
           <div className="postitem_request">
-            <img src={User} alt="img" />
+           <div className="postAuthor">
+           <img src={avatar || User} alt="img" />
             <div className="postitem_description">
               <h5>{elem.creator.username}</h5>
               <p>{elem.description}</p>
             </div>
+           </div>
           </div>
           <div className="postitem_actions">
             <span>{formattedDate}</span>

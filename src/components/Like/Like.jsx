@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Like.css";
-import User from "../../img/user.webp";
+import { useNavigate } from "react-router-dom";
 const Like = () => {
   const [activeButton, setActiveButton] = useState(null);
   const handleButtonClick = (buttonName) => {
@@ -11,28 +11,22 @@ const Like = () => {
     }
   };
 
+  const navigate = useNavigate();
+
   return (
     <div className="like-section">
       <div className="like-container">
         <button
           className={`like-button ${activeButton === "all" ? "active" : ""}`}
-          onClick={() => handleButtonClick("all")}
+          onClick={() => {handleButtonClick("all"); navigate('/all_likes')}}
         >
           Все
         </button>
         <button
           className={`like-button ${
-            activeButton === "requests" ? "active" : ""
-          }`}
-          onClick={() => handleButtonClick("requests")}
-        >
-          Запросы
-        </button>
-        <button
-          className={`like-button ${
             activeButton === "replies" ? "active" : ""
           }`}
-          onClick={() => handleButtonClick("replies")}
+          onClick={() => {handleButtonClick("replies"); navigate('/answers')}}
         >
           Ответы
         </button>
@@ -40,23 +34,9 @@ const Like = () => {
           className={`like-button ${
             activeButton === "mentions" ? "active" : ""
           }`}
-          onClick={() => handleButtonClick("mentions")}
+          onClick={() => {handleButtonClick("mentions"); navigate('/like_page')}}
         >
-          Упоминания
-        </button>
-        <button
-          className={`like-button ${activeButton === "quotes" ? "active" : ""}`}
-          onClick={() => handleButtonClick("quotes")}
-        >
-          Цитирования
-        </button>
-        <button
-          className={`like-button ${
-            activeButton === "confirmed" ? "active" : ""
-          }`}
-          onClick={() => handleButtonClick("confirmed")}
-        >
-          Потвержденные
+          Лайки
         </button>
       </div>
     </div>
