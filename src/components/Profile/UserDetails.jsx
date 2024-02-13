@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContextProvider";
 import UserIcon from "../../img/user.webp";
 import Close from "../../img/blockicon.png";
@@ -17,15 +17,10 @@ const UserDetails = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfilePhotoModalOpen, setIsProfilePhotoModalOpen] = useState(false);
-  const fileInputRef = useRef(null);
   //! modal5
   useEffect(() => {
     getSubscribers();
     console.log(oneUser);
-    fileInputRef.current = document.createElement("input");
-    fileInputRef.current.type = "file";
-    fileInputRef.current.accept = "image/*";
-    fileInputRef.current.style.display = "none";
   }, []);
   const toggleProfilePhotoModal = () => {
     setIsProfilePhotoModalOpen(!isProfilePhotoModalOpen);
@@ -45,13 +40,6 @@ const UserDetails = () => {
   const toggleMenuDetailProfile = () => {
     setIsMenuOpenDetailProfile(!isMenuOpenDetailProfile);
   };
-
-  //! модальное окно для редактирования профиля
-  // const [isActive, setIsActive] = useState(false);
-
-  // const handleToggle = () => {
-  //   setIsActive(!isActive);
-  // };
 
   const handleFollow = () => {
     if (isFollowing) {
