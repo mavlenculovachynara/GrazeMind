@@ -80,7 +80,7 @@
 }
 .postitem_text {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .postitem_description {
   display: flex;
@@ -384,19 +384,13 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid gray;
+  border: 1px solid none;
 }
 .add_comment textarea {
-  border: none;
-  background: none;
-  color: white;
-  font-size: 16px;
-  padding: 5px;
   white-space: pre-wrap;
   overflow-wrap: break-word;
   overflow: hidden;
   resize: none;
-  margin: 0 !important;
   outline: none;
   height: auto;
 }
@@ -414,4 +408,8 @@ p {
 .comment_item {
   display: flex;
   margin: 10px 0;
+}
+.postAuthor{
+  display: flex;
+  margin-right: 200px;
 }

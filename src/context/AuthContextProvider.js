@@ -117,7 +117,14 @@ const AuthContextProvider = ({ children }) => {
       );
       console.log(res);
       window.location.reload();
-      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function addVerified() {
+    try {
+      const res = await axios.post(`${API}/account/user_vip/`, getConfig());
+      console.log(res);
     } catch (error) {
       console.error(error);
     }
@@ -133,8 +140,7 @@ const AuthContextProvider = ({ children }) => {
   async function toSubscribe() {
     try {
       let res = await axios.post(
-        `${API}/posts/subscriptions/`,
-        {},
+        `${API}/posts//subscriptions/${id}/`,
         getConfig()
       );
       console.log(res);

@@ -58,7 +58,6 @@
     top: 250px !important;
   }
 }
-
 @media (max-width: 769px) {
   .modal-content {
     width: 60% !important;
@@ -86,8 +85,17 @@
     top: 125px !important;
     left: 20px !important;
   }
-  .modal_content {
-    width: 50%;
+  .profile-container{
+    width: 100% !important
+  }
+  .modal-content{
+    width: 80% !important
+  }
+  .profile-buttons {
+    width: 87% !important
+  }
+  .profile-name h2{
+    font-size: 25px !important
   }
 }
 
@@ -234,5 +242,10 @@
   .link2 img {
     width: 30px !important;
     height: 30px !important;
+  }
+}
+@media (max-width: 425){
+  .profile-container{
+    width: 50% !important;
   }
 }

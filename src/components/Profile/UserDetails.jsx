@@ -3,8 +3,9 @@ import { useAuth } from "../../context/AuthContextProvider";
 import UserIcon from "../../img/user.webp";
 import Close from "../../img/blockicon.png";
 import "./User.css";
-import { useNavigate, useParams } from "react-router-dom";
-import { email } from "../../helpers/const";
+import { name } from "../../helpers/const";
+import { avatar } from "../../helpers/const";
+import { useParams } from "react-router-dom";
 
 const UserDetails = () => {
   const { getOneUser, oneUser, toSubscribe, getSubscribers } = useAuth();
@@ -199,7 +200,7 @@ const UserDetails = () => {
                       style={{ color: "white", m: "0px important" }}
                     />
                     <div className="icon">
-                      <img id="usericon2" src={UserIcon} alt="" />
+                      <img id="usericon2" src={avatar || UserIcon} alt="" />
                     </div>
                   </div>
                   <hr className="hrmodal" />

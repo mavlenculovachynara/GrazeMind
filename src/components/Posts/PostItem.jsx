@@ -52,6 +52,7 @@ const PostItem = ({ elem }) => {
               <h5>{elem.creator.email.split("@")[0]}</h5>
               <p>{elem.description}</p>
             </div>
+           </div>
           </div>
           <div className="postitem_actions">
             <span>{formattedDate}</span>

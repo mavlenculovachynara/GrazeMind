@@ -149,7 +149,7 @@ const PostList = () => {
             <div className="postitem_request">
               {" "}
               <img src={avatar || User} alt="img" />
-              {/* <h5>{name}</h5> */}
+              <h5>{username}</h5>
             </div>
             <div className="modal-actions">
               {" "}
