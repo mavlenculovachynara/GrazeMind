@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .containerform {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 100px;
+    margin-left: 50px
+  }
+  
+  .mainH1 {
+    font-size: 2.8rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+  
+  .mainP {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+  .mainH2{
+    color: #ffffff;
+    font-size: 1.8rem;
+  }
+  
+  .mainBtn {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    background-color: #1976d2;
+    margin-top: 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #ffffff;
+  }
+  

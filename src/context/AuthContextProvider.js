@@ -140,7 +140,7 @@ const AuthContextProvider = ({ children }) => {
   async function toSubscribe() {
     try {
       let res = await axios.post(
-        `${API}/posts//subscriptions/${id}/`,
+        `${API}/posts//subscriptions/`,
         getConfig()
       );
       console.log(res);

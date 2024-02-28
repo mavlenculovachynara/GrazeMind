@@ -1,0 +1,40 @@
+
+.product-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: 'EuclidCircularB', sans-serif;
+  color: white;
+  background-color: #2c3e50;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+  height: 280px;
+  padding-top: 80px;
+}
+
+.product-container h1 {
+  color: #3498db;
+}
+
+.product-container p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.product-container button {
+  padding: 10px 20px;
+  font-size: 1.1em;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.product-container button:hover {
+  background-color: #219653;
+}
