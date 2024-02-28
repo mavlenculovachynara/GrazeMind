@@ -1,6 +1,6 @@
 .container {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
   }
   
   .containerform {
@@ -8,7 +8,7 @@
     flex-direction: column;
     align-items: flex-start;
     margin-top: 100px;
-    margin-left: 50px
+    margin-left: 50px;
   }
   
   .mainH1 {
@@ -22,9 +22,15 @@
     color: #ffffff;
     margin-bottom: 20px;
   }
-  .mainH2{
+  
+  .mainH2 {
     color: #ffffff;
     font-size: 1.8rem;
+  }
+  
+  .video {
+    margin-top: 35px;
+    margin-left: 30px; /* Попробуйте изменить это значение */
   }
   
   .mainBtn {

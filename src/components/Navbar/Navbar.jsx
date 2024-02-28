@@ -86,7 +86,7 @@ export default function SearchAppBar() {
   noWrap
   component="div"
   onClick={() => navigate('/')}
-  sx={{ cursor: 'pointer', fontFamily: 'Euclid Circular, sans-serif' }}
+  sx={{ cursor: 'pointer', fontFamily: 'Euclid Circular, sans-serif', fontWeight: '700' }}
 >
   GrazeMind
 </Typography>

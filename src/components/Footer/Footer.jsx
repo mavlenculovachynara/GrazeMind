@@ -8,8 +8,8 @@ const Footer = () => {
         <div className="logo-container">
           <img className="logo" src={livestock} alt="LiveStock Logo" width="60px" />
           <div className="site-info">
-            <h2>LiveStock</h2>
-            <p>Your short site description goes here.</p>
+            <h2>GrazeMind</h2>
+            <p>Добро пожаловать в мир инновационного решения для вашего хозяйства!</p>
           </div>
         </div>
         <div className="contact-info">
