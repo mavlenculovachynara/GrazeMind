@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/GrazeMind/static/css/main.a2198c9d.css",
+    "main.js": "/GrazeMind/static/js/main.43203324.js",
+    "static/media/cow_PNG50628.png": "/GrazeMind/static/media/cow_PNG50628.47ecacb339bf5b9c5ad1.png",
+    "static/media/R.png": "/GrazeMind/static/media/R.59c84a901cdb63f0c3af.png",
+    "static/media/sheeps3.jpg": "/GrazeMind/static/media/sheeps3.46845cefd40488f8fe39.jpg",
+    "static/media/sheeps6.jpg": "/GrazeMind/static/media/sheeps6.664b877ac1f4752e6dcd.jpg",
+    "static/media/sheeps1.jpg": "/GrazeMind/static/media/sheeps1.b22eaa5c7c055d79d8b9.jpg",
+    "static/media/sheeps5.jpg": "/GrazeMind/static/media/sheeps5.4e72f7848922d11e9ac4.jpg",
+    "static/media/sheeps4.jpg": "/GrazeMind/static/media/sheeps4.c213138808681ae5fe54.jpg",
+    "static/media/swoop-05.svg": "/GrazeMind/static/media/swoop-05.b43c594aaffa00ab112a8ed6158311b7.svg",
+    "static/media/livestock (1).png": "/GrazeMind/static/media/livestock (1).1137eb4ae0428e6ee652.png",
+    "static/media/sheeps2.jpg": "/GrazeMind/static/media/sheeps2.77f64771bf9076aa818c.jpg",
+    "index.html": "/GrazeMind/index.html",
+    "main.a2198c9d.css.map": "/GrazeMind/static/css/main.a2198c9d.css.map",
+    "main.43203324.js.map": "/GrazeMind/static/js/main.43203324.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a2198c9d.css",
+    "static/js/main.43203324.js"
+  ]
+}
